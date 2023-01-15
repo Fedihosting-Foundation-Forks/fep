@@ -40,7 +40,7 @@ b3f0
 3. Clone this repository.
 4. Copy the FEP template ([fep-0000-template.md](./fep-0000-template.md)) to the [feps/](feps/) folder and change the filename to `fep-abcd.md` where `abcd` is the identifier computed in step 2.
 5. Write down your idea in the newly created file and commit it to a new branch in your repository (ex. fep-xxxx).
-6. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./feps/fep-a4ed.md). Further process is described in FEP-ae4d.
+6. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./feps/fep-a4ed.md). Further process is described in FEP-a4ed.
 
 # Editors
 
