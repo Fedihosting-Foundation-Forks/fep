@@ -20,13 +20,21 @@ Dramatis Personae:
 
 *Noob*: Hey, I want to crawl the Fediverse and build an index so we can…
 *EFV1*: Stop! Go back! Don't!
+
 *EFV2*: We prefer not to do that here because we want to avoid into big-tech surveillance capitalism.
+
 *Noob*: But I mean they're all just URLs, right?
+
 *EFV3*: Burn the witch!
+
 *EFV4*: Unclean!
+
 *Noob*: Oh, I guess you don't want me to do this?
+
 *EFV5*: Never!
+
 *Noob*: Shouldn't you post the rules somewhere? I mean, lots of people are already doing this.
+
 *EFV6*: Defederate his instance!
 
 ## Discussion
