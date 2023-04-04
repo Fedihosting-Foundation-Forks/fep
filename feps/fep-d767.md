@@ -34,13 +34,14 @@ The following general patterns MUST be followed to integrate Valueflows objects 
 - Any Valueflows construct (a class or a more complex bundle of related classes) will be an Object in the AP message.
 - The activities Create, Update, and Delete will be used.
 - Other possibilities to be investigated:  Add, Remove, Accept, Reject.
+- Only stable parts of the Valueflows vocabulary will be addressed
 -
 
 The general idea is that AP/AS will be used basically for messaging.  Valueflows does have some concepts that could be considered activities, but they don't fit nicely into the current list.
 
 Note: The overlap between the Agent portion of the Valueflows model and the AP actors will not be addressed at this time, due to the complexity of mapping to the actor model, as well as the in-process suggestions for AP groups, organizations, communities, etc. Until it is explicitly addressed, when there is overlap, any Person, Group, Organization actor with agency can be used as a Valueflows Agent.  In addition, Valueflows will include Agents that are not AP actors, and these can be handled with the standard Create, Update, Delete.
 
-Examples (*loosely documented atm*):
+Examples (*loosely documented atm, just for discussion*):
 ```
 {
   "@context": {
@@ -151,7 +152,7 @@ Examples (*loosely documented atm*):
 ## Implementations
 
 - [Bonfire](https://bonfirenetworks.org/)
-- [Oceco - Communecter](https://www.communecter.org/#)
+- [Oceco - Communecter](https://www.communecter.org/#) (not yet)
 
 ## References
 
