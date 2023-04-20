@@ -15,7 +15,7 @@ Has anyone played with ActivityPub browser keys added to signature validation se
 
 Just do server-to-server from server-to-client so that a client can listen for events associated with their Actor.
 
-References
+OIDC and ephemeral key for signature
 
 ## References
 
