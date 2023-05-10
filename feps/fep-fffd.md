@@ -72,9 +72,9 @@ This document defines two protocol names, but more may be included in either fut
 
 ### Nostr
 
-`protocol`: `"https://nostr.com"`
+`protocol`: `"https://github.com/nostr-protocol/nostr"`
 
-`proxied` format: A \[NIP-19] string identifying a pubkey or note.
+`proxied` format: A "bare" \[NIP-19] (starting with "npub1" or "note1") string identifying a pubkey or note.
 
 ### Diaspora
 
