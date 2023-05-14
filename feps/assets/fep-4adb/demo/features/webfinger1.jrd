@@ -1,0 +1,10 @@
+{
+  "links": [
+    {
+      "href": "https://having.examples.rocks/endpoints/mooo",
+      "rel": "self",
+      "type": "application/activity+json"
+    }
+  ],
+  "subject": "acct:moocow@having.examples.rocks"
+}
