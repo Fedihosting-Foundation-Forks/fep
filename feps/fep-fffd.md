@@ -67,9 +67,9 @@ In some circumstances, an application may encounter malformed or malicious proxy
     - The application SHOULD follow the chain of canonical links up to a fixed, application-defined maximum number of links.
     - If this number of links is exceeded (possibly indicating a cycle), or if any link in the chain has more than one canonical link, the application SHOULD NOT merge any of the objects in the chain.
 - If a proxied object is not canonical, the application SHOULD verify that the proxied object also considers itself a proxy for the proxy object. If the proxied object is an ActivityPub object, then the application SHOULD NOT merge it with the proxy object if it does not meet at least one of these criteria:
-        1. It has a proxy link pointing to the proxy object (that is, both objects are proxies for each other)
-        2. Both objects are actors, and both are `alsoKnownAs` each other.
-        3. Both object are owned by the same actor, or by actors that are `alsoKnownAs` each other.
+    - It has a proxy link pointing to the proxy object (that is, both objects are proxies for each other)
+    - Both objects are actors, and both are `alsoKnownAs` each other.
+    - Both object are owned by the same actor, or by actors that are `alsoKnownAs` each other.
 - If a proxy link points to localhost or any loopback address, the application SHOULD NOT follow the link or attempt to merge the proxied object it represents.
 
 ## 5. Protocols
