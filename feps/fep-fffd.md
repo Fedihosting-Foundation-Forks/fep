@@ -9,9 +9,9 @@ dateReceived: 2023-04-29
 
 ## Summary
 
-A *proxy object* is an \[ActivityPub] object that is semantically identical to an entity on another, non-ActivityPub protocol. For example, an ActivityPub-to-Nostr bridge creates Actors and Notes that are proxies for Nostr users and notes.
+A *proxy object* is an \[ActivityPub] object that is semantically identical to another entity, which may exist on another, non-ActivityPub protocol. For example, an ActivityPub-to-Nostr bridge creates Actors and Notes that are proxies for Nostr users and notes.
 
-This document describes a data format to identify proxy objects and to describe the non-ActivityPub entities that they are equivalent to, with the intention that multi-protocol clients will automatically merge objects with their proxies, hiding the implementation details of bridges and cross-protocol publishing from users.
+This document describes a data format to identify proxy objects and to specify the ActivityPub and non-ActivityPub entities they are equivalent to, with the intention that multi-protocol clients will automatically merge objects with their proxies, hiding the implementation details of bridges and cross-protocol publishing from users.
 
 ## 1. Requirements
 
@@ -38,11 +38,11 @@ Proxy objects provide a potential solution to this problem.
 
 ## 3. Format
 
-FEP-fffd does not define any new vocabulary or `@context` entries. Instead, it further defines the meaning of Links in the `url` property of an `Object` when they have a `rel` property of `"alternate"` or `"canonical"`.
+FEP-fffd does not define any new vocabulary or `@context` entries. Instead, it further defines the meaning of Links in the `url` property of an Object when they have a `rel` property of `"alternate"` or `"canonical"`.
 
 Each Link in `url` with `"rel": "alternate"` or `"rel": "canonical"` is called a *proxy link*. Any Object with one or more proxy links is called a *proxy object*. The referent of a proxy link is called a *proxied object*, and SHOULD be considered semantically identical to the parent proxy object, modulo the limitations described in section 4.
 
-A proxied object is not necessarily an ActivityPub object, or even an object accessible via a network request; its meaning is determined based on its protocol. The protocol and format of the proxied object are determined by the proxy link's URI scheme and `mediaType`; well-known protocols and defaults are defined in the section 5. An application SHOULD ignore proxied objects in protocols or formats that the application does not understand.
+A proxied object is not necessarily an ActivityPub object, or even an object accessible via a network request; its meaning is determined based on its protocol. The protocol and format of the proxied object are determined by the proxy link's URI scheme and `mediaType`; well-known protocols and defaults are defined in section 5. An application SHOULD ignore proxied objects in protocols or formats that the application does not understand.
 
 If a proxy link has `"rel": "canonical"`, it indicates that its proxied object is the *canonical* (original, authoritative) version of the proxy object. A proxy object MUST NOT have more than one proxy link with `"rel": "canonical"`. This property SHOULD be used by bridges that relay posts made by third parties, to indicate that the bridged post is not the original. It SHOULD NOT be used by servers that publish to multiple protocols at once; in this case no one version of an object is more authoritative than another.
 
@@ -88,7 +88,7 @@ Several protocols are named in this document, but interaction with these protoco
 
 - RSS: `application/rss+xml`; the `href` should be the URL of the feed, followed by a URL fragment whose content is the `<guid>` value of an entry in the feed.
 - Atom: `application/atom+xml`; the `href` should be the URL of the feed, followed by a URL fragment whose content is the `<id>` value of an entry in the feed.
-* ActivityPub:  `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` or `application/activity+json`; the `href` should point to an ActivityPub `Object`
+- ActivityPub:  `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` or `application/activity+json`; the `href` should point to an ActivityPub Object.
 
 If an application supports general-purpose transport protocols other than HTTP(S), such as Gemini or IPFS, it MAY interpret proxy links to these protocols in the same manner as it would interpret HTTP(S) proxy links, including applying these well-known media types.
 
