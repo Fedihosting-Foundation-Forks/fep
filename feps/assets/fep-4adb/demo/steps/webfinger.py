@@ -7,10 +7,16 @@ from behave import given, when, then
 from behave.api.async_step import async_run_until_complete
 
 
-@given('Webfinger response from "{filename}"')
-def load_webfinger_response(context, filename):
-    with open("features/" + filename) as f:
-        context.response = f.read()
+@given("Webfinger response")
+def load_webfinger_response(context):
+    context.response = context.text
+    context.response_status_code = 200
+
+
+@given("Webfinger response with {status_code:d}")
+def load_webfinger_response_with_status(context, status_code):
+    context.response = ""
+    context.response_status_code = status_code
 
 
 @when('Looking up "{account}"')
@@ -22,7 +28,7 @@ async def test_lookup(context, account):
     response_mock.__aenter__.return_value = response_mock
 
     response_mock.text.return_value = context.response
-    response_mock.status = 200
+    response_mock.status = context.response_status_code
 
     # FIXME !!! bovine doesn't do what we need yet.
     account = account.removeprefix("acct:")
@@ -44,3 +50,8 @@ def verify_lookup_url(context, url):
 @then('ActivityPub Object Id is "{id}"')
 def verify_resulting_id(context, id):
     assert context.result == id
+
+
+@then("None is returned")
+def verify_result_is_none(context):
+    assert context.result is None
