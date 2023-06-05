@@ -19,28 +19,28 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Multikey
 
-Actor's public keys MUST be added as attachments to actor profile. The attachment MUST have `Multikey` type and properties `id`, `controller` and `publicKeyMultibase` as defined in section **2.1.1 Multikey** of [EdDSA Cryptosuite v2022](https://w3c.github.io/vc-di-eddsa/#multikey) specification.
+Actor's key MUST be represented as an object with `Multikey` type and properties `id`, `controller` and `publicKeyMultibase`, as defined in section **2.1.1 Multikey** of [EdDSA Cryptosuite v2022](https://w3c.github.io/vc-di-eddsa/#multikey) specification.
 
 The value of `controller` property MUST match actor ID.
 
-Example:
+### Key purpose
+
+If key is intended to be used for authentication, it MUST be added to the `authentication` property of actor object. Other use cases are currently out of scope of this proposal.
+
+### Example
 
 ```json
 {
     "@context": [
         "https://www.w3.org/ns/activitystreams",
-        "https://w3id.org/security",
-        {
-            "fep": "https://w3id.org/fep#",
-            "Multikey": "fep:Multikey",
-            "publicKeyMultibase": "fep:publicKeyMultibase"
-        }
+        "https://w3id.org/security/data-integrity/v1",
+        "https://w3id.org/security/multikey/v1"
     ],
     "type": "Person",
     "id": "https://server.example/users/alice",
     "inbox": "https://server.example/users/alice/inbox",
     "outbox": "https://server.example/users/alice/outbox",
-    "attachment": [
+    "authentication": [
         {
             "id": "https://server.example/users/alice#eddsa-key",
             "type": "Multikey",
@@ -53,9 +53,9 @@ Example:
 
 ## Difference between this proposal and FEP-c390
 
-[FEP-c390](https://codeberg.org/fediverse/fep/src/branch/main/feps/fep-c390.md) describes how to link external identities to ActivityPub actor.
+[FEP-c390](https://codeberg.org/fediverse/fep/src/branch/main/feps/fep-c390.md) describes how to link external identities to ActivityPub actor. Valid identity proof implies that actor and proof's subject are controlled by the same entity.
 
-This proposal describes how to represent actor's public keys.
+This proposal describes how to represent actor's public keys. The corresponding private keys might be controlled by the server.
 
 ## References
 
