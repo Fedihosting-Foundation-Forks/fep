@@ -1,4 +1,5 @@
 ---
+slug: "400e"
 authors: Gregory Klyushnikov <activitypub@grishka.me>
 status: FINAL
 dateReceived: 2021-02-16

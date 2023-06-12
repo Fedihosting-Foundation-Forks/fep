@@ -1,4 +1,5 @@
 ---
+slug: "2e40"
 authors: Helge Krueger <helge.krueger@gmail.com>
 status: DRAFT
 dateReceived:  2023-02-13

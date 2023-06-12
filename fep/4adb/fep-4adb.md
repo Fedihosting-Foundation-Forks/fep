@@ -1,4 +1,5 @@
 ---
+slug: "4adb"
 authors: Helge <helge.krueger@gmail.com>
 status: DRAFT
 dateReceived: 2023-05-13
@@ -7,7 +8,7 @@ dateReceived: 2023-05-13
 
 ## Summary
 
-In this FEP, we will formalize the process of derefencing an URI using webfinger in order for usage in  ActivityPub. The main goal is to enable the usage of URIs of the form `acct:user@domain` or `did:example:12345` as ids for objects used in ActivityPub. While this FEP only discusses this in the context of actors, it should be applicable for general objects. In order for a smooth introduction, it is recommended to start deployment with actor objects.
+In this FEP, we will formalize the process of derefencing an URI using webfinger in order for usage in ActivityPub. The main goal is to enable the usage of URIs of the form `acct:user@domain` or `did:example:12345` as ids for objects used in ActivityPub. While this FEP only discusses this in the context of actors, it should be applicable for general objects. In order for a smooth introduction, it is recommended to start deployment with actor objects.
 
 This FEP first presents the algorithm and examples, then discusses the usage in the context of the Fediverse. This means the first two sections are for people wanting to implement this FEP, the following sections are for people wanting to decide if this FEP is a good idea.
 

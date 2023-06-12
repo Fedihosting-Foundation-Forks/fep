@@ -1,4 +1,5 @@
 ---
+slug: "fb2a"
 authors: a <a@trwnh.com>
 status: DRAFT
 dateReceived: 2022-12-09

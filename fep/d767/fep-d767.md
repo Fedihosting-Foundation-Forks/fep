@@ -1,4 +1,5 @@
 ---
+slug: "d767"
 authors: Lynn Foster <lynnfoster@social.coop>
 status: DRAFT
 dateReceived: 2023-04-02

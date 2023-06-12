@@ -1,4 +1,5 @@
 ---
+slug: "5bf0"
 authors: Michael Puckett <michael@puckett.contact>
 status: DRAFT
 dateReceived: 2023-04-10

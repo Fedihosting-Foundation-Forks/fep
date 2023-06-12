@@ -1,4 +1,5 @@
 ---
+slug: "e232"
 authors: silverpill <silverpill@firemail.cc>
 status: DRAFT
 dateReceived: 2022-08-01

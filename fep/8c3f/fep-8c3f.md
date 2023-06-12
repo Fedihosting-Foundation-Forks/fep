@@ -1,4 +1,5 @@
 ---
+slug: "8c3f"
 authors: Diogo Peralta Cordeiro <mail@diogo.site>, Phablulo Joel <phablulo@gmail.com>
 status: DRAFT
 dateReceived: 2022-01-18

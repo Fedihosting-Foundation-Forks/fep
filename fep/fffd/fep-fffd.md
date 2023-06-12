@@ -1,4 +1,5 @@
 ---
+slug: "fffd"
 authors: Adam R. Nelson <adam@nels.onl>
 status: DRAFT
 dateReceived: 2023-04-29

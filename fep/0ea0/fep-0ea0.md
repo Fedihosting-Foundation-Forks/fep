@@ -1,4 +1,5 @@
 ---
+slug: "0ea0"
 authors: silverpill <silverpill@firemail.cc>
 status: DRAFT
 dateReceived: 2023-04-18
