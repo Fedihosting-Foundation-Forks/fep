@@ -42,7 +42,7 @@ If key is intended to be used for authentication, it MUST be added to the `authe
     "outbox": "https://server.example/users/alice/outbox",
     "authentication": [
         {
-            "id": "https://server.example/users/alice#eddsa-key",
+            "id": "https://server.example/users/alice#ed25519-key",
             "type": "Multikey",
             "controller": "https://server.example/users/alice",
             "publicKeyMultibase": "z6MkekwC6R9bj9ErToB7AiZJfyCSDhaZe1UxhDbCqJrhqpS5"
