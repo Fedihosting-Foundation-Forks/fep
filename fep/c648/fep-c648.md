@@ -8,23 +8,31 @@ dateReceived: 2023-06-14
 
 ## Summary
 
-Users need to review and revise the list of actors they have blocked. This FEP proposes a new collection property, the Blocked Collection, which contains the actors that a user has blocked.
+Users need to review and revise the list of actors they have blocked. This FEP proposes a new collection property, the Blocked Collection, which contains the actors that a user has blocked and all metadata about the `Block` activity.
 
 ## History
 
 The [ActivityPub] specification defines a `Block` activity, which is used to block an actor. However, the specification does not define an efficient way to retrieve the list of actors that a user has blocked.
 
-The `liked` property of an actor is a collection of objects that the actor has liked with a `Like` activity. This past-participial naming pattern ('-ed') is extended in this case for objects that are blocked.
+The `followers` and `following` collection properties of an actor hold objects in the
+actor's social graph.
+
+[activitypub-express] implements
+a `blocked` property in the `streams` collection of an actor, including the blocked objects only. The developers' experience was that storing objects only made it hard to `Undo` a block, since the full Activity object's `id` is needed. Metadata about the block activity, such as the date, is also lost.
+
+In this proposal, the `blocked` collection holds `Block` activities.
 
 ## Details
 
-The `blocked` property of an actor is a collection of objects that they have blocked, also known as a 'blocklist'.
+The `blocked` property of an actor is a collection of `Block` activities, also known as a 'blocklist'.
 
 The `blocked` property MUST be an `OrderedCollection` or a `Collection`.
 
-Like other collection properties in ActivityPub, the `blocked` collection MUST be sorted in reverse chronological order, with the most recently blocked first.
+The `blocked` collection SHOULD include all `Block` activities by the actor, except for those that have been reverted by an `Undo` activity.
 
-Each item in the `blocked` collection MUST be unique.
+Each activity in the `blocked` collection MUST be unique.
+
+The `blocked` collection MUST be sorted in reverse chronological order, with the most recent activity first.
 
 ## Context
 
@@ -41,6 +49,8 @@ The context document for the `blocked` property is as follows:
   }
 }
 ```
+
+The context document is available at the URL `https://purl.archive.org/socialweb/blocked`.
 
 ## Examples
 
@@ -64,31 +74,44 @@ A publisher can include the `blocked` collection in the properties of an actor.
 }
 ```
 
-Retrieving the `blocked` collection would provide a list of actors that have been blocked.
+Retrieving the `blocked` collection would provide a list of `Block` activities.
 
 ```
 {
     "@context": [
         "https://www.w3.org/ns/activitystreams",
-        "https://purl.archive.org/socialweb/blocked"
+        "https://purl.archive.org/socialweb/blocked",
+        {"custom": "https://example.com/ns/custom"}
     ],
     "id": "https://example.com/evanp/blocked",
     "type": "OrderedCollection",
     "name": "Evan Prodromou's Blocked Collection",
     "orderedItems": [
         {
-            "type": "Person",
-            "id": "https://spam.example/spammer",
-            "name": "Irritating Spammer"
+            "type": "Block",
+            "id": https://example.com/evanp/block/2",
+            "object": {
+                "type": "Person",
+                "id": "https://spam.example/spammer",
+                "name": "Irritating Spammer"
+            },
+            "published": "2023-04-15T00:00:00Z"
         },
         {
-            "type": "Application",
-            "id": "https://alarmclock.example/alarmclock",
-            "name": "Badly-Behaved Alarm Clock App"
+            "type": ["custom:Disallow", "Block"],
+            "id": https://example.com/evanp/block/2",
+            "object": {
+                "type": "Application",
+                "id": "https://alarmclock.example/alarmclock",
+                "name": "Badly-Behaved Alarm Clock App"
+            },
+            "published": "2022-12-25T00:00:00Z"
         }
     ]
 }
 ```
+
+Note that the second, earlier activity has two `type` values; one is `Block` and the other is a custom activity type defined in its own namespace.
 
 ## Security considerations
 
@@ -96,7 +119,7 @@ The `blocked` collection is very sensitive. Actors on the blocked list may be ha
 
 By default, implementations SHOULD NOT allow read access to the `blocked` collection to any actor other than the user that owns the collection.
 
-Some users may want to share their blocklist with other actors. Shared blocklists are an important tool for user safety on monolithic social networks and on the social web. Implementations MAY allow a user to share their `blocked` collection with other actors. Implementations SHOULD inform the actor of the risks of sharing their blocklist with the wrong actors.
+Some users may want to share their blocklist with other actors. Shared blocklists are an important tool for user safety on monolithic social networks and on the social web. Implementations MAY allow a user to share their `blocked` collection with other actors. Implementations SHOULD inform the user of the risks of sharing their blocklist with the wrong actors.
 
 ## Implementations
 
@@ -106,6 +129,7 @@ The [onepage.pub] server implements the `blocked` collection.
 
 - [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
 - [onepage.pub] Evan Prodromou, [onepage.pub](https:/github.com/evanp/onepage.pub/), 2023
+- [activitypub-express](https://github.com/immers-space/activitypub-express)
 
 ## Copyright
 
