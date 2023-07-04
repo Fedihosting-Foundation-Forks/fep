@@ -1,5 +1,41 @@
 # tools for fep editors
 
+Please follow the steps in setup and configuration before following "Merge a FEP".
+
+## Merge a FEP
+
+Merge the Pull Request in [https://codeberg.org/fediverse/fep/pulls](https://codeberg.org/fediverse/fep/pulls)
+and note the slug.
+
+```bash
+python ISSUE_TEMPATE/create_issue.py $SLUG
+```
+
+creates the tracking issue and updates the fep with the information. 
+This script prints the issue url, you will need it later to add the
+link to the SocialHub discussion. Then run
+
+```bash
+python ISSUE_TEMPATE/create_readme.py
+```
+
+to update the table in `README.md`. You are now ready to commit the
+changes to the FEP (added discussionTo to frontmatter) and REAME.md,
+added the new FEP.
+
+Run
+
+```bash
+python ISSUE_TEMPATE/create_topic.py $SLUG
+```
+
+and following the instructions to create a topic on SocialHub to discuss
+the FEP.
+
+Finally, add the link to the SocialHub issue to the tracking issue, created above.
+
+## Setup
+
 Ensure dependencies (use a virtualenv)
 
 ```bash
@@ -24,17 +60,3 @@ Add a file `config.json` to the directory `ISSUE_TEMPLATE` with content
 }
 
 ```
-
-## Merge a FEP
-
-```bash
-python ISSUE_TEMPATE/create_issue.py
-```
-
-creates the tracking issue and updates the fep with the information. Then run
-
-```bash
-python ISSUE_TEMPATE/create_readme.py
-```
-
-to update the table in `README.md`.

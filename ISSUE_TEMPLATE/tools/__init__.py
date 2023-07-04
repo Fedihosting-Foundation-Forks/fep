@@ -16,6 +16,18 @@ class FepFile:
     def filename(self):
         return f"fep/{self.fep}/fep-{self.fep}.md"
 
+    @property
+    def summary(self):
+        result = []
+        is_summary = False
+        for x in self.content:
+            if is_summary:
+                if x.startswith("##"):
+                    return "\n".join(result)
+                result.append(x)
+            elif x == "## Summary":
+                is_summary = True
+
     def write(self):
         with open(self.filename, "w") as f:
             f.write("---\n")

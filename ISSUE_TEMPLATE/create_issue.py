@@ -37,8 +37,8 @@ Please post links to relevant discussions as comment to this issue.
 If no further actions are taken, the proposal may be set by editors to `WITHDRAWN` on {date2} (in 1 year).
 """
 
-with open("config.json") as f:
-    config = json.loads(f)
+with open("ISSUE_TEMPLATE/config.json") as f:
+    config = json.load(f)
 
 response = requests.post(
     f"https://codeberg.org/api/v1/repos/{config['owner']}/{config['repo']}/issues",
@@ -50,3 +50,5 @@ issue_url = response.json()["url"]
 
 fep_file.frontmatter.append(f"discussionsTo: {issue_url}")
 fep_file.write()
+
+print(f"Issue url: {issue_url}")
