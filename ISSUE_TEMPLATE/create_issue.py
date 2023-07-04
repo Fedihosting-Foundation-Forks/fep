@@ -4,7 +4,9 @@ from tools import FepFile
 
 
 import json
-import requests
+from urllib.request import Request, urlopen
+
+# import requests
 
 parser = ArgumentParser("Create tracking issue for FEP")
 parser.add_argument("fep", help="slug of the FEP")
@@ -40,13 +42,18 @@ If no further actions are taken, the proposal may be set by editors to `WITHDRAW
 with open("ISSUE_TEMPLATE/config.json") as f:
     config = json.load(f)
 
-response = requests.post(
-    f"https://codeberg.org/api/v1/repos/{config['owner']}/{config['repo']}/issues",
-    data={"title": title, "body": body},
-    headers={"authorization": f"Bearer {config['token']}"},
+request = Request(
+    f"https://codeberg.org/api/v1/repos/{config['owner']}/{config['repo']}/issues"
 )
+request.add_header("Content-Type", "application/json; charset=utf-8")
+request_body = json.dumps({"title": title, "body": body}).encode("utf-8")
+request.add_header("authorization", f"Bearer {config['token']}")
+request.add_header("Content-Length", len(request_body))
+request.data = request_body
+response = urlopen(request)
 
-issue_url = response.json()["url"]
+
+issue_url = json.loads(response.read())["html_url"]
 
 fep_file.frontmatter.append(f"discussionsTo: {issue_url}")
 fep_file.write()
