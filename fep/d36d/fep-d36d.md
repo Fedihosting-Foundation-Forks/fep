@@ -1,10 +1,10 @@
 ---
-slug: "3702"
+slug: "d36d"
 authors: Zack Dunn <zack@tilde.team>
 status: DRAFT
 dateReceived: 2023-07-01
 ---
-# FEP-3702: Sharing Content Across Federated Forums
+# FEP-d36d: Sharing Content Across Federated Forums
 
 ## Summary
 
