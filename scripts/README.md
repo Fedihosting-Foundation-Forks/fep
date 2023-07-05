@@ -8,7 +8,7 @@ Merge the Pull Request in [https://codeberg.org/fediverse/fep/pulls](https://cod
 and note the slug.
 
 ```bash
-python ISSUE_TEMPATE/create_issue.py $SLUG
+python scripts/create_issue.py $SLUG
 ```
 
 creates the tracking issue and updates the fep with the information.
@@ -16,7 +16,7 @@ This script prints the issue url, you will need it later to add the
 link to the SocialHub discussion. Then run
 
 ```bash
-python ISSUE_TEMPATE/create_readme.py
+python scripts/create_readme.py
 ```
 
 to update the table in `README.md`. You are now ready to commit the
@@ -26,7 +26,7 @@ added the new FEP.
 Run
 
 ```bash
-python ISSUE_TEMPATE/create_topic.py $SLUG
+python scripts/create_topic.py $SLUG
 ```
 
 and following the instructions to create a topic on SocialHub to discuss
@@ -36,7 +36,7 @@ Finally, add the link to the SocialHub issue to the tracking issue, created abov
 
 ## Configuration
 
-Add a file `config.json` to the directory `ISSUE_TEMPLATE` with content
+Add a file `config.json` to the directory `scripts` with content
 
 ```json
 {

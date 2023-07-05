@@ -1,7 +1,7 @@
 import pytest
 import hashlib
 
-from ISSUE_TEMPLATE.tools import get_fep_ids, FepFile
+from scripts.tools import get_fep_ids, FepFile
 
 
 @pytest.mark.parametrize("fep", get_fep_ids())

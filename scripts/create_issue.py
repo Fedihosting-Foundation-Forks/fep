@@ -39,7 +39,7 @@ Please post links to relevant discussions as comment to this issue.
 If no further actions are taken, the proposal may be set by editors to `WITHDRAWN` on {date2} (in 1 year).
 """
 
-with open("ISSUE_TEMPLATE/config.json") as f:
+with open("scripts/config.json") as f:
     config = json.load(f)
 
 request = Request(

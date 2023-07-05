@@ -36,10 +36,10 @@ for fep in fep_files:
 
 
 with open("README.md", "w") as f1:
-    with open("ISSUE_TEMPLATE/frontmatter.md") as f:
+    with open("scripts/frontmatter.md") as f:
         f1.write(f.read().removesuffix("\n"))
 
     f1.writelines(result)
 
-    with open("ISSUE_TEMPLATE/backmatter.md") as f:
+    with open("scripts/backmatter.md") as f:
         f1.write(f.read())
