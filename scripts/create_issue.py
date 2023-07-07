@@ -2,19 +2,14 @@ from argparse import ArgumentParser
 from datetime import date, timedelta
 from tools import FepFile
 
-
 import json
 from urllib.request import Request, urlopen
-
-# import requests
 
 parser = ArgumentParser("Create tracking issue for FEP")
 parser.add_argument("fep", help="slug of the FEP")
 args = parser.parse_args()
 
 fep_file = FepFile(args.fep)
-
-fep_file.write()
 
 if "discussionsTo" in fep_file.parsed_frontmatter:
     print("File already has discussionsTo")
@@ -28,7 +23,7 @@ date1 = date_received.isoformat()
 date2 = (date_received + timedelta(days=365)).isoformat()
 
 body = f"""
-The proposal has been received. Thank you!
+The [proposal](https://codeberg.org/fediverse/fep/src/branch/main/{fep_file.filename}) has been received. Thank you!
 
 This issue tracks discussions and updates to the proposal during the `DRAFT` period.
 
