@@ -27,5 +27,10 @@ __Summary__
 print("Create a new topic on https://socialhub.activitypub.rocks/c/standards/fep/54")
 print("with title")
 print(f"       FEP-{args.fep}: {fep_file.title}")
+print("and tags")
+print(f"       fep, fep-{args.fep}, draft")
 print("and body")
 print(body)
+print("")
+discussionsTo = fep_file.parsed_frontmatter["discussionsTo"]
+print(f"After creating the issue add a link to the tracking issue {discussionsTo}")
