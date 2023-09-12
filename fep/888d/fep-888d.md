@@ -100,7 +100,7 @@ RewriteRule ^(.*?)\/?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1
 
 ### Defining terms associated with an FEP
 
-FEPs that wish to define extension terms within the w3id.org/fep namespace MUST provide a context document containing all terms defined by that FEP. The context document MUST include at least an `@id` for each term, with `@type` of `@id` if the term links to another node on the graph. The context document MAY include additional metadata. Once the FEP is marked `FINAL`, the context document MAY be cached forever if referenced. FEPs that define extension terms MAY instead define extension terms within a vendor-specific namespace, but generally this SHOULD NOT be done.
+FEPs that wish to define extension terms within the w3id.org/fep namespace MUST provide a context document co-located within their FEP folder with the filename `context.jsonld` and containing all terms defined by that FEP. The context document MUST include at least an `@id` for each term, with `@type` of `@id` if the term links to another node on the graph. The context document MAY include additional metadata. Once the FEP is marked `FINAL`, the context document MAY be cached forever if referenced. FEPs that define extension terms MAY instead define extension terms within a vendor-specific namespace, but generally this SHOULD NOT be done.
 
 #### Example
 
