@@ -100,32 +100,32 @@ RewriteRule ^(.*?)\/?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1
 
 ### Defining terms associated with an FEP
 
-FEPs that wish to define extension terms within the w3id.org/fep namespace MUST provide a context document containing all terms defined by that FEP. The context document MUST include at least an `@id` for each term, with `@type` of `@id` if the term links to another node. The context document MAY include additional metadata. Once the FEP is marked `FINAL`, the context document MAY be cached forever if referenced. FEPs that define extension terms MAY instead define extension terms within a vendor-specific namespace, but generally this SHOULD NOT be done.
+FEPs that wish to define extension terms within the w3id.org/fep namespace MUST provide a context document containing all terms defined by that FEP. The context document MUST include at least an `@id` for each term, with `@type` of `@id` if the term links to another node on the graph. The context document MAY include additional metadata. Once the FEP is marked `FINAL`, the context document MAY be cached forever if referenced. FEPs that define extension terms MAY instead define extension terms within a vendor-specific namespace, but generally this SHOULD NOT be done.
 
 #### Example
 
 (This section is non-normative.)
 
-For example, say we wanted to define the following terms within the current FEP-9606:
+For example, say we wanted to define the following terms within the current FEP-888d:
 
 - `exampleA` is a term with some literal value (string, boolean, number)
-- `exampleB` is a term that links to another node
-- `exampleC` is an unordered list of literal values that are specifically non-negative integers
+- `exampleB` is a term that links to another node on the graph (for example, another object)
+- `exampleC` is an ordered list of literal values that are specifically non-negative integers
 
 The context document might look like this, at minimum:
 
 ```json
 {
 	"@context": {
-		"exampleA": "https://w3id.org/fep/9606/exampleA",
+		"exampleA": "https://w3id.org/fep/888d/exampleA",
 		"exampleB": {
-			"@id": "https://w3id.org/fep/9606/exampleB",
+			"@id": "https://w3id.org/fep/888d/exampleB",
 			"@type": "@id"
 		},
 		"exampleC": {
-			"@id": "https://w3id.org/fep/9606/exampleC",
+			"@id": "https://w3id.org/fep/888d/exampleC",
 			"@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
-			"@container": "@set"
+			"@container": "@list"
 		}
 	}
 }
