@@ -86,16 +86,16 @@ RewriteEngine on
 
 # catch FEP-specific context requests
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([^/\.]*)/?(.*?)?/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/context.jsonld [R=302,L]
+RewriteRule ^([^/\.]*)/?(.*?)?/?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1/context.jsonld [R=302,L]
 
 # catch FEP-specific context requests without content negotiation
-RewriteRule ^([^/\.]*)/?(.*?)?.jsonld$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/context.jsonld [R=302,L]
+RewriteRule ^([^/\.]*)/?(.*?)?.jsonld$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1/context.jsonld [R=302,L]
 
 # catch FEP proposal documents
 RewriteRule ^([^/\.]*)/?(.*?)?/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/fep-$1.md [R=302,L]
 
 # a generic catch-all rule
-RewriteRule ^(.*?)\/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1 [R=302,L]
+RewriteRule ^(.*?)\/?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1 [R=302,L]
 ```
 
 ### Defining terms associated with an FEP
