@@ -12,7 +12,7 @@ This FEP defines a profile of OAuth 2.0 for use with the ActivityPub API.
 
 ## Motivation
 
-[ActivityPub] defines the ActivityPub API, a RESTful HTTP API for stream-oriented social software. Also called "client to server" or "c2s", this API allows clients to create new `Activity` objects and cause other side by posting to an actor's `outbox` collection.
+[ActivityPub] defines the ActivityPub API, a RESTful HTTP API for stream-oriented social software. Also called "client to server" or "c2s", this API allows clients to create new `Activity` objects by posting to an actor's `outbox` collection.
 
 The ActivityPub specification does not define an authorization mechanism for the API, although the [ActivityPubAuth] recommendations include some suggestions. Although there are many ways to implement client authorization for an API, OAuth 2.0 is a popular and well-understood framework.
 
