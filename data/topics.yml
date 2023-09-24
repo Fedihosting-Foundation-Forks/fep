@@ -1,0 +1,422 @@
+'07d7':
+  topics:
+    - protocol handlers
+    - url schemes
+  implementations: []
+'0837':
+  topics:
+    - commerce
+    - Valueflows
+    - types: [Object, Note, Link]
+    - types.new: [Proposal, Intent, Agreement]
+    - properties:
+      - attributedTo
+      - href
+      - location
+      - name
+      - published
+      - rel
+      - to
+    - properties.new:
+      - action
+      - availableQuantity
+      - clauses
+      - provider
+      - publishes
+      - receiver
+      - reciprocal
+      - resourceConformsTo
+      - resourceQuantity
+      - result
+      - satisfies
+      - unitBased
+    - activities: [Offer, Accept, Reject]
+  implementations: []
+'0ea0':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-0ea0-payment-links/3121
+  topics:
+    - payment
+    - actors
+    - types: [Person, Object, Link]
+    - properties: [attachment, name, href, rel]
+  implementations: []
+'1970':
+  topics:
+    - chat
+    - types: [Person, Group, Video, Object, Link]
+    - properties: [attachment, name, href, rel]
+  implementations:
+    - PeerTube:
+        url: https://github.com/JohnXLivingston/peertube-plugin-livechat
+        comment: chat plugin
+'1b12':
+  topics:
+    - actors
+    - types: [Person, Group]
+    - properties: audience
+    - activities: [Follow, Accept, Reject, Undo]
+  implementations:
+    - Friendica:
+        url: https://github.com/friendica/friendica/releases/tag/2019.03
+    - Lemmy:
+        url: https://join-lemmy.org/news/2020-10-20_-_Lemmy_Release_v0.8.0_-_Federation_beta!
+    - Hubzilla:
+        url: https://framagit.org/hubzilla/core
+    - lotide:
+        url: https://github.com/lotide-org/lotide
+    - PeerTube:
+        url: https://github.com/Chocobozzz/PeerTube
+'2100':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-2100-unbound-group-and-organization/2727
+  topics:
+    - groups
+    - actors
+    - types: [Person, Organization]
+    - properties.new: unbound
+  implementations: []
+'2e40':
+  topics:
+    - FEPs
+    - extensions
+    - JSON-LD context
+  implementations: []
+'400e':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-400e-publicly-appendable-activitypub-collections/1438
+  topics:
+    - collections
+    - activities: [Add, Remove, Delete, Move]
+  implementations:
+    - Smithereen:
+        comment: user and group walls
+        url: https://github.com/grishka/Smithereen/commit/de013593dde06a3091ecfbd32960a694d79c146e
+'4adb':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-4adb-dereferencing-identifiers-with-webfinger/3223
+  topics:
+    - WebFinger
+    - resolution
+    - actors
+    - DIDs
+    - types: Person
+    - properties: [attachment, preferredUsername]
+    - properties.new: aliases
+  implementations: []
+'4ccd':
+  topics:
+    - collections
+    - followers
+    - actors
+    - types: Person
+    - properties.new: [pendingFollowers, pendingFollowing]
+    - activities: [Follow, Accept, Reject, Undo]
+  implementations: []
+'521a':
+  topics:
+    - actors
+    - pki
+    - public keys
+    - Verifiable Credential Data Integrity
+    - types: Person
+    - properties.new: [assertionMethod, publicKey]
+  implementations: []
+  references: 'c390'
+'5624':
+  topics:
+    - privacy
+    - visibility
+    - preferences
+    - replies
+    - types: [Object, Note]
+    - properties.new: canReply
+    - activities: Create
+    - activities.new: [ApproveReply, RejectReply]
+  implementations: []
+'5bf0':
+  topics:
+    - collections
+    - ordering
+    - filtering
+    - sorting
+    - types: OrderedCollection
+    - types.new: [CollectionView, SortShape, PropertyShape, JSFunction]
+    - properties.new: [streams, filter, sort, viewOf]
+  implementations: []
+'5feb':
+  topics:
+    - search
+    - privacy
+    - visibility
+    - preferences
+    - types: Person
+    - properties.new: indexable
+  implementations:
+    - Mastodon:
+        url: https://github.com/mastodon/mastodon
+'612d':
+  topics:
+    - actors
+    - object resolution
+    - DNS
+  implementations: []
+'67ff':
+  topics:
+    - interop
+    - documentation
+  implementations:
+    - gathio:
+        url: https://github.com/lowercasename/gathio/blob/main/FEDERATION.md
+    - Streams:
+        url: https://codeberg.org/streams/streams/src/branch/dev/FEDERATION.md
+    - Smithereen:
+        url: https://github.com/grishka/Smithereen/blob/master/FEDERATION.md
+    - Mastodon:
+        url: https://github.com/mastodon/mastodon/blob/main/FEDERATION.md
+    - Hometown:
+        url: https://github.com/hometown-fork/hometown/blob/hometown-dev/FEDERATION.md
+    - Mitra:
+        url: https://codeberg.org/silverpill/mitra/src/branch/main/FEDERATION.md
+    - Emissary:
+        url: https://github.com/EmissarySocial/emissary/blob/main/FEDERATION.md
+    - Vervis:
+        url: https://vervis.peers.community/repos/WvWbo/source/FEDERATION.md
+'7628':
+  topics:
+    - portability
+    - migration
+    - actors
+    - types: Person
+    - properties: [type, actor, object, target, subject]
+    - properties.new: [alsoKnownAs, movedTo, copiedTo]
+    - activities: [Move, Follow, Undo]
+  implementations:
+    - Mastodon:
+        url: https://github.com/mastodon/mastodon/pull/11846
+    - Streams:
+        url: https://codeberg.org/streams/streams/src/commit/11f5174fdd3dfcd8714974f93d8b8fc50378a193/FEDERATION.md?display=source#L54-L59
+'7888':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-7888-demystifying-the-context-property/3021
+  topics:
+    - collections
+    - context
+    - properties: [context, audience, to, cc]
+  implementations: []
+'888d':
+  topics:
+    - namespaces
+    - JSON-LD context
+    - FEPs
+    - extensions
+  implementations: []
+'8b32':
+  topics:
+    - pki
+    - cryptosuites
+    - eddsa-jcs-2022
+    - nomadic identity
+    - Verifiable Credential Data Integrity
+    - HTTP Signatures
+    - S2S
+    - properties.new: proof
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-8b32-object-integrity-proofs/2725
+  implementations:
+    - Mitra:
+        url: https://codeberg.org/silverpill/mitra/src/commit/71db89f0ac323c76b7e08efffacf5d2454ec9afc/FEDERATION.md#object-integrity-proofs
+    - Vervis:
+        url: https://codeberg.org/ForgeFed/Vervis/commit/621275e25762a1c1e5860d07a6ff87b147deed4f
+'8c3f':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-8c3f-web-monetization/2719
+  topics:
+    - Web Monetization
+    - actors
+    - types: Person
+    - properties.new: webmonetizationWallet
+  implementations:
+    - GNU social:
+        url: https://code.undefinedhackers.net/GNUsocial/gnu-social/src/branch/v3/plugins/WebMonetization/WebMonetization.php#L243
+'8fcf':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-8fcf-followers-collection-synchronization-across-servers/1172
+  topics:
+    - synchronization
+    - HTTP headers
+    - activities: [Follow, Undo]
+  implementations:
+    - Mastodon:
+        url: https://github.com/tootsuite/mastodon/pull/14510
+'a070':
+  topics:
+    - collections
+    - ordering
+    - sorting
+    - JSON-LD context
+    - properties: [attachment, tag, name, oneOf, anyOf]
+    - properties.new: [orderedAttachment, orderedTag]
+  implementations: []
+'a4ed':
+  topics:
+    - FEP process
+  implementations: []
+'ae97':
+  topics:
+    - pki
+    - private keys
+    - DIDs
+    - WebFinger
+    - types: Person
+    - properties.new: endpoints
+    - activities: [Create, Update]
+  implementations: []
+  breaking:
+    - https://www.w3.org/TR/activitypub/#client-to-server-interactions
+'bad1':
+  topics:
+    - history
+    - auditing
+    - collections
+    - types: [Object, Document, Note, Tombstone]
+    - properties.new: history
+  implementations: []
+'c118':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-c118-content-licensing-support/2903
+  topics:
+    - licensing
+    - types: [Person, Object, Note]
+  implementations: []
+'c390':
+  topics:
+    - identity
+    - DIDs
+    - actors
+    - types: Person
+    - properties: [attachment, subject]
+    - properties.new: [alsoKnownAs, proof]
+  implementations:
+    - Mitra:
+        url: https://codeberg.org/silverpill/mitra/src/commit/71db89f0ac323c76b7e08efffacf5d2454ec9afc/FEDERATION.md#identity-proofs
+'c648':
+  topics:
+    - collections
+    - security
+    - properties.new: blocked
+    - activities: Block
+  implementations:
+    - onepage.pub:
+        url: https:/github.com/evanp/onepage.pub
+'cb76':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-cb76-content-addressed-vocabulary/2735
+  topics:
+    - Content Addressed Vocabulary
+    - JSON-LD context
+    - FEPs
+    - extensions
+  implementations: []
+'d36d':
+  topics:
+    - forums
+    - interop
+    - types: Group
+    - activities: [Follow, Accept, Reject]
+  implementations: []
+'d767':
+  topics:
+    - Valueflows
+    - activities: [Create, Update, Delete]
+  implementations:
+    - Bonfire:
+        url: https://bonfirenetworks.org
+    - Communecter:
+        url: https://www.communecter.org
+'d8c2':
+  topics:
+    - actors
+    - authentication
+    - OAuth
+    - C2S
+    - types: [Application, Service, Person]
+    - properties: attributedTo
+    - properties.new: [endpoints, redirectUri]
+  implementations: []
+'dc88':
+  topics:
+    - math
+    - formatting
+    - MathML
+    - types: [Object, Note]
+    - properties: content
+  implementations: []
+'e232':
+  topics:
+    - links
+    - types: [Object, Link]
+    - properties: [type, mediaType, href, name, rel]
+  implementations:
+    - Streams:
+        url: https://codeberg.org/streams/streams
+    - FoundKey:
+        url: https://akkoma.dev/FoundKeyGang/FoundKey
+    - Mitra:
+        url: https://codeberg.org/silverpill/mitra
+'f1d5':
+  topics:
+    - NodeInfo
+  implementations:
+    - Mastodon:
+        url: https://github.com/mastodon/mastodon
+    - Matrix:
+        url: https://github.com/matrix-org/dendrite
+        comment: Go language implementation
+    - Pleroma:
+        url: https://git.pleroma.social/pleroma/pleroma
+    - PeerTube:
+        url: https://github.com/Chocobozzz/PeerTube
+    - WriteFreely:
+        url: https://github.com/writefreely/writefreely
+    - Friendica:
+        url: https://github.com/friendica/friendica
+    - Diaspora:
+        url: https://diasporafoundation.org
+    - Pixelfed:
+        url: https://github.com/pixelfed/pixelfed
+    - Misskey:
+        url: https://github.com/misskey-dev/misskey
+    - Funkwhale:
+        url: https://funkwhale.audio
+    - Smithereen:
+        url: https://github.com/grishka/Smithereen
+    - Plume:
+        url: https://joinplu.me
+    - GNU social:
+        url: https://notabug.org/diogo/gnu-social
+    - Lemmy:
+        url: https://join-lemmy.org
+    - Zap:
+        url: https://codeberg.org/dm42/zap
+    - Socialhome:
+        url: https://github.com/jaywink/socialhome
+    - Epicyon:
+        url: https://epicyon.net
+    - apcore:
+        url: https://github.com/go-fed/apcore
+        comment: Go language library for ActivityPub
+'fb2a':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-fb2a-actor-metadata/2770
+  topics:
+    - actors
+    - metadata
+    - types: [Person, Object, Note, Link]
+    - types.new: PropertyValue
+    - properties: [attachment, content, name, rel]
+  implementations:
+    - Mastodon:
+        url: https://github.com/mastodon/mastodon
+    - Misskey:
+        url: https://github.com/misskey-dev/misskey
+    - Pleroma:
+        url: https://git.pleroma.social/pleroma/pleroma
+'fffd':
+  discussion_url: https://socialhub.activitypub.rocks/t/fep-fffd-proxy-objects/3172
+  topics:
+    - proxies
+    - interop
+    - types: [Object, Note, Link]
+    - properties: [mediaType, rel, url]
+    - properties.new: alsoKnownAs
+  implementations: []
