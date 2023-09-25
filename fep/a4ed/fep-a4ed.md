@@ -129,6 +129,10 @@ A list of methods in which a proposal may be submitted is maintained in the `SUB
 
 FEP-a4ed (The Fediverse Enhancement Proposal Process) is a living document and can be updated despite having the `FINAL` status.
 
+#### Updating FEP-a4ed
+
+Anyone can propose a change to FEP-a4ed using any method listed in `SUBMISSION.md` file. The change must be approved by at least two editors (one of them could be the submitter). If the change is substantial, it should not be accepted until at least 1 week passes after the last update (to give editors enough time to review it). Proposed minor corrections could be accepted immediately after getting two approvals from editors.
+
 ## History
 
 The process and format described in this proposal is influenced by other community driven documentation efforts such as the BitTorrent Enhancement Proposal Process [BEP-1], Scheme Request for Implementation [SRFI] and the IETF RFC Series [RFC-8729].
