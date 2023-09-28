@@ -65,18 +65,25 @@ Proposal processes on SWICG Forum with identical response period:
 
 ### W3C Community Group Process
 
-* [W3C SWICG][SWICG] is a W3C Community Group (CG).
-* CGs are described in [their process document][cg-process] as follows (excerpted for concision):
-    * > This document defines W3C Community Groups, where anyone may develop Specifications, hold discussions, develop tests, and so on, with no participation fee.
-    * > Community Groups that develop specifications do so under policies designed to strike a balance between ease of participation and safety for implementers and patent holders
-    * > A Community Group may adopt operational agreements&hellip; that establish the group’s scope of work, decision-making processes, communications preferences, and other operations.
-    * > The following rules govern Community Group operational agreements:
-      > * They must be publicly documented.
-      > * They must be fair and must not unreasonably favor or discriminate against any group participant or their employer.
-      > * They must not conflict with or modify this Community and Business Group Process, the [Community Contributor License Agreement (CLA)][w3c-cg-cla], or the [Final Specification Agreement][w3c-cg-fsa].
-    * > the Chair determines the means by which the group adopts and modifies operational agreements. The Chair must give actual notice to the participants of any material changes to the agreements. Participants may resign from the group if they do not wish to participate under the new agreements.
-    * > **Note**: W3C encourages groups adopt decision-making policies that promote consensus.
-    * > Each Community Group must have at least one Chair who is responsible for ensuring the group fulfills the requirements of this document as well as the group’s operational agreements. 
+[W3C SWICG][SWICG] is a W3C Community Group (CG).
+
+CGs are described in [their process document][cg-process] as follows (excerpted for concision):
+> This document defines W3C Community Groups, where anyone may develop Specifications, hold discussions, develop tests, and so on, with no participation fee. …
+> 
+> Community Groups that develop specifications do so under policies designed to strike a balance between ease of participation and safety for implementers and patent holders …
+> 
+> A Community Group may adopt operational agreements&hellip; that establish the group’s scope of work, decision-making processes, communications preferences, and other operations. …
+> 
+> The following rules govern Community Group operational agreements:
+> * They must be publicly documented.
+> * They must be fair and must not unreasonably favor or discriminate against any group participant or their employer.
+> * They must not conflict with or modify this Community and Business Group Process, the [Community Contributor License Agreement (CLA)][w3c-cg-cla], or the [Final Specification Agreement][w3c-cg-fsa]. …
+>
+> the Chair determines the means by which the group adopts and modifies operational agreements. The Chair must give actual notice to the participants of any material changes to the agreements. Participants may resign from the group if they do not wish to participate under the new agreements. …
+>
+> **Note**: W3C encourages groups adopt decision-making policies that promote consensus. …
+>
+> Each Community Group must have at least one Chair who is responsible for ensuring the group fulfills the requirements of this document as well as the group’s operational agreements.
 
 [w3c-cg-cla]: https://www.w3.org/community/about/process/cla/
 [w3c-cg-fsa]: https://www.w3.org/community/about/process/final/
@@ -110,4 +117,3 @@ These document was initially published at: https://socialweb.coop/SWIP/7427-a-po
 ## Copyright
 
 Fediverse Enhancement Proposals must be placed in the public domain by the authors with a CC0 1.0 Universal (CC0 1.0) Public Domain Dedication.
-
