@@ -7,6 +7,13 @@ dateReceived: "2023-09-28"
 
 # FEP-37f2: a policy for calls for consensus on SWICG group decisions
 
+## Summary
+
+A FEP that describes how W3C Social Web Incubator Community Group can harmonize its process with other W3C Community Groups as well as the Fediverse Enhancement Process on socialhub.activitypub.rocks by:
+* posting Calls for Consensus on the SWICG mailing list public-swicg@w3.org
+* engaging other SWICG fora like socialhub.activitypub.rocks (linked to as "Forum" from the [SWICG Webpage](https://www.w3.org/community/socialcg/))
+* having a shared response period
+
 ## Introduction
 
 The Social Web Incubation Community Group is missing an explicit decision-making policy, which essentially all other W3C community groups have to ensure asynchronous and healthy consensus mechanisms across timezones and participatory modes.
