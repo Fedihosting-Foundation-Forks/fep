@@ -1,5 +1,8 @@
 ---
 slug: "37f2"
+authors: https://bengo.is
+status: DRAFT
+dateReceived: "2023-09-28"
 ---
 
 # FEP-37f2: a policy for calls for consensus on SWICG group decisions
@@ -14,7 +17,7 @@ The Social Web Incubation Community Group is missing an explicit decision-making
 
 To afford asynchronous decisions and organizational deliberation, any resolution (including publication decisions) taken in a face-to-face meeting or teleconference will be considered provisional.
 
-A call for consensus (CFC) will be issued for all resolutions via email to [public-swicg@w3.org][swicg-list] ([archives][swicg-list-archives]). The presence of formal resolutions will be indicated by a "CFC" prefix in the subject line of the email. Additional outreach to community venues for more affirmative consent is strongly encouraged. There will be a response period of ten days. If no sustained objections are raised by the end of the response period, the resolution will be considered to have consensus as a resolution of the Community Group, i.e. a group decision.
+A call for consensus (CFC) will be issued for all resolutions via email to [public-swicg@w3.org][swicg-list] ([archives][swicg-list-archives]). The presence of formal resolutions will be indicated by a "CFC" prefix in the subject line of the email. Additional outreach to community venues for more affirmative consent is strongly encouraged. There will be a response period of 14 days. If no sustained objections are raised by the end of the response period, the resolution will be considered to have consensus as a resolution of the Community Group, i.e. a group decision.
 
 All decisions made by the group should be considered resolved unless and until new information becomes available or unless reopened at the discretion of the Chairs or the Director.
 
@@ -56,6 +59,10 @@ These community groups and working groups have similar decision policies with te
 * [Solid Community Group Charter](https://www.w3.org/community/solid/charter/) (see section "Decision Policy")
 * [Decentralized Identifier Working Group Charter](https://www.w3.org/2020/12/did-wg-charter.html#decisions)
 
+Proposal processes on SWICG Forum with identical response period:
+
+* [FEP-a4ed: The Fediverse Enhancement Proposal Process](https://socialhub.activitypub.rocks/t/fep-a4ed-the-fediverse-enhancement-proposal-process/1171/1)
+
 ### W3C Community Group Process
 
 * [W3C SWICG][SWICG] is a W3C Community Group (CG).
@@ -78,10 +85,10 @@ These community groups and working groups have similar decision policies with te
 
 * [IETF RFC7282 On Consensus and Humming in the IETF][rfc7282]
 * Doty, Nick, and Deirdre K. Mulligan. 2013. ["Internet Multistakeholder Processes and Techno-Policy Standards: Initial Reflections on Privacy at the World Wide Web Consortium"][doty-mulligan-2013] Journal on Telecommunications and High Technology Law 11.
+* [Harmonization (standards), en.wikipedia.org](https://en.wikipedia.org/wiki/Harmonization_(standards))
 
 [rfc7282]: https://datatracker.ietf.org/doc/html/rfc7282
 [doty-mulligan-2013]: http://www.jthtl.org/content/articles/V11I1/JTHTLv11i1_MulliganDoty.PDF
-
 
 ### Editorial Notes
 
