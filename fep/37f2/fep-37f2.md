@@ -1,3 +1,7 @@
+---
+slug: "37f2"
+---
+
 # FEP-37f2: a policy for calls for consensus on SWICG group decisions
 
 ## Introduction
