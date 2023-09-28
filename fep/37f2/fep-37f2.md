@@ -119,7 +119,8 @@ The 'SW' in 'SWIP' stands for 'Social Web'.
 [content-addressed-extensions]: https://socialhub.activitypub.rocks/t/content-addressed-vocabulary-for-extensions/539/1
 [FEP-a4ed]: https://socialhub.activitypub.rocks/t/fep-a4ed-the-fediverse-enhancement-proposal-process/1171#proposal-title-and-identifier-5
 
-These document was initially published at: https://socialweb.coop/SWIP/7427-a-policy-for-calls-for-consensus-on-group-decisions/
+This proposal was initially published at:
+* https://socialweb.coop/SWIP/37f2/a-policy-for-calls-for-consensus-on-swicg-group-decisions/
 
 ## Copyright
 
