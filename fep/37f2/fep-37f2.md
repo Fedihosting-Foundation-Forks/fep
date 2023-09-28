@@ -9,7 +9,7 @@ dateReceived: "2023-09-28"
 
 ## Summary
 
-A FEP that describes how W3C Social Web Incubator Community Group can harmonize its process with other W3C Community Groups as well as the Fediverse Enhancement Process on socialhub.activitypub.rocks by:
+A FEP proposing that W3C Social Web Incubator Community Group [harmonize](https://en.wikipedia.org/wiki/Harmonization_(standards)) its process with other W3C Groups as well as the Fediverse Enhancement Process on socialhub.activitypub.rocks by:
 * posting Calls for Consensus on the SWICG mailing list public-swicg@w3.org
 * engaging other SWICG fora like socialhub.activitypub.rocks (linked to as "Forum" from the [SWICG Webpage](https://www.w3.org/community/socialcg/))
 * having a shared response period
