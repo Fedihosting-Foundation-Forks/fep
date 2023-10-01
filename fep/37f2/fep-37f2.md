@@ -1,6 +1,6 @@
 ---
 slug: "37f2"
-authors: https://bengo.is
+authors: bengo <https://mastodon.social/@bengo>
 status: DRAFT
 dateReceived: "2023-09-28"
 ---
