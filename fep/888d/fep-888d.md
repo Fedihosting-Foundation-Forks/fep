@@ -135,7 +135,9 @@ The context document might look like this, at minimum:
 
 Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
 
-##### Defining terms within an FEP document
+#### Defining terms within an FEP document
+
+(This section is non-normative.)
 
 Depending on convenience or preference, the context document might instead look like this, if the terms are defined within the FEP document itself rather than alongside it as assets:
 
@@ -157,23 +159,61 @@ Depending on convenience or preference, the context document might instead look 
 }
 ```
 
-In such a case, the FEP document SHOULD include a heading with a name that exactly matches the term name, so that the fragment identifier resolves properly. This is because Markdown specifications such as CommonMark currently do not support custom attributes on arbitrary elements. If ecosystem support improves in the future, the terms MAY be defined and linked within some other element, such as a definition list.
+In such a case, the FEP document should include an element with an HTML identifier that exactly matches the term name, so that the URI fragment resolves properly. In practice, this means one of the following:
 
-This part is a test:
+- Using a heading with a name that exactly matches the term name. This should be autolinked correctly by most Markdown processors. Be warned that this may cause problems for FEPs 
+- Using a heading with a custom attribute containing an ID. Some Markdown processors such as Goldmark will handle cases such as `### h3 {#custom-identifier}` and render `<h3 id="custom-identifier">h3</h3>`. Markdown specifications such as CommonMark currently do not support custom attributes, but some Markdown processors such as Goldmark support custom attributes on headers (but not on arbitrary elements). See [CM-ATTRS] for more discussion of this feature.
+- Using an HTML definition list, with `id` attributes exactly matching the term name. HTML within Markdown files is generally rendered as-is, although it may be sanitized, stripped, or disallowed for security purposes. In cases where it is allowed, however, it can be an effective way to express term definitions within an FEP document.
+
+An example of a definition list can be found below:
 
 <dl>
 
 <dt id="SomeType">SomeType</dt>
-<dd>Some type</dd>
+<dd>
+<p>Some type.</p>
+<ul>
+<li>URI: <pre>https://w3id.org/fep/888d#SomeType</pre></li>
+<li>Inherits from: <pre>https://www.w3.org/ns/activitystreams#Object</pre></li>
+</ul>
+</dd>
 
 <dt id="exampleA">exampleA</dt>
-<dd>A term with some literal value (string, boolean, number)</dd>
+<dd>
+<p>A term with some literal value (string, boolean, number).</p>
+<ul>
+<li>URI: <pre>https://w3id.org/fep/888d#exampleA</pre></li>
+<li>Domain: SomeType</li>
+<li>Range: String or Boolean or Number</li>
+</ul>
+</dd>
+
+<dt id="exampleB">exampleB</dt>
+<dd>
+<p>A term that links to another node on the graph (for example, another object)</p>
+<ul>
+<li>URI: <pre>https://w3id.org/fep/888d#exampleB</pre></li>
+<li>Domain: SomeType</li>
+<li>Range: Object</li>
+</ul>
+</dd>
+
+<dt id="exampleC">exampleC</dt>
+<dd>
+<p>An ordered list of literal values that are specifically non-negative integers</p>
+<ul>
+<li>URI: <pre>https://w3id.org/fep/888d#exampleC</pre></li>
+<li>Domain: SomeType</li>
+<li>Range: <pre>http://www.w3.org/2001/XMLSchema#nonNegativeInteger</pre></li>
+</ul>
+</dd>
 
 </dl>
 
 ## References
 
 - [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
+- [CM-ATTRS] mb21, [Consistent attribute syntax](https://talk.commonmark.org/t/consistent-attribute-syntax/272/), 2014
 - [LD-TERM-DFN] Gregg Kellogg, Pierre-Antoine Champin, Dave Longley, [JSON-LD 1.1 - Section 9.15.1 "Expanded term definition"](https://www.w3.org/TR/json-ld/#expanded-term-definition), 2020
 - [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119.html)
 - [1] helge, [FEP-1570: The FEP Ontology Process](https://socialhub.activitypub.rocks/t/fep-1570-the-fep-ontology-process/2972), 2023
