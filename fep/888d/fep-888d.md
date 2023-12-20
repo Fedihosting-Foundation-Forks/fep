@@ -108,6 +108,7 @@ FEPs that wish to define extension terms within the w3id.org/fep namespace MUST 
 
 For example, say we wanted to define the following terms within the current FEP-888d:
 
+- `SomeType` is a term for some type
 - `exampleA` is a term with some literal value (string, boolean, number)
 - `exampleB` is a term that links to another node on the graph (for example, another object)
 - `exampleC` is an ordered list of literal values that are specifically non-negative integers
@@ -117,6 +118,7 @@ The context document might look like this, at minimum:
 ```json
 {
 	"@context": {
+		"SomeType": "https://w3id.org/fep/888d/SomeType",
 		"exampleA": "https://w3id.org/fep/888d/exampleA",
 		"exampleB": {
 			"@id": "https://w3id.org/fep/888d/exampleB",
@@ -132,6 +134,42 @@ The context document might look like this, at minimum:
 ```
 
 Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
+
+##### Defining terms within an FEP document
+
+Depending on convenience or preference, the context document might instead look like this, if the terms are defined within the FEP document itself rather than alongside it as assets:
+
+```json
+{
+	"@context": {
+		"SomeType": "https://w3id.org/fep/888d#SomeType",
+		"exampleA": "https://w3id.org/fep/888d#exampleA",
+		"exampleB": {
+			"@id": "https://w3id.org/fep/888d#exampleB",
+			"@type": "@id"
+		},
+		"exampleC": {
+			"@id": "https://w3id.org/fep/888d#exampleC",
+			"@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+			"@container": "@list"
+		}
+	}
+}
+```
+
+In such a case, the FEP document SHOULD include a heading with a name that exactly matches the term name, so that the fragment identifier resolves properly. This is because Markdown specifications such as CommonMark currently do not support custom attributes on arbitrary elements. If ecosystem support improves in the future, the terms MAY be defined and linked within some other element, such as a definition list.
+
+This part is a test:
+
+<dl>
+
+<dt id="SomeType">SomeType</dt>
+<dd>Some type</dd>
+
+<dt id="exampleA">exampleA</dt>
+<dd>A term with some literal value (string, boolean, number)</dd>
+
+</dl>
 
 ## References
 
