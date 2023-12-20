@@ -173,7 +173,7 @@ An example of a definition list can be found below:
 <dd>
 <p>Some type.</p>
 <ul>
-<li>URI: <pre>https://w3id.org/fep/888d#SomeType</pre></li>
+<li>URI: <code>https://w3id.org/fep/888d#SomeType</code></li>
 <li>Inherits from: <pre>https://www.w3.org/ns/activitystreams#Object</pre></li>
 </ul>
 </dd>
@@ -182,7 +182,7 @@ An example of a definition list can be found below:
 <dd>
 <p>A term with some literal value (string, boolean, number).</p>
 <ul>
-<li>URI: <pre>https://w3id.org/fep/888d#exampleA</pre></li>
+<li>URI: <code>https://w3id.org/fep/888d#exampleA</code></li>
 <li>Domain: SomeType</li>
 <li>Range: String or Boolean or Number</li>
 </ul>
@@ -192,7 +192,7 @@ An example of a definition list can be found below:
 <dd>
 <p>A term that links to another node on the graph (for example, another object)</p>
 <ul>
-<li>URI: <pre>https://w3id.org/fep/888d#exampleB</pre></li>
+<li>URI: <code>https://w3id.org/fep/888d#exampleB</code></li>
 <li>Domain: SomeType</li>
 <li>Range: Object</li>
 </ul>
@@ -202,9 +202,9 @@ An example of a definition list can be found below:
 <dd>
 <p>An ordered list of literal values that are specifically non-negative integers</p>
 <ul>
-<li>URI: <pre>https://w3id.org/fep/888d#exampleC</pre></li>
+<li>URI: <code>https://w3id.org/fep/888d#exampleC</code></li>
 <li>Domain: SomeType</li>
-<li>Range: <pre>http://www.w3.org/2001/XMLSchema#nonNegativeInteger</pre></li>
+<li>Range: <code>http://www.w3.org/2001/XMLSchema#nonNegativeInteger</code></li>
 </ul>
 </dd>
 
