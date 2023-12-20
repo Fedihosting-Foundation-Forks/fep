@@ -174,7 +174,7 @@ An example of a definition list can be found below:
 <p>Some type.</p>
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#SomeType</code></li>
-<li>Inherits from: <pre>https://www.w3.org/ns/activitystreams#Object</pre></li>
+<li>Inherits from: <code>https://www.w3.org/ns/activitystreams#Object</code></li>
 </ul>
 </dd>
 
