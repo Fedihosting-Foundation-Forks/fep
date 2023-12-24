@@ -135,6 +135,8 @@ The context document might look like this, at minimum:
 
 Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
 
+A sidecar asset within the FEP's directory may be used to provide additional documentation for the term.
+
 #### Example using fragment identifiers
 
 (This section is non-normative.)
@@ -159,7 +161,9 @@ Depending on convenience or preference, the context document might instead look 
 }
 ```
 
-In such a case, the FEP document should include an element with an HTML identifier that exactly matches the term name, so that the URI fragment resolves properly. In practice, this means one of the following:
+Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
+
+In such a case, the FEP document should include an element with an HTML identifier that exactly matches the term name, so that the IRI fragment resolves properly. In practice, this means one of the following:
 
 - Using a heading with a name that exactly matches the term name. This should be autolinked correctly by most Markdown processors. Be warned that this may cause problems for FEPs 
 - Using a heading with a custom attribute containing an ID. Some Markdown processors such as Goldmark will handle cases such as `### h3 {#custom-identifier}` and render `<h3 id="custom-identifier">h3</h3>`. Markdown specifications such as CommonMark currently do not support custom attributes, but some Markdown processors such as Goldmark support custom attributes on headers (but not on arbitrary elements). See [CM-ATTRS] for more discussion of this feature.
@@ -175,6 +179,11 @@ An example of a definition list can be found below:
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#SomeType</code></li>
 <li>Inherits from: <code>https://www.w3.org/ns/activitystreams#Object</code></li>
+<li>Properties: 
+<a href="#exampleA"><code>exampleA</code></a> | 
+<a href="#exampleB"><code>exampleA</code></a> | 
+<a href="#exampleC"><code>exampleA</code></a>
+</li>
 </ul>
 </dd>
 
