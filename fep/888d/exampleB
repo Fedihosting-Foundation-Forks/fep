@@ -2,7 +2,7 @@ exampleB <https://w3id.org/fep/888d/exampleB>
 
 A property that links to another node on the graph (for example, another object)
 
-Domain: SomeType
+Domain: SomeType <https://w3id.org/fep/888d/SomeType>
 Range: @id
 
 Example:

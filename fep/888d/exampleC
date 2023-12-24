@@ -2,7 +2,7 @@ exampleC <https://w3id.org/fep/888d/exampleC>
 
 A property that is an ordered list of literal values that are specifically non-negative integers
 
-Domain: SomeType
+Domain: SomeType <https://w3id.org/fep/888d/SomeType>
 Range: List of nonNegativeInteger <http://www.w3.org/2001/XMLSchema#nonNegativeInteger>
 
 Example:
