@@ -181,15 +181,15 @@ An example of a definition list can be found below:
 <li>Inherits from: <code>https://www.w3.org/ns/activitystreams#Object</code></li>
 <li>Properties: 
 <a href="#exampleA"><code>exampleA</code></a> | 
-<a href="#exampleB"><code>exampleA</code></a> | 
-<a href="#exampleC"><code>exampleA</code></a>
+<a href="#exampleB"><code>examplB</code></a> | 
+<a href="#exampleC"><code>exampleC</code></a>
 </li>
 </ul>
 </dd>
 
 <dt id="exampleA">exampleA</dt>
 <dd>
-<p>A property with some literal value (string, boolean, number).</p>
+<p>A property with some literal value (string, boolean, number)</p>
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#exampleA</code></li>
 <li>Domain: SomeType</li>
@@ -213,7 +213,7 @@ An example of a definition list can be found below:
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#exampleC</code></li>
 <li>Domain: SomeType</li>
-<li>Range: <code>http://www.w3.org/2001/XMLSchema#nonNegativeInteger</code></li>
+<li>Range: List of <code>http://www.w3.org/2001/XMLSchema#nonNegativeInteger</code></li>
 </ul>
 </dd>
 
