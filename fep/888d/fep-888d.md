@@ -109,9 +109,9 @@ FEPs that wish to define extension terms within the w3id.org/fep namespace MUST 
 For example, say we wanted to define the following terms within the current FEP-888d:
 
 - `SomeType` is a term for some type
-- `exampleA` is a term with some literal value (string, boolean, number)
-- `exampleB` is a term that links to another node on the graph (for example, another object)
-- `exampleC` is an ordered list of literal values that are specifically non-negative integers
+- `exampleA` is a term for a property with some literal value (string, boolean, number)
+- `exampleB` is a term for a property that links to another node on the graph (for example, another object)
+- `exampleC` is a term for a property that is an ordered list of literal values that are specifically non-negative integers
 
 The context document might look like this, at minimum:
 
@@ -180,7 +180,7 @@ An example of a definition list can be found below:
 
 <dt id="exampleA">exampleA</dt>
 <dd>
-<p>A term with some literal value (string, boolean, number).</p>
+<p>A property with some literal value (string, boolean, number).</p>
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#exampleA</code></li>
 <li>Domain: SomeType</li>
@@ -190,7 +190,7 @@ An example of a definition list can be found below:
 
 <dt id="exampleB">exampleB</dt>
 <dd>
-<p>A term that links to another node on the graph (for example, another object)</p>
+<p>A property that links to another node on the graph (for example, another object)</p>
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#exampleB</code></li>
 <li>Domain: SomeType</li>
@@ -200,7 +200,7 @@ An example of a definition list can be found below:
 
 <dt id="exampleC">exampleC</dt>
 <dd>
-<p>An ordered list of literal values that are specifically non-negative integers</p>
+<p>A property that is an ordered list of literal values that are specifically non-negative integers</p>
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#exampleC</code></li>
 <li>Domain: SomeType</li>
