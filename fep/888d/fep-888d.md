@@ -102,7 +102,7 @@ RewriteRule ^(.*?)\/?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1
 
 FEPs that wish to define extension terms within the w3id.org/fep namespace MUST provide a context document co-located within their FEP folder with the filename `context.jsonld` and containing all terms defined by that FEP. The context document MUST include at least an `@id` for each term, with `@type` of `@id` if the term links to another node on the graph. The context document MAY include additional metadata. Once the FEP is marked `FINAL`, the context document MAY be cached forever if referenced. FEPs that define extension terms MAY instead define extension terms within a vendor-specific namespace, but generally this SHOULD NOT be done.
 
-#### Example
+#### Example using paths
 
 (This section is non-normative.)
 
@@ -135,11 +135,11 @@ The context document might look like this, at minimum:
 
 Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
 
-#### Defining terms within an FEP document
+#### Example using fragment identifiers
 
 (This section is non-normative.)
 
-Depending on convenience or preference, the context document might instead look like this, if the terms are defined within the FEP document itself rather than alongside it as assets:
+Depending on convenience or preference, the context document might instead look like this:
 
 ```json
 {
