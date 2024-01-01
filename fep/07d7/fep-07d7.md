@@ -37,7 +37,7 @@ Web-based protocol handling is a feature of modern web browsers. This allows a s
 
 ## Context
 
-Similar proposals such as [Fedilinks] and [Mastodon Issue 19679][Mastodon19679] have been made, and were even [briefly implemented in Mastodon][MastodonRemove]. There seems to be some concensus that custom protocol handlers have the technical capability to solve the problem of difficult interactions with cross-instance objects. There is also ample prior art for this approach. `mailto:` and `tel:` are common examples from web standards. Zoom uses a custom`zoommtg:` protocol to launch their desktop app, and Apple uses `itms:` to launch iTunes.
+Similar proposals such as [Fedilinks][FedilinksRef] and [Mastodon Issue 19679][Mastodon19679] have been made, and were even [briefly implemented in Mastodon][MastodonRemove]. There seems to be some concensus that custom protocol handlers have the technical capability to solve the problem of difficult interactions with cross-instance objects. There is also ample prior art for this approach. `mailto:` and `tel:` are common examples from web standards. Zoom uses a custom`zoommtg:` protocol to launch their desktop app, and Apple uses `itms:` to launch iTunes.
 
 It seems the main impediment to early attempts was a perception of poor UX and limited adoption. This seems to be mostly a chicken-and-egg problem. That will always be a problem, until it's not. In this case, it seems it would be helpful to let standards drive implementation, as the opposite hasn't ocurred. This proposal also recommends behavior that is compatible with gradual adoption.
 
@@ -56,7 +56,7 @@ Origin server means the server that has authority for the ActivityPub object. Th
 
 Handler is any software that handles the `web+activitypub:` scheme and protocol. Typically either an ActivityPub server where the person has an account, or a client application they have installed on their device.
 
-ActivityPub object means the JSON-LD document representing an ActivityPub Object, as described in the [ActivityPub] and [ActivityStreams] specifications.
+ActivityPub object means the JSON-LD document representing an ActivityPub Object, as described in the [ActivityPub][ActivityPubRef] and [ActivityStreams][ActivityStreamsRef] specifications.
 
 HTML representation means an HTML or other document rendered to display the ActivityPub object for human use.
 
@@ -173,10 +173,10 @@ Because there is no way to know or control which application will ultimately han
 
 ## References
 
-- \[ActivityPub\] Christine Lemmer Webber, Jessica Tallon, [ActivityPub], 2018
-- \[Web-based Protocol Handlers\] Mozilla Developer Network, [Web-based Protocol Handlers]
-- \[HTML Living Standard\] WHATWG, [HTML], 2023
-- \[Fedilinks\] Fedilinks Authors, [Fedilinks]
+- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPubRef], 2018
+- [Web-based Protocol Handlers] Mozilla Developer Network, [Web-based Protocol Handlers][HandlersRef]
+- [HTML Living Standard] WHATWG, [HTML], 2023
+- [Fedilinks] Fedilinks Authors, [Fedilinks][FedilinksRef]
 
 ## Copyright
 
@@ -186,8 +186,8 @@ To the extent possible under law, the authors of this Fediverse Enhancement Prop
 
 
 [RFC-2119]: https://www.rfc-editor.org/rfc/rfc2119
-[ActivityPub]: https://www.w3.org/TR/activitypub/
-[Web-based Protocol Handlers]: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/registerProtocolHandler/Web-based_protocol_handlers
+[ActivityPubRef]: https://www.w3.org/TR/activitypub/
+[HandlersRef]: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/registerProtocolHandler/Web-based_protocol_handlers
 [HTML]: https://html.spec.whatwg.org/multipage/system-state.html#custom-handlers
 [ActivityStreams]: https://www.w3.org/TR/activitystreams-core/
 [ActivityVocabulary]: https://www.w3.org/TR/activitystreams-vocabulary
@@ -195,4 +195,4 @@ To the extent possible under law, the authors of this Fediverse Enhancement Prop
 [Mastodon14187]: https://github.com/mastodon/mastodon/issues/14187
 [Mastodon19679]: https://github.com/mastodon/mastodon/issues/19679
 [Issue1]: https://codeberg.org/fediverse/fediverse-ideas/issues/1
-[Fedilinks]: https://fedilinks.org/spec/en/6-The-web-ap-URI
+[FedilinksRef]: https://fedilinks.org/spec/en/6-The-web-ap-URI
