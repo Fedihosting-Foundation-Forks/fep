@@ -1,6 +1,6 @@
 # Fediverse Enhancement Proposals
 
-<!-- DO NOT EDIT! File automatically generated with scripts/create_readme.py. -->
+<!-- DO NOT EDIT! File automatically generated with `./scripts/create_readme.py`. -->
 
 This is the Git repository containing Fediverse Enhancment Proposals (FEPs).
 
@@ -14,13 +14,13 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 
 | Title                                                                               | Status  | Tracking issue                                                                              | `dateReceived` | `dateFinalized` (or `dateWithdrawn`) |
 | ---                                                                                 | ---     | -----                                                                                       | -------        | ------                               |
-| [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md) | `FINAL` | [#10](https://git.activitypub.dev/ActivityPubDev/Fediverse-Enhancement-Proposals/issues/10) | 2020-10-16 | 2021-01-18 |
-| [FEP-8fcf: Followers collection synchronization across servers](./fep/8fcf/fep-8fcf.md) | `FINAL` | [#6](https://codeberg.org/fediverse/fep/issues/6) [#11](https://git.activitypub.dev/ActivityPubDev/Fediverse-Enhancement-Proposals/issues/11) | 2020-10-24 | 2022-02-07 |
-| [FEP-f1d5: NodeInfo in Fediverse Software](./fep/f1d5/fep-f1d5.md) | `FINAL` | [#50](https://codeberg.org/fediverse/fep/issues/50) [#12](https://git.activitypub.dev/ActivityPubDev/Fediverse-Enhancement-Proposals/issues/12) | 2020-12-13 | 2023-06-02 |
+| [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md) | `FINAL` | [#201](https://codeberg.org/fediverse/fep/issues/201) | 2020-10-16 | 2021-01-18 |
+| [FEP-8fcf: Followers collection synchronization across servers](./fep/8fcf/fep-8fcf.md) | `FINAL` | [#6](https://codeberg.org/fediverse/fep/issues/6) | 2020-10-24 | 2022-02-07 |
+| [FEP-f1d5: NodeInfo in Fediverse Software](./fep/f1d5/fep-f1d5.md) | `FINAL` | [#50](https://codeberg.org/fediverse/fep/issues/50) | 2020-12-13 | 2023-06-02 |
 | [FEP-400e: Publicly-appendable ActivityPub collections](./fep/400e/fep-400e.md) | `FINAL` | [#5](https://codeberg.org/fediverse/fep/issues/5) | 2021-02-16 | 2022-02-04 |
-| [FEP-8c3f: Web Monetization](./fep/8c3f/fep-8c3f.md) | `DRAFT` | [#3](https://codeberg.org/fediverse/fep/issues/3) | 2022-01-18 | - |
+| [FEP-8c3f: Web Monetization](./fep/8c3f/fep-8c3f.md) | `WITHDRAWN` | [#3](https://codeberg.org/fediverse/fep/issues/3) | 2022-01-18 | 2023-10-27 |
 | [FEP-2100: Unbound Group and Organization](./fep/2100/fep-2100.md) | `DRAFT` | [#36](https://codeberg.org/fediverse/fep/issues/36) | 2022-03-31 | - |
-| [FEP-e232: Object Links](./fep/e232/fep-e232.md) | `DRAFT` | [#14](https://codeberg.org/fediverse/fep/issues/14) | 2022-08-01 | - |
+| [FEP-e232: Object Links](./fep/e232/fep-e232.md) | `FINAL` | [#14](https://codeberg.org/fediverse/fep/issues/14) | 2022-08-01 | 2023-12-03 |
 | [FEP-5624: Per-object reply control policies](./fep/5624/fep-5624.md) | `DRAFT` | [#18](https://codeberg.org/fediverse/fep/issues/18) | 2022-08-23 | - |
 | [FEP-1b12: Group federation](./fep/1b12/fep-1b12.md) | `FINAL` | [#22](https://codeberg.org/fediverse/fep/issues/22) | 2022-11-12 | 2023-02-09 |
 | [FEP-8b32: Object Integrity Proofs](./fep/8b32/fep-8b32.md) | `DRAFT` | [#29](https://codeberg.org/fediverse/fep/issues/29) | 2022-11-12 | - |
@@ -33,8 +33,8 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-d767: Extend ActivityPub with Valueflows](./fep/d767/fep-d767.md) | `DRAFT` | [#76](https://codeberg.org/fediverse/fep/issues/76) | 2023-04-02 | - |
 | [FEP-5bf0: Collection sorting and filtering](./fep/5bf0/fep-5bf0.md) | `DRAFT` | [#80](https://codeberg.org/fediverse/fep/issues/80) | 2023-04-10 | - |
 | [FEP-888d: Using https://w3id.org/fep as a base for FEP-specific namespaces](./fep/888d/fep-888d.md) | `DRAFT` | [#83](https://codeberg.org/fediverse/fep/issues/83) | 2023-04-10 | - |
-| [FEP-0ea0: Payment Links](./fep/0ea0/fep-0ea0.md) | `DRAFT` | [#88](https://codeberg.org/fediverse/fep/issues/88) | 2023-04-18 | - |
 | [FEP-612d: Identifying ActivityPub Objects through DNS](./fep/612d/fep-612d.md) | `DRAFT` | [#89](https://codeberg.org/fediverse/fep/issues/89) | 2023-04-18 | - |
+| [FEP-0ea0: Payment Links](./fep/0ea0/fep-0ea0.md) | `DRAFT` | [#88](https://codeberg.org/fediverse/fep/issues/88) | 2023-04-18 | - |
 | [FEP-fffd: Proxy Objects](./fep/fffd/fep-fffd.md) | `DRAFT` | [#95](https://codeberg.org/fediverse/fep/issues/95) | 2023-04-29 | - |
 | [FEP-4adb: Dereferencing identifiers with webfinger](./fep/4adb/fep-4adb.md) | `DRAFT` | [#100](https://codeberg.org/fediverse/fep/issues/100) | 2023-05-13 | - |
 | [FEP-a070: Ordered properties for plain JSON consumers](./fep/a070/fep-a070.md) | `DRAFT` | [#121](https://codeberg.org/fediverse/fep/issues/121) | 2023-06-13 | - |
@@ -51,6 +51,12 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-dc88: Formatting Mathematics](./fep/dc88/fep-dc88.md) | `DRAFT` | [#161](https://codeberg.org/fediverse/fep/issues/161) | 2023-09-12 | - |
 | [FEP-d8c2: OAuth 2.0 Profile for the ActivityPub API](./fep/d8c2/fep-d8c2.md) | `DRAFT` | [#165](https://codeberg.org/fediverse/fep/issues/165) | 2023-09-17 | - |
 | [FEP-7628: Move actor](./fep/7628/fep-7628.md) | `DRAFT` | [#168](https://codeberg.org/fediverse/fep/issues/168) | 2023-09-20 | - |
+| [FEP-07d7: A Custom URL Scheme and Web-Based Protocol Handlers for Linking to ActivityPub Resources](./fep/07d7/fep-07d7.md) | `DRAFT` | [#171](https://codeberg.org/fediverse/fep/issues/171) | 2023-09-22 | - |
+| [FEP-37f2: a policy for calls for consensus on SWICG group decisions](./fep/37f2/fep-37f2.md) | `DRAFT` | [#184](https://codeberg.org/fediverse/fep/issues/184) | 2023-09-28 | - |
+| [FEP-2677: Identifying the Application Actor](./fep/2677/fep-2677.md) | `DRAFT` | [#190](https://codeberg.org/fediverse/fep/issues/190) | 2023-10-14 | - |
+| [FEP-03c1: Actors without acct-URI](./fep/03c1/fep-03c1.md) | `DRAFT` | [#205](https://codeberg.org/fediverse/fep/issues/205) | 2023-11-10 | - |
+| [FEP-ef61: Portable Objects](./fep/ef61/fep-ef61.md) | `DRAFT` | [#209](https://codeberg.org/fediverse/fep/issues/209) | 2023-12-06 | - |
+| [FEP-7502: Limiting visibility to authenticated actors](./fep/7502/fep-7502.md) | `DRAFT` | [#218](https://codeberg.org/fediverse/fep/issues/218) | 2023-12-24 | - |
 
 ## Submitting a FEP
 
@@ -61,18 +67,28 @@ To create and submit a FEP:
 1. Fork this repository, and then clone it to your local machine. Check the Codeberg [Cheat sheet](https://docs.codeberg.org/collaborating/pull-requests-and-git-flow/#cheat-sheet) on how to prepare your Pull Request.
 2. Think of a title for the FEP you want to submit.
 3. Compute the identifier of the FEP by computing the hash of the title. This can be done with following Unix command:
+
 ```
 $ echo -n "The title of my proposal" | sha256sum | cut -c-4
 b3f0
 ```
+
 4. Create a subdirectory of [`fep/`](./fep/) using the identifier you just computed.
 5. Copy the FEP template ([fep-xxxx-template.md](./fep-xxxx-template.md)) to this subdirectory and change the filename appropriately.
-6. Use the identifer as the "slug" when filling out the frontmatter. 
-    
+6. Use the identifer as the "slug" when filling out the frontmatter.
+
     - For example, if your computed identifier was `abcd`, then your file would be located at `fep/abcd/fep-abcd.md` and your frontmatter would include `slug: "abcd"`.
 
 7. Write down your idea in the newly created file and commit it to a new branch in your repository (ex. fep-xxxx).
 8. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./feps/fep-a4ed.md). Further process is described in FEP-a4ed.
+
+Alternatively to steps 3. to 6., you can run
+
+```bash
+python scripts/new_proposal.py TITLE OF YOUR PROPOSAL
+```
+
+that should create a prefilled template for you.
 
 ## Editors
 
@@ -84,6 +100,6 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 
 ## License
 
-CC0 1.0 Universal (CC0 1.0) Public Domain Dedication 
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
 
 To the extent possible under law, the authors of this document have waived all copyright and related or neighboring rights to this work.

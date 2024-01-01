@@ -1,6 +1,6 @@
 # Fediverse Enhancement Proposals
 
-<!-- DO NOT EDIT! File automatically generated with scripts/create_readme.py. -->
+<!-- DO NOT EDIT! File automatically generated with `./scripts/create_readme.py`. -->
 
 This is the Git repository containing Fediverse Enhancment Proposals (FEPs).
 
@@ -14,4 +14,3 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 
 | Title                                                                               | Status  | Tracking issue                                                                              | `dateReceived` | `dateFinalized` (or `dateWithdrawn`) |
 | ---                                                                                 | ---     | -----                                                                                       | -------        | ------                               |
-
