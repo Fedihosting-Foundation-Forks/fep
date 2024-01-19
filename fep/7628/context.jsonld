@@ -1,6 +1,12 @@
 {
   "@context": {
-    "movedTo": "https://w3id.org/fep/7628#movedTo",
-    "copiedTo": "https://w3id.org/fep/7628#copiedTo"
+    "movedTo": {
+      "@id": "https://w3id.org/fep/7628#movedTo",
+      "@type": "@id"
+    },
+    "copiedTo": {
+      "@id": "https://w3id.org/fep/7628#copiedTo",
+      "@type": "@id"
+    }
   }
 }
