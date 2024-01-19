@@ -1,0 +1,6 @@
+{
+  "@context": {
+    "movedTo": "https://w3id.org/fep/7628#movedTo",
+    "copiedTo": "https://w3id.org/fep/7628#copiedTo"
+  }
+}
