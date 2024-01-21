@@ -146,6 +146,11 @@ GET /.well-known/webfinger?resource=https://instance.example/&rel=self
 GET /.well-known/webfinger?resource=https://mastodon.social/
 Host: https://mastodon.social
 ```
+or using Mastodon account-based URI:
+```
+GET /.well-known/webfinger?resource=acct:mastodon.social@mastodon.social
+Host: https://mastodon.social
+```
 
 ```json
 {
@@ -177,7 +182,7 @@ Some differences between the Mastodon implementation and this proposal include:
 * Mastodon returns the Instance Actor with the same `rel` as a user actor ("self"). 
 * It does not support standard [WebFinger] filtering by `rel`.
 
-The `subject` is a fake Mastodon account identifier rather than the resource URI or the actor URI.
+The `subject` is the Mastodon-specific account URI for the instance-level actor rather than the [ActivityPub] actor URI.
 
 ## Related Proposals
 
@@ -187,7 +192,7 @@ The `subject` is a fake Mastodon account identifier rather than the resource URI
 * [WebFinger] has been standardized by the Internet Engineering Task Force (IETC). [NodeInfo] is defined informally.
 * [WebFinger] is already used to resolve identifiers. [NodeInfo] is primarily used for gathering and aggregating server metadata.
 * [FEP-2677] adds a new non-standard `rel` relation to the [NodeInfo] index document. This may have surprising effects on some consuming implementations. This proposal is using [WebFinger] in standard ways.
-* `Service` ([ActivityPubService]) is the W3C recommended type for this kind of resource rather than `Application` ([ActivityPubApp]).
+* `Service` ([Primer][ActivityPubService]) is the type suggested by the W3C ActivityStreams Primers for this kind of resource rather than `Application` ([Primer][ActivityPubApp]).
 * [FEP-2677] only defines a singleton instance-level actor. This proposal allows that use case but has more flexibility for advanced implementations.
 
 [FEP-2c59] discusses how to discover [WebFinger] resource URIs from an [ActivityPub] actor resource. This is not related to instance-level actor discovery.
