@@ -2,7 +2,7 @@
 
 ## Summary
 
-This document describes an implementation of simple to-do's or tasks based on [ActivityPub](https://www.w3.org/TR/activitypub/) protocol and [Valueflows](https://valueflo.ws/) vocabulary.
+This document describes an implementation of simple to-do's or tasks based on [ActivityPub](https://www.w3.org/TR/activitypub/) protocol and [Valueflows](https://valueflo.ws/) vocabulary.  A to-do is a simple work commitment, and can be created for oneself or another person. Optionally, when the to-do is done, that can be recorded also.
 
 ## History
 
@@ -14,7 +14,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Creating a to-do
 
-A to-do is a simple commitment, and can be created for oneself or another person.
+A to-do is implemented as a Valueflows Commitment.
 
 Consuming implementations which don't have planning features MAY display plan-related objects similarly to `Note` objects.
 
@@ -24,17 +24,16 @@ Valueflows defines a commitment is defined as **A planned economic flow that has
 
 - `id` (REQUIRED): the commitment's unique global identifier.
 - `type` (REQUIRED): the type of the object MUST be `Commitment`.
-- `action` (RECOMMENDED): the type of economic transaction. The value of this property SHOULD be one of: `work`, `produce`, `deliverService`. See [the action definitions and behaviors](https://www.valueflo.ws/concepts/actions/) for more information, and further options.
-- `resourceConformsTo` (OPTIONAL): the type of an economic resource (can be a skill or type of work for the `work` action). Could be any URI.
-- `resourceQuantity` (OPTIONAL): the amount and unit of the non-effort-based economic resource.  Either `resourceQuantity` or `effortQuantity` can be used. This is an object with two properties:
+- `attributedTo` (REQUIRED): the actor who published the commitment.
+- `published` (RECOMMENDED): the date and time at which the commitment was published.
+- `resourceConformsTo` (OPTIONAL): the skill or type of work involved. Could be any URI.
+- `effortQuantity` (OPTIONAL): the estimated or expected amount and unit of the work. This is an object with two properties:
   - `hasUnit` (REQUIRED): name of the unit, according to [Ontology of units of Measure](http://www.ontology-of-units-of-measure.org/) classification.
   - `hasNumericalValue` (REQUIRED): amount of the resource.
-- `effortQuantity` (OPTIONAL): the amount and unit of the work or use effort-based action. This is an object with two properties:
-  - `hasUnit` (REQUIRED): name of the unit, according to [Ontology of units of Measure](http://www.ontology-of-units-of-measure.org/) classification.
-  - `hasNumericalValue` (REQUIRED): amount of the resource.
-- `provider` (REQUIRED): the actor who commits to providing the resource.
-- `receiver` (REQUIRED): the actor who commits to receiving the resource.
-- `content` (RECOMMENDED): the description of what is to be done for this to-do. The type of content SHOULD be `text/html`.
+- `provider` (RECOMMENDED): the actor who commits to providing the resource, including doing the work.  If not included, it is assumed to be the `to` actor.
+- `receiver` (RECOMMENDED): the actor who will be receiving the resource.  If not included, it is assumed to be the `attributedTo` actor.
+- `content` (RECOMMENDED): the description of what is to be done. The type of content SHOULD be `text/html`.
+- `to` (REQUIRED): the audience of the commitment.
 
 Example:
 
@@ -44,13 +43,11 @@ Example:
     "https://www.w3.org/ns/activitystreams",
     {
       "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
-      "vf": "https://w3id.org/valueflows/",
+      "vf": "https://w3id.org/valueflows/ont/vf#",
       "Commitment": "vf:Commitment",
       "receiver": "vf:receiver",
       "provider": "vf:provider",
-      "action": "vf:action",
       "resourceConformsTo": "vf:resourceConformsTo",
-      "resourceQuantity": "vf:resourceQuantity",
       "effortQuantity": "vf:effortQuantity",
       "hasUnit": "om2:hasUnit",
       "hasNumericalValue": "om2:hasNumericalValue"
@@ -63,9 +60,8 @@ Example:
     "type": "Commitment",
     "id": "https://project.example/todos/ddde9d6f-6f3b-4770-a966-4dkjh8w32e59",
     "attributedTo": "https://project.example/actors/alice",
-    "content": "Please proofread this document, and let me know what you think could be improved.",
+    "content": "Please proofread the document at https://project.example/docs/45, and let me know what you think could be improved.",
     "published": "2024-05-18T19:22:03.918737Z",
-    "action": "work",
     "resourceConformsTo": "https://www.wikidata.org/wiki/Q834191",
     "effortQuantity": {
       "hasUnit": "hour",
@@ -124,9 +120,9 @@ Example:
 
 ## Recording what actually was done
 
-Recording what was done is OPTIONAL for the FEP, although it may be required in some real life situations.
+Recording what was done is OPTIONAL for the FEP, although it may be required by the actors involved.
 
-Actual economic activity is represented with EconomicEvents in Valueflows.  In the case of to-do's, it would only occur in response to an earlier to-do commitment.
+Actual economic activity is represented with an `EconomicEvent` in Valueflows.  In the case of to-do's, it would only occur in response to an earlier to-do commitment.  More than one `EconomicEvent` can be recorded for one `Commitment` to-do.
 
 The representation of an economic event is a JSON document with the following properties:
 
@@ -136,18 +132,14 @@ The representation of an economic event is a JSON document with the following pr
 - `content` (OPTIONAL): the description of the economic event or communication about the economic event. The type of content SHOULD be `text/html`.
 - `published` (RECOMMENDED): the date and time at which the economic event was published.
 - `to` (REQUIRED): the audience of the economic event.
-- `action` (OPTIONAL): the type of economic transaction, usually the same as the to-do.
 - `fulfills` (REQUIRED): the commitment the economic event is completely or partially fulfilling.
-- `resourceConformsTo` (OPTIONAL): the type of an economic resource (can be a skill or type of work for the `work` action). Could be any URI.
-- `resourceQuantity` (OPTIONAL): the amount and unit of the non-effort-based economic resource.  Either `resourceQuantity` or `effortQuantity` can be used, depending on the action. This is an object with two properties:
+- `resourceConformsTo` (OPTIONAL): the type of an economic resource (can be a skill or type of work for the `work` action). Could be any URI.  It does not have to match the commitment, but if not included, can be assumed it is the same.
+- `effortQuantity` (OPTIONAL): the amount and unit of the work done. This is an object with two properties:
   - `hasUnit` (REQUIRED): name of the unit, according to [Ontology of units of Measure](http://www.ontology-of-units-of-measure.org/) classification.
   - `hasNumericalValue` (REQUIRED): amount of the resource.
-- `effortQuantity` (OPTIONAL): the amount and unit of the work or use effort-based action. This is an object with two properties:
-  - `hasUnit` (REQUIRED): name of the unit, according to [Ontology of units of Measure](http://www.ontology-of-units-of-measure.org/) classification.
-  - `hasNumericalValue` (REQUIRED): amount of the resource.
-- `provider` (REQUIRED): the actor who provided the resource.
-- `receiver` (REQUIRED): the actor who received the resource.
-- `finished` (OPTIONAL): set to true if this economic event completes the to-do.
+- `provider` (RECOMMENDED): the actor who commits to doing the work.  If not included, it is assumed to be the `attributedTo` actor.
+- `receiver` (RECOMMENDED): the actor who will be receiving the benefit.  If not included, it is assumed to be the `to` actor.
+- `finished` (OPTIONAL): set to true if this economic event completes the commitment, or the commitment is no longer open for some reason.
 
 ```json
 {
@@ -155,17 +147,16 @@ The representation of an economic event is a JSON document with the following pr
     "https://www.w3.org/ns/activitystreams",
     {
       "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
-      "vf": "https://w3id.org/valueflows/",
+      "vf": "https://w3id.org/valueflows/ont/vf#",
       "EconomicEvent": "vf:EconomicEvent",
-      "inputOf": "vf:inputOf",
+      "fulfills": "vf:fulfills",
       "receiver": "vf:receiver",
       "provider": "vf:provider",
-      "action": "vf:action",
       "resourceConformsTo": "vf:resourceConformsTo",
-      "resourceQuantity": "vf:resourceQuantity",
       "effortQuantity": "vf:effortQuantity",
       "hasUnit": "om2:hasUnit",
-      "hasNumericalValue": "om2:hasNumericalValue"
+      "hasNumericalValue": "om2:hasNumericalValue",
+      "finished": "vf:finished"
     }
   ],
   "type": "Create",
@@ -175,17 +166,43 @@ The representation of an economic event is a JSON document with the following pr
     "type": "EconomicEvent",
     "id": "https://project.example/inputs/ad2f7ee1-6567-413e-a10b-72650cbdc932",
     "attributedTo": "https://project.example/actors/bob",
-    "context": "https://project.example/plans/ddde9d6f-6f3b-4770-a966-3a18ef006931",
     "published": "2024-10-21T14:16:41.843794Z",
     "fulfills": "https://project.example/todos/ddde9d6f-6f3b-4770-a966-4dkjh8w32e59",
-    "action": "work",
     "resourceConformsTo": "https://www.wikidata.org/wiki/Q3485549",
     "effortQuantity": {
       "hasUnit": "hour",
       "hasNumericalValue": "1.5"
     },
     "provider": "https://project.example/actors/bob",
-    "receiver": "https://project.example/actors/alice"
+    "receiver": "https://project.example/actors/alice",
+    "finished": true
+  },
+  "to": "https://project.example/actors/alice"
+}
+```
+
+The `Commitment` can alternatively be marked as `finished`, without recording an `EconomicEvent`.  This could occur in cases where no work will be done, or work was done but will not be recorded, or some work was recorded earlier without marking the to-do `finished`.  So, `finished` does not imply that the to-do was done, only that it is not waiting to be done any more.
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "vf": "https://w3id.org/valueflows/ont/vf#",
+      "Commitment": "vf:Commitment",
+      "finished": "vf:finished"
+    }
+  ],
+  "type": "Update",
+  "id": "https://project.example/activities/ad2f7ee1-6567-413e-a10b-72650cbdc932/update",
+  "actor": "https://project.example/actors/alice",
+  "object": {
+    "type": "Commitment",
+    "id": "https://project.example/todos/ddde9d6f-6f3b-4770-a966-4dkjh8w32e59",
+    "attributedTo": "https://project.example/actors/alice",
+    "published": "2024-10-24T16:16:41.843794Z",
+    "finished": true
   },
   "to": "https://project.example/actors/alice"
 }
