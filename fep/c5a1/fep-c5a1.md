@@ -14,7 +14,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Creating a to-do
 
-A to-do is implemented as a Valueflows Commitment.
+A to-do is implemented as a Valueflows `Commitment`.
 
 Consuming implementations which don't have planning features MAY display plan-related objects similarly to `Note` objects.
 
@@ -133,8 +133,8 @@ The representation of an economic event is a JSON document with the following pr
 - `published` (RECOMMENDED): the date and time at which the economic event was published.
 - `to` (REQUIRED): the audience of the economic event.
 - `fulfills` (REQUIRED): the commitment the economic event is completely or partially fulfilling.
-- `resourceConformsTo` (OPTIONAL): the type of an economic resource (can be a skill or type of work for the `work` action). Could be any URI.  It does not have to match the commitment, but if not included, can be assumed it is the same.
-- `effortQuantity` (OPTIONAL): the amount and unit of the work done. This is an object with two properties:
+- `resourceConformsTo` (OPTIONAL): the type of an economic resource (for to-do's, can be a skill or type of work). Could be any URI.  It does not have to match the commitment, but if not included, can be assumed it is the same.
+- `effortQuantity` (OPTIONAL): the amount and unit of the work done (for to-do's, usually a time quantity). This is an object with two properties:
   - `hasUnit` (REQUIRED): name of the unit, according to [Ontology of units of Measure](http://www.ontology-of-units-of-measure.org/) classification.
   - `hasNumericalValue` (REQUIRED): amount of the resource.
 - `provider` (RECOMMENDED): the actor who commits to doing the work.  If not included, it is assumed to be the `attributedTo` actor.
