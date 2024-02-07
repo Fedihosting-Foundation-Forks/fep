@@ -164,7 +164,7 @@ A malicious Actor can delay its response to exhaust the Validator's resources. T
 
 For more information on this type of attack, see [SIF-2023-001](https://advisory.silicon.moe/advisory/sif-2023-001/).
 
-## Digest verification on POST requests
+## RFC3230 verification on POST requests
 
 [TODO]
 
@@ -189,7 +189,7 @@ Implementations MUST support the following digest functions for constructing and
 
 - [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
 - [draft-cavage-http-signatures-12] Mark Cavage, Manu Sporny, [draft-cavage-http-signatures-12](https://datatracker.ietf.org/doc/html/draft-cavage-http-signatures-12), 2019
-- [Digest header] MDN Contributors(??), [Digest - HTTP | MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Digest), 2023
+- [RFC 3230] J. Mogul, Compaq WRL, A. Van Hoff, Marimba [RFC 3230](https://www.rfc-editor.org/rfc/rfc3230)
 
 
 ## Copyright
