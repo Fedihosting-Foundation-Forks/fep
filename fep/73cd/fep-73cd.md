@@ -1,12 +1,12 @@
 ---
-slug: "73md"
+slug: "73cd"
 authors: Bumblefudge <@learningproof.xyz> / <@by_caballero@mastodon.social>
 status: DRAFT
 discussionsTo: https://socialhub.activitypub.rocks/t/account-migration-expectations-requirements/3406/16
 relatedFeps: FEP-8b32, FEP-7628, FEP-c390, FEP-ae97, FEP-ef61, FEP-521a
 dateReceived: 2024-02-07
 ---
-# FEP-73md: Migration User Stories
+# FEP-73cd: Migration User Stories
 
 ## Summary
 
