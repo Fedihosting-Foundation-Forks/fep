@@ -18,17 +18,17 @@ Any one of these user stories could be further elaborated in the spirit of the [
 PRs welcome! Add or update!
 
 1. Alice wants to move from Alpha to Gamma, both of which are online and federated to one another. Four possible variants, not mutually exclusive:
-    * A. Alice would like her account on Alpha terminated with some kind of human-readable redirect, i.e., links to old Alice@Alpha content display a warning that “Alice doesn’t live here anymore”
+    * A. Alice would like her account on Alpha terminated with some kind of human-readable redirect, i.e., links to old Alice@Alpha content display a warning that “Alice doesn't live here anymore”
     * B. Alice would like Alpha to dynamically redirect any links to Alice@Alpha or to any specific content she posted/generated there to a reasonable default “homepage” for Alice@Gamma
     * C. Alice would like Alpha to dynamically redirect any links to Alice@Alpha content to the migrated contents @Gamma (i.e. 301 HTTP codes and nginx-style URL rewrites)
     * D. Alice would like her account on Alpha to remain active and accept new posts, but would like her followers to know about the new account as well.
-2. Bob is asked to leave Alpha by its moderation team, who have disabled new posts on that account but are allowing Bob to log in to facilitate a one-way, permanent migration to a new server of Bob’s choosing as a courtesy.
+2. Bob is asked to leave Alpha by its moderation team, who have disabled new posts on that account but are allowing Bob to log in to facilitate a one-way, permanent migration to a new server of Bob's choosing as a courtesy.
 3. Bob finds a new home on the server Beta, which is specifically de-federated by Alpha for incompatible moderation policies. Bob would like to announce to his followers his new account, without Alpha and Beta having to communicate with one another.
 4. Charlie would like to move to Gamma from Delta, because the latter was recently and unexpectedly taken offline by government intervention. Before going dark, Gamma had already authorized a custom client for Charlie, which he used to sign each posts with a self-managed private key, and Charlie had backed up his posts and media a few months prior.
-5. Server Delta, when Charlie uploads his back-up of content from Gamma (RIP), would like to check Gamma’s moderation records before importing the archive. While Gamma is no longer online, Charlie does find a recent backup of Gamma’s moderation records that was more recent than his backup.
-6. Server Epsilon, which Daniel wants to migrate to from Delta, has no moderation policy because Daniel is its only user and he has full admin rights over it. Daniel logs into Epsilon and loads a recent backup without having to worry about Delta’s policies at all.
-7. Delta did not support all the same features and Activity types that Gamma did at time of Charlie’s import. Two variants:
-    * A. Delta’s import wizard warned Charlie to keep his backup and try again later. Years later, he does, and additional content is imported now that Delta supports a bigger subset of Gamma’s Activity types.
+5. Server Delta, when Charlie uploads his back-up of content from Gamma (RIP), would like to check Gamma's moderation records before importing the archive. While Gamma is no longer online, Charlie does find a recent backup of Gamma's moderation records that was more recent than his backup.
+6. Server Epsilon, which Daniel wants to migrate to from Delta, has no moderation policy because Daniel is its only user and he has full admin rights over it. Daniel logs into Epsilon and loads a recent backup without having to worry about Delta's policies at all.
+7. Delta did not support all the same features and Activity types that Gamma did at time of Charlie's import. Two variants:
+    * A. Delta's import wizard warned Charlie to keep his backup and try again later. Years later, he does, and additional content is imported now that Delta supports a bigger subset of Gamma's Activity types.
     * B. Delta stored all un-imported data in a separate archive for Charlie. Years later, when Charlie goes to export his Delta content, both the un-imported Archive and the imported content alike get included in his backup, and it all gets imported to Zeta.
 
 ## Use-Case to FEP Mapping
