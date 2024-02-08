@@ -11,6 +11,9 @@ dateReceived: 2024-02-07
 ## Summary
 
 In the interest of clarifying and aligning on the problem-space of user account migration, multiple-account management, and export/import/migration of content/activity history, these user stories are offered to organize discussion and solution-sharing.
+
+## Contributing
+
 Any one of these user stories could be further elaborated in the spirit of the [SWAT exercise](https://www.w3.org/2005/Incubator/federatedsocialweb/wiki/SWAT0) that served as ActivityPub's initial "definition of done", perhaps in a separate FEP and/or SocialHub thread.
 
 ## Migration User Stories
