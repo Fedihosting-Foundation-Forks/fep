@@ -33,14 +33,14 @@ PRs welcome! Add or update!
 
 ## Use-Case to FEP Mapping
 
-Note: this section is largely subjective and intended as an aid to decision-making, NOT as any kind of definitive statement about the utility or necessity of other FEPs. 
+Note: this section is largely subjective and intended as an aid to decision-making, NOT as any kind of definitive statement about the utility or necessity of other FEPs.
 Feel free to PR in links to blog posts or other tutorials that explain a given implementation of any user stories to the "profile" row in the form `[1](<link>), [2](<link>)...`
 
-- Key:
-    - [R]equired
-    - [H]elpful
-    - [U]nknown
-    - [1/2/3] Optionality sets
+* Key:
+  * [R]equired
+  * [H]elpful
+  * [U]nknown
+  * [1/2/3] Optionality sets
 
 |Use cases:|1A|1B|1C|1D|2|3|4|5|6|7A|7B|
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -52,24 +52,23 @@ Feel free to PR in links to blog posts or other tutorials that explain a given i
 |[FEP-ef61 "Portable Objects"](https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md)|||||||R|||||
 |[FEP-521a "Actor's Public KeyS"](https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md)|||||||H?|H?|H?|||
 |FEP-TBD [Per-user? Per-server? both?] "Moderation Records"||||||||R|H|||
-|FEP-TBD "Forwarding and Redirecting Migrated Actors"||H|R|R?|H|H|R||||
+|FEP-TBD "Forwarding and Redirecting Migrated Actors"||H|R|R?|H|H|R|||||
 |FEP-TBD "Activity Archives/Export Format"||||||||||R|R|
-|Profiles needed to combine the above?|
+|Profiles needed to combine the above?||||||||||||
 
 ## Open Questions
 
-- [arbitrary Actor Metadata k/v pairs as per FEP-fb2a](https://codeberg.org/fediverse/fep/src/branch/main/fep/fb2a/fep-fb2a.md) might be useful as a legacy/fallback for some of the above?
-- likewise the [custom TXT record that FEP-612d proposes for mapping domains to actors](https://codeberg.org/fediverse/fep/src/branch/main/fep/612d/fep-612d.md) might be a useful way of doing "migration from dead server" or some such?
-- exporting activity-histories should probably also export histories of each activity in that activity history, as per [FEP-bad1, Object History collection](https://codeberg.org/fediverse/fep/src/branch/main/fep/bad1/fep-bad1.md)
-    - do FEP-bad1 histories span multiple services?
-        - if so, does "this content was originally uploaded to another server" belong in a new FEP or what?
-- migrating accounts should probably migrate [PENDING follows as per FEP-4ccd](https://codeberg.org/fediverse/fep/src/branch/main/fep/4ccd/fep-4ccd.md), and/or do a full [follower sync as per FEP-8fcf](https://codeberg.org/fediverse/fep/src/branch/main/fep/8fcf/fep-8fcf.md)
+* [arbitrary Actor Metadata k/v pairs as per FEP-fb2a](https://codeberg.org/fediverse/fep/src/branch/main/fep/fb2a/fep-fb2a.md) might be useful as a legacy/fallback for some of the above?
+* likewise the [custom TXT record that FEP-612d proposes for mapping domains to actors](https://codeberg.org/fediverse/fep/src/branch/main/fep/612d/fep-612d.md) might be a useful way of doing "migration from dead server" or some such?
+* exporting activity-histories should probably also export histories of each activity in that activity history, as per [FEP-bad1, Object History collection](https://codeberg.org/fediverse/fep/src/branch/main/fep/bad1/fep-bad1.md)
+  * do FEP-bad1 histories span multiple services?
+    * if so, does "this content was originally uploaded to another server" belong in a new FEP or what?
+* migrating accounts should probably migrate [PENDING follows as per FEP-4ccd](https://codeberg.org/fediverse/fep/src/branch/main/fep/4ccd/fep-4ccd.md), and/or do a full [follower sync as per FEP-8fcf](https://codeberg.org/fediverse/fep/src/branch/main/fep/8fcf/fep-8fcf.md)
 
 ## References
 
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [ABC] Alyssa P. Hacker, [An example proposal](http://abc.example/abc.html), 2020
-
+* [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
+* [ABC] Alyssa P. Hacker, [An example proposal](http://abc.example/abc.html), 2020
 
 ## Copyright
 
