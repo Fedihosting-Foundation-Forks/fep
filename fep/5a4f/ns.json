@@ -1,0 +1,58 @@
+{
+    "@context": {
+        "as": "https://www.w3.org/ns/activitystreams#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "fd": "http://www.w3id.org/fep/5a4f/ns.json#",
+        "Subject": "fd:Subject",
+        "Voter": "fd:Voter",
+        "Vote": "fd:Vote",
+        "actualEndTime": {
+            "@type": "xsd:dateTime",
+            "@id": "fd:actualEndTime"
+        },
+        "allowsNeutralResponses": {
+            "@type": "xsd:boolean",
+            "@id": "fd:allowsNeutralResponses"
+        },
+        "wasVetoed": {
+            "@type": "xsd:boolean",
+            "@id": "fd:wasVetoed"
+        },
+        "result": {
+            "@type": "xsd:boolean",
+            "@id": "fd:result"
+        },
+        "forCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@id": "fd:forCount"
+        },
+        "neutralCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@id": "fd:neutralCount"
+        },
+        "againstCount": {
+            "@type": "xsd:nonNegativeInteger",
+            "@id": "fd:againstCount"
+        },
+        "voters": {
+            "type": "@id",
+            "@id": "fd:voters"
+        },
+        "for": {
+            "type": "@id",
+            "@id": "fd:for"
+        },
+        "neutral": {
+            "type": "@id",
+            "@id": "fd:neutral"
+        },
+        "against": {
+            "type": "@id",
+            "@id": "fd:against"
+        },
+        "voter": {
+            "type": "@id",
+            "@id": "fd:vector" 
+        }
+    }
+}
