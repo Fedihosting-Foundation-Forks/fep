@@ -18,7 +18,7 @@ This FEP intends to solve that by introducing [ActivityPub] types and properties
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [RFC-2119].
 
 ## Specification
-Types and properties introduced in this FEP have the `https://w3id.org/fep/5a4f/ns.json#` prefix, shortened to `fd`. The `https://www.w3.org/ns/activitystreams#` prefix is shortened to `as`. Types and properties defined by this FEP MUST NOT be used in any way not described in this FEP or an extension of it, to prevent accidental voting.
+Types and properties introduced in this FEP have the [`https://www.w3id.org/fep/5a4f/ns.json#`](ns.json) prefix, shortened to `fd`. The `https://www.w3.org/ns/activitystreams#` prefix is shortened to `as`. Types and properties defined by this FEP MUST NOT be used in any way not described in this FEP or an extension of it, to prevent accidental voting.
 
 This FEP defines the following properties:
 * `fd:actualEndTime`, a functional `xsd:dateTime`.
