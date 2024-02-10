@@ -3,19 +3,22 @@ slug: "5a4f"
 authors: Laxystem <the@laxla.quest>
 status: DRAFT
 ---
-[ActivityPub]: https://www.w3.org/TR/activitypub
-[RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
-
 # FEP-5a4f: Federated Democracy
 
 ## Summary
 Online organizations (such as FOSS projects) often find themselves in the position where they need to make collective decisions,
 with no real organization-wide polling option.
 
-This FEP intends to solve that by introducing [ActivityPub] types and properties to allow for federated and democratic votes.
+This FEP intends to solve that by introducing [[ActivityPub]] types and properties to allow for federated and democratic votes.
 
 ## Requirements
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [RFC-2119].
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [[RFC-2119]].
+
+## Scope
+
+The scope of this FEP is to define the basic behaviour and data of votes.
+
+It is outside the scope of this FEP to handle vote creation, nor authorization.
 
 ## Specification
 Types and properties introduced in this FEP have the [`https://www.w3id.org/fep/5a4f/ns.json#`](ns.json) prefix, shortened to `fd`. The `https://www.w3.org/ns/activitystreams#` prefix is shortened to `as`. Types and properties defined by this FEP MUST NOT be used in any way not described in this FEP or an extension of it, to prevent accidental voting.
@@ -48,6 +51,7 @@ This FEP defines the following types:
     * MUST have a `as:startTime`. This property MUST NOT be changed via an `as:Update` activity.
     * MUST have a single `as:closed`, being a valid `xsd:dateTime` or `xsd:boolean`.
     * MUST have an `fd:allowsNeutralVotes`.
+    * MUST have an `as:sharedInbox`.
     * SHOULD have a `as:subject`, referencing a `fd:Subject`. This property MUST NOT be changed via an `as:Update` activity.
     * SHOULD have a `fd:result` if this vote has ended.
     * SHOULD have a `fd:forCount`.
@@ -61,4 +65,20 @@ This FEP defines the following types:
     * MAY have a `fd:neutral`.
     * MAY have an `fd:against`.
 
-The activities `as:Accept`, `as:Ignore` and `as:Reject` may be used with `fd:voter` and an `as:object` of `as:Vote` to vote for, neutral, and against it, respectively.
+### Responding to a vote
+
+One may respond to a vote by sending an `as:Accept` (in favour), `as:Ignore` (neutral), or `as:Reject` (against) activity to a vote's `as:sharedInbox` with a `fd:voter` and with an `as:object` containing the vote.
+
+## References
+
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
+
+- [[ActivityPub]] Christine Lemmer Webber, Jessica Tallon, 2018
+- [[RFC-2119]] S. Bradner, 1997
+
+## Copyright
+
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+
+To the extent possible under law, the authors of this Fediverse Enhancement Proposal have waived all copyright and related or neighboring rights to this work.
