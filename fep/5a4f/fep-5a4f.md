@@ -9,14 +9,16 @@ status: DRAFT
 Online organizations (such as FOSS projects) often find themselves in the position where they need to make collective decisions,
 with no real organization-wide polling option.
 
-This FEP intends to solve that by introducing [[ActivityPub]] types and properties to allow for federated and democratic votes.
+This FEP intends to solve that by introducing [[ActivityStreams 2.0]] types and properties to allow for federated and democratic votes.
 
 ## Requirements
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [[RFC-2119]].
 
-## Scope
+## Motivation
 
-The scope of this FEP is to define the basic behaviour and data of votes.
+Management of democratic online organizations is currently very hard. There's no one platform that all people have that supports advanced democratic votes, and there's no single platform that supports automatically applying the results of a vote.
+
+This FEP intends to fix that, by introducing a specification for federated votes built on [[ActivityStreams 2.0]], and designed to be used together with [[ActivityPub]].
 
 It is outside the scope of this FEP to handle vote creation, nor authorization.
 
@@ -43,7 +45,7 @@ This FEP defines the following types:
     * SHOULD have a `fd:voters`.
     * SHOULD have at least one `as:summary`.
 * `fd:Voter`, extends `as:Object`.
-    * MUST have a `as:name`.
+    * MUST have at least one `as:name`.
     * MUST have an `@id`.
     * MAY have a `@type` of `as:Actor`.
 * `fd:Vote`, extends `as:IntransitiveActivity`.
@@ -60,10 +62,10 @@ This FEP defines the following types:
     * MAY have a `as:describes`, referencing the `as:Activity` that'll be executed if this vote succeeds. This property MUST NOT be changed via an `as:Update` activity.
     * MAY have a `as:target`, referencing the `as:Object` or `as:Link` this vote will affect.
     * MAY have an `as:endTime`, signifies when a vote is planned to end. Votes will be considered time un-limited if this property is missing.
-    * MAY have a `fd:wasVetoed`.
-    * MAY have a `fd:for`.
-    * MAY have a `fd:neutral`.
-    * MAY have an `fd:against`.
+    * MAY have a `fd:wasVetoed`. Implementations MUST NOT assume veto implies a `fd:result` of `false`.
+    * MAY have a `fd:for`. MAY contain less `fd:Voter`s than `fd:forCount`.
+    * MAY have a `fd:neutral`. MAY contain less `fd:Voter`s than `fd:neutralCount`.
+    * MAY have an `fd:against`. MAY contain less `fd:Voter`s than `fd:againstCount`.
 
 ### Responding to a vote
 
@@ -72,9 +74,11 @@ One may respond to a vote by sending an `as:Accept` (in favour), `as:Ignore` (ne
 ## References
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
+[ActivityStreams 2.0]: https://www.w3.org/TR/activitystreams-core/
 [RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
 
 - [[ActivityPub]] Christine Lemmer Webber, Jessica Tallon, 2018
+- [[ActivityStreams 2.0]], James M. Snell, Evan Prodromou, 2017
 - [[RFC-2119]] S. Bradner, 1997
 
 ## Copyright
