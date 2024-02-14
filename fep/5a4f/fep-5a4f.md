@@ -25,6 +25,113 @@ It is outside the scope of this FEP to handle vote creation, nor authorization.
 ## Specification
 Types and properties introduced in this FEP have the [`https://www.w3id.org/fep/5a4f#`](context.jsonld) prefix, shortened to `fd`. The `https://www.w3.org/ns/activitystreams#` prefix is shortened to `as`. Types and properties defined by this FEP MUST NOT be used in any way not described in this FEP or an extension of it, to prevent accidental voting.
 
+
+### Types
+
+<dl>
+
+<dt id="Topic">Topic</dt>
+<dd>
+<p>
+
+The topic of a vote. For example (this sentence is non-normative), an election's subject is to enact a new leader.
+
+</p>
+<ul>
+<li>URI: <code>https://w3id.org/fep/888d#Subject</code></li>
+<li>Inherits from: <a href="https://www.w3.org/ns/activitystreams#Object"><code>as:Object</code></a></li>
+<li>REQUIRED properties:
+<code>@id</code>
+</li>
+<li>RECOMMENDED properties:
+<a href="https://www.w3.org/ns/activitystreams#summary"><code>as:summary</code></a> |
+<a href="#voters"><code>voters</code></a>
+</li>
+<li>Examples:<ul>
+<li>
+
+```json
+{
+    "@context": ["https://www.w3.org/ns/activitystreams#", {
+        "fd": "https://www.w3id.org/fep/5a4f#"
+    }],
+    "@type": "fd:Topic",
+    "@id": "https://example.social/profile/42?permission=CREATE_NOTES",
+    "summary": "Send messages as Alice on example.social.",
+    "fd:voters": null
+}
+```
+
+</li>
+</ul>
+</li>
+</ul>
+</dd>
+
+<dt id="Voter">Voter</dt>
+<dd>
+<p>
+
+An object authorized to vote on a [Topic](#topic).
+
+</p>
+<ul>
+<li>URI: <code>https://w3id.org/fep/888d#Voter</code></li>
+<li>Inherits from: <a href="https://www.w3.org/ns/activitystreams#Voter"><code>as:Object</code></a></li>
+<li>REQUIRED properties:
+<code>@id</code> |
+<a href="#topic"><code>topic</code></a>
+</li>
+<li>RECOMMENDED properties: 
+<a href="https://www.w3.org/ns/activitystreams#summary"><code>as:summary</code></a>,
+<a href="https://www.w3.org/ns/activitystreams#actor"><code>as:actor</code></a>
+</li>
+<li>Examples:<ul>
+<li>
+
+```json
+{
+    "@context": ["https://www.w3.org/ns/activitystreams#", {
+        "fd": "https://www.w3id.org/fep/5a4f#"
+    }],
+    "@type": "fd:Voter",
+    "@id": "https://example.social/voter/42",
+    "summary": "An anonymous voter on example.social",
+    "fd:topic": "https://example.social/profile/42?permission=CREATE_NOTES",
+}
+```
+
+</li>
+<li>
+
+
+```json
+{
+    "@context": ["https://www.w3.org/ns/activitystreams#", {
+        "fd": "https://www.w3id.org/fep/5a4f#"
+    }],
+    "@type": "fd:Voter",
+    "@id": "https://example.social/voter/35",
+    "actor": {
+        "@type": "Person",
+        "@id": "acct:bob@example.social",
+        "summary": "I'm bob - an amazing bob.",
+        "name": "The Bob",
+        "inbox": "https://example.social/profile/7/inbox",
+        "outbox": "https://example.social/profile/7/outbox"
+    },
+    "fd:topic": "https://example.social/profile/42?permission=CREATE_NOTES"
+}
+```
+
+</li>
+</ul>
+</li>
+</ul>
+</dd>
+
+</dl>
+
 This FEP defines the following properties:
 * `fd:actualEndTime`, a functional `xsd:dateTime`.
 * `fd:allowsNeutralResponses`, a functional `xsd:boolean`.
@@ -47,6 +154,7 @@ This FEP defines the following types:
 * `fd:Voter`, extends `as:Object`.
     * MUST have at least one `as:name`.
     * MUST have an `@id`.
+    * MUST have an `as:subject`, referencing a `fd:Subject`.
     * MAY have a `@type` of `as:Actor`.
 * `fd:Vote`, extends `as:IntransitiveActivity`.
     * MUST have at least one `as:summary`.
