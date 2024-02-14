@@ -23,7 +23,7 @@ This FEP intends to fix that, by introducing a specification for federated votes
 It is outside the scope of this FEP to handle vote creation, nor authorization.
 
 ## Specification
-Types and properties introduced in this FEP have the [`https://www.w3id.org/fep/5a4f/ns.json#`](ns.json) prefix, shortened to `fd`. The `https://www.w3.org/ns/activitystreams#` prefix is shortened to `as`. Types and properties defined by this FEP MUST NOT be used in any way not described in this FEP or an extension of it, to prevent accidental voting.
+Types and properties introduced in this FEP have the [`https://www.w3id.org/fep/5a4f#`](context.jsonld) prefix, shortened to `fd`. The `https://www.w3.org/ns/activitystreams#` prefix is shortened to `as`. Types and properties defined by this FEP MUST NOT be used in any way not described in this FEP or an extension of it, to prevent accidental voting.
 
 This FEP defines the following properties:
 * `fd:actualEndTime`, a functional `xsd:dateTime`.
