@@ -2,7 +2,7 @@
     "@context": {
         "as": "https://www.w3.org/ns/activitystreams#",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "fd": "http://www.w3id.org/fep/5a4f/ns.json#",
+        "fd": "http://www.w3id.org/fep/5a4f#",
         "Subject": "fd:Subject",
         "Voter": "fd:Voter",
         "Vote": "fd:Vote",
