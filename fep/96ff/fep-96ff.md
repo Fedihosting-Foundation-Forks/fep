@@ -50,6 +50,29 @@ semantics (This enables backwards compatibility with existing implementations.)
 A conformant implementation MUST NOT process any other HTTP messages with ActivityPub 
 semantics.
 
+Conformant implementations MUST support messages containing multiple Link headers, 
+including multiple link headers with the "type" relation. The following examples 
+are all valid and indicate that processing should occur with ActivityPub semantics:
+
+```
+Link: <https://www.w3.org/TR/activitypub/>;rel="type"
+
+Link: <https://www.w3.org/TR/activitypub/>;rel="type", <https://example.com/>;rel="test"
+
+link: <https://www.w3.org/TR/activitypub/>;rel="type", <https://example.com/>;rel="type"
+
+LINK: <https://www.w3.org/TR/activitypub/>;rel="type"
+Link: <https://example.com/>;rel="test"
+
+Link: <https://www.w3.org/TR/activitypub/>;rel="type"
+lInK: <https://example.com/>;rel="type"
+```
+
+Implementations are encouraged to periodically add additional Link relations to their
+messages to ensure support by counterparties. (This process is typically termed
+[greasing](https://www.rfc-editor.org/rfc/rfc8701.html), after the GREASE extension
+to TLS)
+
 For the avoidance of doubt, ActivityPub semantics apply only in cases where 
 implementations expect to transfer ActivityStreams 2 documents with the semantics
 described in [the ActivityPub specification][AP]. This link relation MUST NOT be
