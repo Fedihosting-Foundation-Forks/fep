@@ -4,7 +4,7 @@ authors: Erin Shepherd <fep@erinshepherd.net>
 status: DRAFT
 dateReceived: 2024-02-17
 ---
-# FEP-96FF: Explicit signalling of ActivityPub Semantics
+# FEP-96ff: Explicit signalling of ActivityPub Semantics
 ## Summary
 A number of vulnerabilities have occurred in ActivityPub implementations due to
 "type confusion" attacks - where unrelated files on the same hostnmae as an ActivityPub
