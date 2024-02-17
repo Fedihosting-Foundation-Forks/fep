@@ -43,8 +43,8 @@ ActivityStreams 2 with ActivityPub semantics.
 
 A conformant implementation MAY process a HTTP message without any Link header with
 relation "type", where the `Content-Type` header contains exactly the value 
-`application/activity+json` or 
-`application/ld+json; profile="https://www.w3.org/ns/activitystreams"` with ActivityPub
+`application/activity+json` or `application/ld+json` with a profile parameter 
+containing the token `https://www.w3.org/ns/activitystreams` with ActivityPub
 semantics (This enables backwards compatibility with existing implementations.)
 
 A conformant implementation MUST NOT process any other HTTP messages with ActivityPub 
@@ -55,6 +55,21 @@ implementations expect to transfer ActivityStreams 2 documents with the semantic
 described in [the ActivityPub specification][AP]. This link relation MUST NOT be
 included for other exchanges that an ActivityPub implementation may perform, 
 including but not limited to WebFinger queries.
+
+## Why not just rely upon the content type?
+The content type alone does not specify semantics. The ActivityStreams 2 syntax
+can be used independently of ActivityPub, and non-ActivityPub systems
+[such as Cohost](https://cohost.org/jkap/post/1249642-how-i-message-detects)
+produce ActivityStreams 2 documents.
+
+Additionally, even though ActivityPub implementations can prevent the creation
+of unexpected resources with an ActivityStreams content type, they cannot prevent
+other applications running on the same name from permitting the untrusted
+creation of such resources. 
+
+It is hoped that a future version of this specification (after widespread deployment
+of explicit tagging of messages with explicit semantics) can omit the permission
+to determine semantics based upon media type.
 
 ## Vulnerabilities (Non-Normative)
 The following is a list of known implementation vulnerabilities which would have
