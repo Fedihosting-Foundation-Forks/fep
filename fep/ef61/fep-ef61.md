@@ -57,12 +57,12 @@ GET https://social.example/.well-known/apresolver/did:ap:key:z6MkrJVnaZkeFzdQyMZ
 
 ActivityPub objects identified by `did:ap:key` URLs can be stored on multiple servers simultaneously.
 
-If object identified by `did:ap:key` URL is stored on the server, it MUST return a response with status `200 OK` containing the requested object. The response MUST have a `Link` header with `rel` parameter set to `canonical` and containing an HTTP(S) URL corresponding to a requested DID URL.
+If object identified by `did:ap:key` URL is stored on the server, it MUST return a response with status `200 OK` containing the requested object. The response MUST have a `Link` header with `rel` parameter set to `alternate` and containing an HTTP(S) URL corresponding to a requested DID URL.
 
 Example:
 
 ```
-Link: <https://social.example/objects/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object>; rel="canonical"
+Link: <https://social.example/objects/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object>; rel="alternate"
 ```
 
 If object identified by `did:ap:key` URL is not stored on a server, it MUST return `404 Not Found`.
@@ -133,6 +133,16 @@ ActivityPub clients MUST follow [FEP-ae97][FEP-ae97] to publish activities. A cl
 
 Upon receiving an activity in actor's inbox, server SHOULD forward it to inboxes located on other servers where actor's data is stored.
 
+### Discovering locations
+
+(This section is non-normative.)
+
+This proposal makes use of the `aliases` property, but the following alternatives are being considered:
+
+- `sameAs`
+- `alsoKnownAs` (used for account migrations, so the usage of this property may cause issues)
+- `url` (with `alternate` [relation type](https://html.spec.whatwg.org/multipage/links.html#linkTypes))
+
 ## Portable objects
 
 Objects identified by `did:ap:key` URLs MUST contain [FEP-8b32][FEP-8b32] integrity proof.
@@ -174,10 +184,12 @@ Example:
 
 ## Compatibility
 
+(This section is non-normative.)
+
 DID URLs are not compatible with existing [ActivityPub][ActivityPub] implementations. The following workarounds are being considered:
 
 1. Use HTTP URL of a resolver query instead of an actual DID URL. Implementations that support DID URLs should be able to extract the DID URL from the HTTP URL and process the object accordingly.
-2. Use regular HTTP URLs but include a link to a DID URL in the `url` (with the `canonical` relation type, as proposed in [FEP-fffd][FEP-fffd]).
+2. Use regular HTTP URLs but include a link to a DID URL in the `url` (with `canonical` relation type, as proposed in [FEP-fffd][FEP-fffd]). For pointers to other objects such as `inReplyTo` property, an embedded object with `url` property can be used instead of a plain URL.
 3. Alter object ID depending on the capabilities of the peer which can be reported by [NodeInfo][NodeInfo] or some other mechanism.
 
 ## References
