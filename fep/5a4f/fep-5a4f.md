@@ -68,18 +68,20 @@ and outputs the result if enough information was provided.
 
 ### Responding to Votes
 
-One may respond to a [`fd:Vote`] by sending an authenticated `PUT` request containing an `Accept`, `Ignore`
-or `Reject` activity (standing for in favour, neutrally, and against, respectively)
-to its [`as:sharedInbox`](https://www.w3.org/ns/activitystreams#sharedInbox).
+One may respond to a [`fd:Vote`] by `PUT`ting an `Accept`, `Ignore` 
+or `Reject` activity (standing for in favour, neutral, and against, respectively) into its `@id`.
+
+Vote responses MUST have the `fd:voter` property.
 
 If the [`fd:allowsEditingResponses`] property is `true`,
 another response made by the same `fd:Voter` will replace the previous one.
 Otherwise, the receiving server MUST respond with 405 Method Not Allowed.
 
-Vote responses MUST have the `fd:voter` and `as:object` properties, containing the `fd:Voter` and the `fd:Vote`,
-respectively.
 
-Vote responses MUST NOT be made nor accepted if `as:ended` is not `null`.
+If a server receives a response to a vote whose [`fd:ended`] is not `null`, it MUST respond with 405 Method Not Allowed.
+
+If a response was received successfully, the server MUST respond with 202 Accepted
+(if the receiving server hasn't updated the cached [`fd:result`], if any) or 204 No Content.
 
 ### Evaluating Votes via Public Algorithms
 
@@ -145,8 +147,6 @@ This link must return a JsonLD document containing at least one [`as:Link`].
 
 [`as:name`]: https://www.w3.org/ns/activitystreams#name
 
-[`as:sharedInbox`]: https://www.w3.org/ns/activitystreams#sharedInbox
-
 [`as:startTime`]: https://www.w3.org/ns/activitystreams#startTime
 
 [`as:summary`]: https://www.w3.org/ns/activitystreams#summary
@@ -198,13 +198,49 @@ not present and [`fd:ended`] is not `null`.
 
 * URI: `https://w3id.org/fep/5a4f#Vote`
 * Inherits from: [`as:IntransitiveActivity`]
-* REQUIRED properties: `@id` | [`as:sharedInbox`] | [`as:startTime`]* | [`fd:againstCount`] |
+* REQUIRED properties: `@id` | [`as:startTime`]* | [`fd:againstCount`] |
 [`fd:allowsEditingResponses`]* | [`fd:allowsNeutralResponses`]* | [`fd:ended`] | [`fd:inFavourCount`] |
 [`fd:neutralCount`] | [`fd:topic`]* | [`fd:wasVetoed`]
 * RECOMMENDED properties: [`as:summary`] | [`fd:algorithm`]* | [`fd:result`]
 * OPTIONAL properties: [`as:describes`]* | [`as:endTime`] | [`as:target`]* | [`fd:against`] | [`fd:inFavour`] |
 [`fd:neutral`]
-* Examples: TODO
+* Examples:
+  * ```json
+    { 
+      "@context": [
+        "https://www.w3.org/ns/activitystreams#",
+        {
+          "fd": "https://www.w3id.org/fep/5a4f#"
+        }
+      ],
+      "@type": "fd:Vote",
+      "@id": "https://example.social/vote/74",
+      "fd:topic": "https://example.social/profile/42?permission=CREATE_NOTES",
+      "fd:inFavourCount": 17,
+      "fd:neutralCount": 6,
+      "fd:againstCount": 3,
+      "fd:inFavour": "https://example.social/profile/42/voters?permission=CREATE_NOTES&inFavour=74",
+      "fd:neutral": "https://example.social/profile/42/voters?permission=CREATE_NOTES&neutral=74",
+      "fd:against": "https://example.social/profile/42/voters?permission=CREATE_NOTES&against=74",
+      "fd:wasVetoed": false,
+      "fd:ended": null,
+      "fd:allowsNeutralResponses": true,
+      "fd:allowsEditingResponses": true,
+      "summary": "Publish a note 'Good Morning, Fediverse!' as Alice on example.social.",
+      "describes": {
+        "@type": "Create",
+        "actor": "https://example.social/profile/42",
+        "object": {
+          "@type": "Note",
+          "content": {
+            "@value": "Good Morning, Fediverse!",
+            "@language": "en-IL"
+          },
+          "attributedTo": [ "https://example.social/profile/42", "https://example.social/vote/74" ]
+        }
+      }
+    }
+    ```
 
 </dd>
 <dt id="Voter">Voter</dt><dd>
