@@ -204,43 +204,52 @@ not present and [`fd:ended`] is not `null`.
 * RECOMMENDED properties: [`as:summary`] | [`fd:algorithm`]* | [`fd:result`]
 * OPTIONAL properties: [`as:describes`]* | [`as:endTime`] | [`as:target`]* | [`fd:against`] | [`fd:inFavour`] |
 [`fd:neutral`]
-* Examples:
-  * ```json
-    { 
-      "@context": [
-        "https://www.w3.org/ns/activitystreams#",
-        {
-          "fd": "https://www.w3id.org/fep/5a4f#"
-        }
-      ],
-      "@type": "fd:Vote",
-      "@id": "https://example.social/vote/74",
-      "fd:topic": "https://example.social/profile/42?permission=CREATE_NOTES",
-      "fd:inFavourCount": 17,
-      "fd:neutralCount": 6,
-      "fd:againstCount": 3,
-      "fd:inFavour": "https://example.social/profile/42/voters?permission=CREATE_NOTES&inFavour=74",
-      "fd:neutral": "https://example.social/profile/42/voters?permission=CREATE_NOTES&neutral=74",
-      "fd:against": "https://example.social/profile/42/voters?permission=CREATE_NOTES&against=74",
-      "fd:wasVetoed": false,
-      "fd:ended": null,
-      "fd:allowsNeutralResponses": true,
-      "fd:allowsEditingResponses": true,
-      "summary": "Publish a note 'Good Morning, Fediverse!' as Alice on example.social.",
-      "describes": {
-        "@type": "Create",
-        "actor": "https://example.social/profile/42",
-        "object": {
-          "@type": "Note",
-          "content": {
-            "@value": "Good Morning, Fediverse!",
-            "@language": "en-IL"
-          },
-          "attributedTo": [ "https://example.social/profile/42", "https://example.social/vote/74" ]
-        }
+  * Examples:
+    * ```json
+      {
+        "@context": [
+          "https://www.w3.org/ns/activitystreams#",
+          {
+            "fd": "https://www.w3id.org/fep/5a4f#"
+          }
+        ],
+        "@id": "https://example.social/vote/74",
+        "@type": "fd:Vote",
+        "summary": "Publish a note 'Good Morning, Fediverse!' as Alice on example.social.",
+        "describes": {
+          "@type": "Create",
+          "actor": "https://example.social/profile/42",
+          "object": {
+            "@type": "Note",
+            "content": {
+              "@value": "Good Morning, Fediverse!",
+              "@language": "en-IL"
+            },
+            "attributedTo": [
+              "https://example.social/profile/42",
+              "https://example.social/vote/74"
+            ]
+          }
+        },
+        "fd:topic": "https://example.social/profile/42?permission=CREATE_NOTES",
+        "fd:algorithm": {
+          "@id": "https://example.dev/algorithm/simple",
+          "@type": "Link",
+          "name": "Example.Dev's Simple Voting Algorithm",
+          "summary": "The simplest algorithm possible - returns true if more chose in favour than against."
+        },
+        "fd:allowsEditingResponses": true,
+        "fd:allowsNeutralResponses": true,
+        "fd:ended": null,
+        "fd:wasVetoed": false,
+        "fd:inFavour": "https://example.social/profile/42/voters?permission=CREATE_NOTES&inFavour=74",
+        "fd:inFavourCount": 17,
+        "fd:neutral": "https://example.social/profile/42/voters?permission=CREATE_NOTES&neutral=74",
+        "fd:neutralCount": 6,
+        "fd:against": "https://example.social/profile/42/voters?permission=CREATE_NOTES&against=74",
+        "fd:againstCount": 3
       }
-    }
-    ```
+      ```
 
 </dd>
 <dt id="Voter">Voter</dt><dd>
