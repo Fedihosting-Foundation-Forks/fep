@@ -1,58 +1,74 @@
 {
-    "@context": {
-        "as": "https://www.w3.org/ns/activitystreams#",
-        "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "fd": "http://www.w3id.org/fep/5a4f#",
-        "Subject": "fd:Subject",
-        "Voter": "fd:Voter",
-        "Vote": "fd:Vote",
-        "actualEndTime": {
-            "@type": "xsd:dateTime",
-            "@id": "fd:actualEndTime"
-        },
-        "allowsNeutralResponses": {
-            "@type": "xsd:boolean",
-            "@id": "fd:allowsNeutralResponses"
-        },
-        "wasVetoed": {
-            "@type": "xsd:boolean",
-            "@id": "fd:wasVetoed"
-        },
-        "result": {
-            "@type": "xsd:boolean",
-            "@id": "fd:result"
-        },
-        "forCount": {
-            "@type": "xsd:nonNegativeInteger",
-            "@id": "fd:forCount"
-        },
-        "neutralCount": {
-            "@type": "xsd:nonNegativeInteger",
-            "@id": "fd:neutralCount"
-        },
-        "againstCount": {
-            "@type": "xsd:nonNegativeInteger",
-            "@id": "fd:againstCount"
-        },
-        "voters": {
-            "type": "@id",
-            "@id": "fd:voters"
-        },
-        "for": {
-            "type": "@id",
-            "@id": "fd:for"
-        },
-        "neutral": {
-            "type": "@id",
-            "@id": "fd:neutral"
-        },
-        "against": {
-            "type": "@id",
-            "@id": "fd:against"
-        },
-        "voter": {
-            "type": "@id",
-            "@id": "fd:vector" 
-        }
+  "@context": {
+    "as": "https://www.w3.org/ns/activitystreams#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "fd": "https://www.w3id.org/fep/5a4f#",
+    "Topic": "fd:Topic",
+    "Vote": "fd:Vote",
+    "Voter": "fd:Voter",
+    "against": {
+      "type": "@id",
+      "@id": "fd:against",
+      "@container": "@list"
+    },
+    "againstCount": {
+      "@type": "xsd:nonNegativeInteger",
+      "@id": "fd:againstCount"
+    },
+    "algorithm": {
+      "@type": "@id",
+      "@id": "fd:algorithm"
+    },
+    "allowsNeutralResponses": {
+      "@type": "xsd:boolean",
+      "@id": "fd:allowsNeutralResponses"
+    },
+    "ended": {
+      "@type": "xsd:dateTime",
+      "@id": "fd:ended"
+    },
+    "inFavour": {
+      "type": "@id",
+      "@id": "fd:for",
+      "@container": "@list"
+    },
+    "inFavourCount": {
+      "@type": "xsd:nonNegativeInteger",
+      "@id": "fd:forCount"
+    },
+    "neutral": {
+      "type": "@id",
+      "@id": "fd:neutral",
+      "@container": "@list"
+    },
+    "neutralCount": {
+      "@type": "xsd:nonNegativeInteger",
+      "@id": "fd:neutralCount"
+    },
+    "result": {
+      "@type": "xsd:boolean",
+      "@id": "fd:result"
+    },
+    "topic": {
+      "@type": "@id",
+      "@id": "fd:topic"
+    },
+    "voter": {
+      "type": "@id",
+      "@id": "fd:vector"
+    },
+    "voterCount": {
+      "@type": "xsd:nonNegativeInteger",
+      "@id": "fd:voterCount"
+    },
+    "voters": {
+      "type": "@id",
+      "@id": "fd:voters",
+      "@container": "@list"
+    },
+    "wasVetoed": {
+      "@type": "xsd:boolean",
+      "@id": "fd:wasVetoed"
     }
+  }
 }

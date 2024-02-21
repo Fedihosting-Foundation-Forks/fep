@@ -3,194 +3,431 @@ slug: "5a4f"
 authors: Laxystem <the@laxla.quest>
 status: DRAFT
 ---
+
 # FEP-5a4f: Federated Democracy
 
 ## Summary
-Online organizations (such as FOSS projects) often find themselves in the position where they need to make collective decisions,
+
+Online organizations (such as FOSS projects) often find themselves in the position where they need to make collective
+decisions,
 with no real organization-wide polling option.
 
-This FEP intends to solve that by introducing [[ActivityStreams 2.0]] types and properties to allow for federated and democratic votes.
+This FEP intends to solve that by introducing [[ActivityStreams 2.0]] types and properties to allow for federated and
+democratic votes.
 
 ## Requirements
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in [[RFC-2119]].
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "
+OPTIONAL" in this specification are to be interpreted as described in [[RFC-2119]].
 
 ## Motivation
 
-Management of democratic online organizations is currently very hard. There's no one platform that all people have that supports advanced democratic votes, and there's no single platform that supports automatically applying the results of a vote.
+(this section is non-normative)
 
-This FEP intends to fix that, by introducing a specification for federated votes built on [[ActivityStreams 2.0]], and designed to be used together with [[ActivityPub]].
+Currently, online democratic organization management is nearly-impossible.
+There's no one platform that all people have that
+supports advanced democratic votes, and there's no single platform that supports automatically applying the results of a
+vote.
 
-It is outside the scope of this FEP to handle vote creation, nor authorization.
+This FEP intends to fix that, by introducing a specification for federated votes built on [[ActivityStreams 2.0]], and
+designed to be used together with [[ActivityPub]].
+
+It is outside the scope of this FEP to handle vote creation, authorization, nor how votes are evaluated.
+
+This FEP is much stricter than ActivityPub;
+This is done as voting is an incredibly sensitive process,
+and we wish not to cause accidental voting and similar issues.
+
+## Requirements
+
+Types and properties introduced in this FEP have the [`https://www.w3id.org/fep/5a4f#`](context.jsonld) prefix,
+shortened to `fd`.
+Additionally, `https://www.w3.org/ns/activitystreams#` prefix is shortened to `as`.
+
+Types and properties defined by this FEP MUST NOT be used in any way
+not described in this FEP or another FEP extending it.
+To use an extension of this FEP, implementations MUST declare so in their nodeinfo, as defined by FEP-TODO.
 
 ## Specification
-Types and properties introduced in this FEP have the [`https://www.w3id.org/fep/5a4f#`](context.jsonld) prefix, shortened to `fd`. The `https://www.w3.org/ns/activitystreams#` prefix is shortened to `as`. Types and properties defined by this FEP MUST NOT be used in any way not described in this FEP or an extension of it, to prevent accidental voting.
 
+### Topics, Voters & Votes
+
+(this section is non-normative)
+
+A *voter* represents an optionally anonymous authorization to respond to votes.
+
+A *vote* is a suggestion or a proposal to invoke an action.
+
+A *topic* is what voters are authorized to; Every vote has a topic,
+and voters authorized to a topic can respond to its votes.
+
+An *algorithm* evaluates votes based on the number of all authorized voters,
+the number of responses in favour, neutral and against,
+and the `fd:Vote` itself (usually extended with configuration settings),
+and outputs the result if enough information was provided.
+
+### Responding to Votes
+
+One may respond to a vote by sending an `Accept`, `Ignore`
+or `Reject` activity (standing for in favour, neutrally, and against, respectively) to the
+vote's [`as:sharedInbox`](https://www.w3.org/ns/activitystreams#sharedInbox).
+The receiving server MUST authenticate the request, the means of doing which are out of scope of this FEP.
+
+Vote responses MUST have the `fd:voter` and `as:object` properties, containing the voter and the vote, respectively.
+
+Vote responses MUST NOT be made nor accepted if `as:ended` is not `null`.
+
+### Evaluating Votes via Public Algorithms
+
+Votes may use a public algorithm to be evaluated,
+to allow validation of the vote's results, and to ensure consistency.
+
+If the [`fd:algorithm`](#algorithm) property is present,
+the vote MUST be evaluated by sending a `GET` request to its value, with one of the following query parameter lists:
+
+* By vote.
+    * `vote`, containing the `@id` of the vote to be evaluated.
+* Manually.
+    * `voterCount` - the number of voters authorized to [`fd:topic`](#topic)
+    * `inFavour` - the number of voters that have responded in favour to this vote.
+    * `against` - the number of voters that have responded against to this vote.
+    * `neutral` - the number of voters that have responded neutrally to this vote. Defaults to zero.
+    * Any other parameter required by this algorithm.
+* If no parameters are provided, then a [`as:Link`](https://www.w3.org/ns/activitystreams#Link) to this algorithm MUST
+  be returned instead.
+
+The algorithm will return a shortened version of the same `fd:Vote` object, only with an `@id` and a `result`.
+Alternatively, the algorithm may return an HTTP error code with an empty body.
+
+### Discovering Algorithms
+
+This FEP defines an extension to [[NodeInfo]] at `.well-known/nodeinfo`,
+providing the `https://www.w3id.org/fep/5a4f#Algorithm` relation, for example:
+
+```json
+{
+  "links": [
+    {
+      "rel": "https://www.w3id.org/fep/5a4f#algorithm",
+      "href": "https://example.social/api/fep/54af/algorithms"
+    }
+  ]
+}
+```
+
+This link must return a JsonLD document containing at least one [`as:Link`].
+
+## Vocabulary
+
+[`as:Accept`]: https://www.w3.org/ns/activitystreams#Accept
+
+[`as:Ignore`]: https://www.w3.org/ns/activitystreams#Ignore
+
+[`as:IntransitiveActivity`]: https://www.w3.org/ns/activitystreams#IntransitiveActivity
+
+[`as:Link`]: https://www.w3.org/ns/activitystreams#Link
+
+[`as:Object`]: https://www.w3.org/ns/activitystreams#Object
+
+[`as:Reject`]: https://www.w3.org/ns/activitystreams#Reject
+
+[`as:actor`]: https://www.w3.org/ns/activitystreams#actor
+
+[`as:describes`]: https://www.w3.org/ns/activitystreams#describes
+
+[`as:endTime`]: https://www.w3.org/ns/activitystreams#endTime
+
+[`as:name`]: https://www.w3.org/ns/activitystreams#name
+
+[`as:sharedInbox`]: https://www.w3.org/ns/activitystreams#sharedInbox
+
+[`as:startTime`]: https://www.w3.org/ns/activitystreams#startTime
+
+[`as:summary`]: https://www.w3.org/ns/activitystreams#summary
+
+[`as:target`]: https://www.w3.org/ns/activitystreams#target
 
 ### Types
 
+Implementations MUST NOT accept `Update` activities trying to change properties marked as immutable via an
+asterisk (`immutableProperty`*).
+
 <dl>
 
-<dt id="Topic">Topic</dt>
-<dd>
-<p>
+<dt id="Topic">Topic</dt><dd>
 
+[`fd:Topic`]: #Topic
 The topic of a vote. For example (this sentence is non-normative), an election's subject is to enact a new leader.
 
-</p>
-<ul>
-<li>URI: <code>https://w3id.org/fep/888d#Subject</code></li>
-<li>Inherits from: <a href="https://www.w3.org/ns/activitystreams#Object"><code>as:Object</code></a></li>
-<li>REQUIRED properties:
-<code>@id</code>
-</li>
-<li>RECOMMENDED properties:
-<a href="https://www.w3.org/ns/activitystreams#summary"><code>as:summary</code></a> |
-<a href="#voters"><code>voters</code></a>
-</li>
-<li>Examples:<ul>
-<li>
+* URI: `https://w3id.org/fep/5a4f#Topic`
+* Inherits from: [`as:Object`]
+* REQUIRED properties: `@id` | [`as:summary`] | [`fd:voterCount`]
+* RECOMMENDED properties: [`as:name`] | [`fd:voters`]
+* Examples:
+    * ```json
+      {
+        "@context": [
+          "https://www.w3.org/ns/activitystreams#",
+          {
+            "fd": "https://www.w3id.org/fep/5a4f#"
+          }
+        ],
+        "@type": "fd:Topic",
+        "@id": "https://example.social/profile/42?permission=CREATE_NOTES",
+        "summary": "Send messages as Alice on example.social.",
+        "voters": "https://example.social/profile/voters?permission=CREATE_NOTES"
+      }
+      ```
 
-```json
-{
-    "@context": ["https://www.w3.org/ns/activitystreams#", {
-        "fd": "https://www.w3id.org/fep/5a4f#"
-    }],
-    "@type": "fd:Topic",
-    "@id": "https://example.social/profile/42?permission=CREATE_NOTES",
-    "summary": "Send messages as Alice on example.social.",
-    "fd:voters": null
-}
-```
-
-</li>
-</ul>
-</li>
-</ul>
 </dd>
+<dt id="Vote">Vote</dt><dd>
 
-<dt id="Voter">Voter</dt>
-<dd>
-<p>
+[`fd:Vote`]: #Vote
+A vote on [`fd:topic`] that proposes executing [`as:describes`], affecting [`as:target`].
 
-An object authorized to vote on a [Topic](#topic).
+[`fd:result`] is REQUIRED if [`fd:wasVetoed`] is `true`, or if [`fd:algorithm`] is
+not present and [`fd:ended`] is not `null`.
 
-</p>
-<ul>
-<li>URI: <code>https://w3id.org/fep/888d#Voter</code></li>
-<li>Inherits from: <a href="https://www.w3.org/ns/activitystreams#Voter"><code>as:Object</code></a></li>
-<li>REQUIRED properties:
-<code>@id</code> |
-<a href="#topic"><code>topic</code></a>
-</li>
-<li>RECOMMENDED properties: 
-<a href="https://www.w3.org/ns/activitystreams#summary"><code>as:summary</code></a>,
-<a href="https://www.w3.org/ns/activitystreams#actor"><code>as:actor</code></a>
-</li>
-<li>Examples:<ul>
-<li>
+[`fd:ended`] is REQUIRED if [`as:endTime`] has passed, or if [`fd:wasVetoed`] is `true`.
 
-```json
-{
-    "@context": ["https://www.w3.org/ns/activitystreams#", {
-        "fd": "https://www.w3id.org/fep/5a4f#"
-    }],
-    "@type": "fd:Voter",
-    "@id": "https://example.social/voter/42",
-    "summary": "An anonymous voter on example.social",
-    "fd:topic": "https://example.social/profile/42?permission=CREATE_NOTES",
-}
-```
+* URI: `https://w3id.org/fep/5a4f#Vote`
+* Inherits from: [`as:IntransitiveActivity`]
+* REQUIRED properties: `@id` | [`as:sharedInbox`] | [`as:startTime`]* | [`fd:againstCount`] |
+[`fd:allowsNeutralResponses`]* | [`fd:ended`] | [`fd:inFavourCount`] | [`fd:neutralCount`] | [`fd:topic`]* |
+[`fd:wasVetoed`]
+* RECOMMENDED properties: [`as:summary`] | [`fd:algorithm`]* | [`fd:result`]
+* OPTIONAL properties: [`as:describes`]* | [`as:endTime`] | [`as:target`]* | [`fd:against`] | [`fd:inFavour`] |
+[`fd:neutral`]
+* Examples: TODO
 
-</li>
-<li>
+</dd>
+<dt id="Voter">Voter</dt><dd>
 
+[`fd:Voter`]: #Voter
+An object authorized to vote on a [`fd:Topic`].
 
-```json
-{
-    "@context": ["https://www.w3.org/ns/activitystreams#", {
-        "fd": "https://www.w3id.org/fep/5a4f#"
-    }],
-    "@type": "fd:Voter",
-    "@id": "https://example.social/voter/35",
-    "actor": {
-        "@type": "Person",
-        "@id": "acct:bob@example.social",
-        "summary": "I'm bob - an amazing bob.",
-        "name": "The Bob",
-        "inbox": "https://example.social/profile/7/inbox",
-        "outbox": "https://example.social/profile/7/outbox"
-    },
-    "fd:topic": "https://example.social/profile/42?permission=CREATE_NOTES"
-}
-```
+* URI: `https://w3id.org/fep/5a4f#Voter`
+* Inherits from: [`as:Object`]
+* REQUIRED properties: `@id` | [`fd:topic`]*
+* RECOMMENDED properties: [`as:Actor`] | [`as:summary`]
+* Examples:
+  * ```json
+      {
+        "@context": [
+          "https://www.w3.org/ns/activitystreams#",
+          {
+            "fd": "https://www.w3id.org/fep/5a4f#"
+          }
+        ],
+        "@type": "fd:Voter",
+        "@id": "https://example.social/voter/42",
+        "summary": "An anonymous voter on example.social",
+        "fd:topic": "https://example.social/profile/42?permission=CREATE_NOTES"
+      }
+      ```
+  * ```json
+      {
+        "@context": [
+          "https://www.w3.org/ns/activitystreams#",
+          {
+            "fd": "https://www.w3id.org/fep/5a4f#"
+          }
+        ],
+        "@type": "fd:Voter",
+        "@id": "https://example.social/voter/35",
+        "actor": {
+          "@type": "Person",
+          "@id": "acct:bob@example.social",
+          "summary": "I'm bob - an amazing bob.",
+          "name": "The Bob",
+          "inbox": "https://example.social/profile/7/inbox",
+          "outbox": "https://example.social/profile/7/outbox"
+        },
+        "fd:topic": "https://example.social/profile/42?permission=CREATE_NOTES"
+      }
+      ```
 
-</li>
-</ul>
-</li>
-</ul>
 </dd>
 
 </dl>
 
-This FEP defines the following properties:
-* `fd:actualEndTime`, a functional `xsd:dateTime`.
-* `fd:allowsNeutralResponses`, a functional `xsd:boolean`.
-* `fd:wasVetoed`, a functional `xsd:boolean`, defaulting to `false`.
-* `fd:result`, a functionl `xsd:boolean`.
-* `fd:forCount`, a functional `xsd:nonNegativeInteger`.
-* `fd:neutralCount`, a functional `xsd:nonNegativeInteger`.
-* `fd:againstCount`, a functional `xsd:nonNegativeInteger`.
-* `fd:voters`, a functional `Collection` of `Voter`s.
-* `fd:for`, a functional `Collection` of `Voter`s.
-* `fd:neutral`, a functional `Collection` of `Voter`s.
-* `fd:against`, a functional `Collection` of `Voter`s.
-* `fd:voter`, a functional `Voter`.
+### Properties
 
-This FEP defines the following types:
-* `fd:Subject`, extends `as:Object`.
-    * MUST have an `@id`.
-    * SHOULD have a `fd:voters`.
-    * SHOULD have at least one `as:summary`.
-* `fd:Voter`, extends `as:Object`.
-    * MUST have at least one `as:name`.
-    * MUST have an `@id`.
-    * MUST have an `as:subject`, referencing a `fd:Subject`.
-    * MAY have a `@type` of `as:Actor`.
-* `fd:Vote`, extends `as:IntransitiveActivity`.
-    * MUST have at least one `as:summary`.
-    * MUST have a `as:startTime`. This property MUST NOT be changed via an `as:Update` activity.
-    * MUST have a single `as:closed`, being a valid `xsd:dateTime` or `xsd:boolean`.
-    * MUST have an `fd:allowsNeutralVotes`.
-    * MUST have an `as:sharedInbox`.
-    * SHOULD have a `as:subject`, referencing a `fd:Subject`. This property MUST NOT be changed via an `as:Update` activity.
-    * SHOULD have a `fd:result` if this vote has ended.
-    * SHOULD have a `fd:forCount`.
-    * SHOULD have a `fd:neutralCount` if `fd:allowsNeutralVotes` is true.
-    * SHOULD have an `fd:againstCount`.
-    * MAY have a `as:describes`, referencing the `as:Activity` that'll be executed if this vote succeeds. This property MUST NOT be changed via an `as:Update` activity.
-    * MAY have a `as:target`, referencing the `as:Object` or `as:Link` this vote will affect.
-    * MAY have an `as:endTime`, signifies when a vote is planned to end. Votes will be considered time un-limited if this property is missing.
-    * MAY have a `fd:wasVetoed`. Implementations MUST NOT assume veto implies a `fd:result` of `false`.
-    * MAY have a `fd:for`. MAY contain less `fd:Voter`s than `fd:forCount`.
-    * MAY have a `fd:neutral`. MAY contain less `fd:Voter`s than `fd:neutralCount`.
-    * MAY have an `fd:against`. MAY contain less `fd:Voter`s than `fd:againstCount`.
+<dl>
 
-### Responding to a vote
+<dt id="against">against</dt><dd>
 
-One may respond to a vote by sending an `as:Accept` (in favour), `as:Ignore` (neutral), or `as:Reject` (against) activity to a vote's `as:sharedInbox` with a `fd:voter` and with an `as:object` containing the vote.
+[`fd:against`]: #against
+An ordered collection of all [`fd:Voter`]s that are against this [`fd:Vote`], sorted by when they voted.
+* URI: `https://w3id.org/fep/5a4f#against`
+* Domain: [`fd:Vote`]
+* Range: [`as:Link`]
+* Functional: Yes
+
+</dd>
+<dt id="againstCount">againstCount</dt><dd>
+
+[`fd:againstCount`]: #againstCount
+The number of [`fd:Voter`]s that are against this [`fd:Vote`].
+* URI: `https://w3id.org/fep/5a4f#againstCount`
+* Domain: [`fd:Vote`]
+* Range: `xsd:nonNegativeInteger`
+* Functional: Yes
+
+</dd>
+<dt id="algorithm">algorithm</dt><dd>
+
+[`fd:algorithm`]: #algorithm
+The algorithm used to evaluate this [`fd:Vote`], if publicly available.
+* URI: `https://w3id.org/fep/5a4f#algorithm`
+* Domain: [`fd:Vote`]
+* Range: [`as:Link`]
+* Functional: Yes
+
+</dd>
+<dt id="allowsNeutralResponses">allowsNeutralResponses</dt><dd>
+
+[`fd:allowsNeutralResponses`]: #allowsNeutralResponses
+Does this [`fd:Vote`] allow neutral responses?
+* URI: `https://w3id.org/fep/5a4f#allowsNeutralResponses`
+* Domain: [`fd:Vote`]
+* Range: `xsd:boolean`
+* Functional: Yes
+
+</dd>
+<dt id="ended">ended</dt><dd>
+
+[`fd:ended`]: #ended
+Marks the time a [`fd:Vote`] actually ended at, or `null` if it's still ongoing.
+* URI: `https://w3id.org/fep/5a4f#ended`
+* Domain: [`fd:Vote`]
+* Range: `xsd:dateTime` | `null`
+* Functional: Yes</li>
+
+</dd>
+<dt id="inFavour">inFavour</dt><dd>
+
+[`fd:inFavour`]: #inFavour
+An ordered collection of all [`fd:Voter`]s in favour of this [`fd:Vote`], sorted by when they voted.
+* URI: `https://w3id.org/fep/5a4f#inFavour`
+* Domain: [`fd:Vote`]
+* Range: [`as:Link`]
+* Functional: Yes
+
+</dd>
+<dt id="inFavourCount">inFavourCount</dt><dd>
+
+[`fd:inFavourCount`]: #inFavourCount
+The number of [`fd:Voter`]s that are in favour of this [`fd:Vote`].
+* URI: `https://w3id.org/fep/5a4f#inFavourCount`
+* Domain: [`fd:Vote`]
+* Range: `xsd:nonNegativeInteger`
+* Functional: Yes
+
+</dd>
+<dt id="neutral">neutral</dt><dd>
+
+[`fd:neutral`]: #neutral
+An ordered collection of all [`fd:Voter`]s neutral to this [`fd:Vote`], sorted by when they voted.
+* URI: `https://w3id.org/fep/5a4f#neutral`
+* Domain: [`fd:Vote`]
+* Range: [`as:Link`]
+* Functional: Yes
+
+</dd>
+<dt id="neutralCount">neutralCount</dt><dd>
+
+[`fd:neutralCount`]: #neutralCount
+The number of [`fd:Voter`]s that are neutral to this [`fd:Vote`].
+* URI: `https://w3id.org/fep/5a4f#neutralCount`
+* Domain: [`fd:Vote`]
+* Range: `xsd:nonNegativeInteger`
+* Functional: Yes
+
+</dd>
+<dt id="result">result</dt><dd>
+
+[`fd:result`]: #result
+What is the result of this [`fd:Vote`],
+or if it hasn't ended yet, what would be its result if it is evaluated using the current data?
+* URI: `https://w3id.org/fep/5a4f#result`
+* Domain: [`fd:Vote`]
+* Range: `xsd:boolean`
+* Functional: Yes
+
+</dd>
+<dt id="topic">topic</dt><dd>
+
+[`fd:topic`]: #topic
+The topic of this vote, or that this voter is authorized to vote on.
+* URI: `https://w3id.org/fep/5a4f#topic`
+* Domain: [`fd:Vote`] | [`fd:Voter`]
+* Range: [`as:Link`] | [`as:Topic`]
+* Functional: Yes
+
+</dd>
+<dt id="voter">voter</dt><dd>
+
+[`fd:voter`]: #voter
+Identifies a [`fd:Voter`] when responding to a [`fd:Vote`].
+* URI: `https://w3id.org/fep/5a4f#voter`
+* Domain: [`as:Accept`] | [`as:Ignore`] | [`as:Reject`]
+* Range: [`as:Link`] | [`as:Voter`]
+* Functional: Yes
+
+</dd>
+<dt id="voterCount">voterCount</dt><dd>
+
+[`fd:voterCount`]: #voterCount
+The number of [`fd:Voter`]s authorized to vote on this [`fd:Topic`].
+* URI: `https://w3id.org/fep/5a4f#voterCount`
+* Domain: [`fd:Topic`]
+* Range: [`xsd:nonNegativeInteger`]
+* Functional: Yes
+
+</dd>
+<dt id="voters">voters</dt><dd>
+
+[`fd:voters`]: #voters
+An ordered collection of all [`fd:Voter`]s authorized to vote on this
+[`fd:Topic`], sorted by when they were authorized.
+* URI: `https://w3id.org/fep/5a4f#voters`
+* Domain: [`fd:Topic`]
+* Range: [`as:Link`]
+* Functional: Yes
+
+</dd>
+<dt id="wasVetoed">wasVetoed</dt><dd>
+
+[`fd:wasVetoed`]: #wasVetoed
+Was this [`fd:Vote`] vetoed?
+* URI: https://w3id.org/fep/5a4f#wasVetoed
+* Domain: [`fd:Vote`]
+* Range: `xsd:boolean`
+* Functional: Yes
+
+</dd>
+
+</dl>
 
 ## References
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
+
 [ActivityStreams 2.0]: https://www.w3.org/TR/activitystreams-core/
+
+[NodeInfo]: https://nodeinfo.diaspora.software/protocol.html
+
 [RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
 
-- [[ActivityPub]] Christine Lemmer Webber, Jessica Tallon, 2018
+- [[ActivityPub]] Christine Lemmer-Webber, Jessica Tallon, 2018
 - [[ActivityStreams 2.0]], James M. Snell, Evan Prodromou, 2017
+- [[NodeInfo] 2.1]
 - [[RFC-2119]] S. Bradner, 1997
 
 ## Copyright
 
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
 
-To the extent possible under law, the authors of this Fediverse Enhancement Proposal have waived all copyright and related or neighboring rights to this work.
+To the extent possible under law, the authors of this Fediverse Enhancement Proposal have waived all copyright and
+related or neighboring rights to this work.
