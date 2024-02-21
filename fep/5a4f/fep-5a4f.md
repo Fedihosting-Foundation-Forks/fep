@@ -63,17 +63,21 @@ and voters authorized to a topic can respond to its votes.
 
 An *algorithm* evaluates votes based on the number of all authorized voters,
 the number of responses in favour, neutral and against,
-and the `fd:Vote` itself (usually extended with configuration settings),
+and the [`fd:Vote`] itself (usually extended with configuration settings),
 and outputs the result if enough information was provided.
 
 ### Responding to Votes
 
-One may respond to a vote by sending an `Accept`, `Ignore`
-or `Reject` activity (standing for in favour, neutrally, and against, respectively) to the
-vote's [`as:sharedInbox`](https://www.w3.org/ns/activitystreams#sharedInbox).
-The receiving server MUST authenticate the request, the means of doing which are out of scope of this FEP.
+One may respond to a [`fd:Vote`] by sending an authenticated `PUT` request containing an `Accept`, `Ignore`
+or `Reject` activity (standing for in favour, neutrally, and against, respectively)
+to its [`as:sharedInbox`](https://www.w3.org/ns/activitystreams#sharedInbox).
 
-Vote responses MUST have the `fd:voter` and `as:object` properties, containing the voter and the vote, respectively.
+If the [`fd:allowsEditingResponses`] property is `true`,
+another response made by the same `fd:Voter` will replace the previous one.
+Otherwise, the receiving server MUST respond with 405 Method Not Allowed.
+
+Vote responses MUST have the `fd:voter` and `as:object` properties, containing the `fd:Voter` and the `fd:Vote`,
+respectively.
 
 Vote responses MUST NOT be made nor accepted if `as:ended` is not `null`.
 
@@ -98,6 +102,8 @@ the vote MUST be evaluated by sending a `GET` request to its value, with one of 
 
 The algorithm will return a shortened version of the same `fd:Vote` object, only with an `@id` and a `result`.
 Alternatively, the algorithm may return an HTTP error code with an empty body.
+
+Algorithms MUST return the same results for the same data.
 
 ### Discovering Algorithms
 
@@ -193,8 +199,8 @@ not present and [`fd:ended`] is not `null`.
 * URI: `https://w3id.org/fep/5a4f#Vote`
 * Inherits from: [`as:IntransitiveActivity`]
 * REQUIRED properties: `@id` | [`as:sharedInbox`] | [`as:startTime`]* | [`fd:againstCount`] |
-[`fd:allowsNeutralResponses`]* | [`fd:ended`] | [`fd:inFavourCount`] | [`fd:neutralCount`] | [`fd:topic`]* |
-[`fd:wasVetoed`]
+[`fd:allowsEditingResponses`]* | [`fd:allowsNeutralResponses`]* | [`fd:ended`] | [`fd:inFavourCount`] |
+[`fd:neutralCount`] | [`fd:topic`]* | [`fd:wasVetoed`]
 * RECOMMENDED properties: [`as:summary`] | [`fd:algorithm`]* | [`fd:result`]
 * OPTIONAL properties: [`as:describes`]* | [`as:endTime`] | [`as:target`]* | [`fd:against`] | [`fd:inFavour`] |
 [`fd:neutral`]
@@ -258,7 +264,8 @@ An object authorized to vote on a [`fd:Topic`].
 <dt id="against">against</dt><dd>
 
 [`fd:against`]: #against
-An ordered collection of all [`fd:Voter`]s that are against this [`fd:Vote`], sorted by when they voted.
+An ordered collection of [`fd:Voter`]s that are against this [`fd:Vote`], sorted by when they voted.
+This collection MAY not list some or all [`fd:Voter`]s for anonymity purposes.
 * URI: `https://w3id.org/fep/5a4f#against`
 * Domain: [`fd:Vote`]
 * Range: [`as:Link`]
@@ -282,6 +289,16 @@ The algorithm used to evaluate this [`fd:Vote`], if publicly available.
 * URI: `https://w3id.org/fep/5a4f#algorithm`
 * Domain: [`fd:Vote`]
 * Range: [`as:Link`]
+* Functional: Yes
+
+</dd>
+<dt id="allowsEditingResponses">allowsEditingResponses</dt><dd>
+
+[`fd:allowsEditingResponses`]: #allowsEditingResponses
+Does this [`fd:Vote`] allow responses to be changed?
+* URI: `https://w3id.org/fep/5a4f#allowsEditingResponses`
+* Domain: [`fd:Vote`]
+* Range: `xsd:boolean`
 * Functional: Yes
 
 </dd>
@@ -309,6 +326,7 @@ Marks the time a [`fd:Vote`] actually ended at, or `null` if it's still ongoing.
 
 [`fd:inFavour`]: #inFavour
 An ordered collection of all [`fd:Voter`]s in favour of this [`fd:Vote`], sorted by when they voted.
+This collection MAY not list some or all [`fd:Voter`]s for anonymity purposes.
 * URI: `https://w3id.org/fep/5a4f#inFavour`
 * Domain: [`fd:Vote`]
 * Range: [`as:Link`]
@@ -329,6 +347,7 @@ The number of [`fd:Voter`]s that are in favour of this [`fd:Vote`].
 
 [`fd:neutral`]: #neutral
 An ordered collection of all [`fd:Voter`]s neutral to this [`fd:Vote`], sorted by when they voted.
+This collection MAY not list some or all [`fd:Voter`]s for anonymity purposes.
 * URI: `https://w3id.org/fep/5a4f#neutral`
 * Domain: [`fd:Vote`]
 * Range: [`as:Link`]
@@ -401,7 +420,7 @@ An ordered collection of all [`fd:Voter`]s authorized to vote on this
 
 [`fd:wasVetoed`]: #wasVetoed
 Was this [`fd:Vote`] vetoed?
-* URI: https://w3id.org/fep/5a4f#wasVetoed
+* URI: `https://w3id.org/fep/5a4f#wasVetoed`
 * Domain: [`fd:Vote`]
 * Range: `xsd:boolean`
 * Functional: Yes
@@ -409,6 +428,13 @@ Was this [`fd:Vote`] vetoed?
 </dd>
 
 </dl>
+
+## To-Do
+Stuff that this document still needs to improve.
+* Vote `UPDATE`s - who's responsible?
+* A way to know *when* a `fd:Voter` responded?
+* Custom parameters in algorithm discovery?
+* Find or create an FEP that specifies list of implemented FEPs in nodeinfo for extension purposes.
 
 ## References
 

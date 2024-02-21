@@ -19,6 +19,10 @@
       "@type": "@id",
       "@id": "fd:algorithm"
     },
+    "allowsEditingResponses": {
+      "@type": "xsd:boolean",
+      "@id": "fd:allowsEditingResponses"
+    },
     "allowsNeutralResponses": {
       "@type": "xsd:boolean",
       "@id": "fd:allowsNeutralResponses"
