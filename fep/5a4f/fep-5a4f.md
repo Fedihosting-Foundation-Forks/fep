@@ -165,7 +165,7 @@ asterisk (`immutableProperty`*).
 [`fd:Topic`]: #Topic
 The topic of a vote. For example (this sentence is non-normative), an election's subject is to enact a new leader.
 
-* URI: `https://w3id.org/fep/5a4f#Topic`
+* URI: `https://www.w3id.org/fep/5a4f#Topic`
 * Inherits from: [`as:Object`]
 * REQUIRED properties: `@id` | [`as:summary`] | [`fd:voterCount`]
 * RECOMMENDED properties: [`as:name`] | [`fd:voters`]
@@ -196,7 +196,7 @@ not present and [`fd:ended`] is not `null`.
 
 [`fd:ended`] is REQUIRED if [`as:endTime`] has passed, or if [`fd:wasVetoed`] is `true`.
 
-* URI: `https://w3id.org/fep/5a4f#Vote`
+* URI: `https://www.w3id.org/fep/5a4f#Vote`
 * Inherits from: [`as:IntransitiveActivity`]
 * REQUIRED properties: `@id` | [`as:startTime`]* | [`fd:againstCount`] |
 [`fd:allowsEditingResponses`]* | [`fd:allowsNeutralResponses`]* | [`fd:ended`] | [`fd:inFavourCount`] |
@@ -257,7 +257,7 @@ not present and [`fd:ended`] is not `null`.
 [`fd:Voter`]: #Voter
 An object authorized to vote on a [`fd:Topic`].
 
-* URI: `https://w3id.org/fep/5a4f#Voter`
+* URI: `https://www.w3id.org/fep/5a4f#Voter`
 * Inherits from: [`as:Object`]
 * REQUIRED properties: `@id` | [`fd:topic`]*
 * RECOMMENDED properties: [`as:Actor`] | [`as:summary`]
@@ -311,7 +311,7 @@ An object authorized to vote on a [`fd:Topic`].
 [`fd:against`]: #against
 An ordered collection of [`fd:Voter`]s that are against this [`fd:Vote`], sorted by when they voted.
 This collection MAY not list some or all [`fd:Voter`]s for anonymity purposes.
-* URI: `https://w3id.org/fep/5a4f#against`
+* URI: `https://www.w3id.org/fep/5a4f#against`
 * Domain: [`fd:Vote`]
 * Range: [`as:Link`]
 * Functional: Yes
@@ -321,7 +321,7 @@ This collection MAY not list some or all [`fd:Voter`]s for anonymity purposes.
 
 [`fd:againstCount`]: #againstCount
 The number of [`fd:Voter`]s that are against this [`fd:Vote`].
-* URI: `https://w3id.org/fep/5a4f#againstCount`
+* URI: `https://www.w3id.org/fep/5a4f#againstCount`
 * Domain: [`fd:Vote`]
 * Range: `xsd:nonNegativeInteger`
 * Functional: Yes
@@ -331,7 +331,7 @@ The number of [`fd:Voter`]s that are against this [`fd:Vote`].
 
 [`fd:algorithm`]: #algorithm
 The algorithm used to evaluate this [`fd:Vote`], if publicly available.
-* URI: `https://w3id.org/fep/5a4f#algorithm`
+* URI: `https://www.w3id.org/fep/5a4f#algorithm`
 * Domain: [`fd:Vote`]
 * Range: [`as:Link`]
 * Functional: Yes
@@ -341,7 +341,7 @@ The algorithm used to evaluate this [`fd:Vote`], if publicly available.
 
 [`fd:allowsEditingResponses`]: #allowsEditingResponses
 Does this [`fd:Vote`] allow responses to be changed?
-* URI: `https://w3id.org/fep/5a4f#allowsEditingResponses`
+* URI: `https://www.w3id.org/fep/5a4f#allowsEditingResponses`
 * Domain: [`fd:Vote`]
 * Range: `xsd:boolean`
 * Functional: Yes
@@ -351,7 +351,7 @@ Does this [`fd:Vote`] allow responses to be changed?
 
 [`fd:allowsNeutralResponses`]: #allowsNeutralResponses
 Does this [`fd:Vote`] allow neutral responses?
-* URI: `https://w3id.org/fep/5a4f#allowsNeutralResponses`
+* URI: `https://www.w3id.org/fep/5a4f#allowsNeutralResponses`
 * Domain: [`fd:Vote`]
 * Range: `xsd:boolean`
 * Functional: Yes
@@ -361,7 +361,7 @@ Does this [`fd:Vote`] allow neutral responses?
 
 [`fd:ended`]: #ended
 Marks the time a [`fd:Vote`] actually ended at, or `null` if it's still ongoing.
-* URI: `https://w3id.org/fep/5a4f#ended`
+* URI: `https://www.w3id.org/fep/5a4f#ended`
 * Domain: [`fd:Vote`]
 * Range: `xsd:dateTime` | `null`
 * Functional: Yes</li>
@@ -372,7 +372,7 @@ Marks the time a [`fd:Vote`] actually ended at, or `null` if it's still ongoing.
 [`fd:inFavour`]: #inFavour
 An ordered collection of all [`fd:Voter`]s in favour of this [`fd:Vote`], sorted by when they voted.
 This collection MAY not list some or all [`fd:Voter`]s for anonymity purposes.
-* URI: `https://w3id.org/fep/5a4f#inFavour`
+* URI: `https://www.w3id.org/fep/5a4f#inFavour`
 * Domain: [`fd:Vote`]
 * Range: [`as:Link`]
 * Functional: Yes
@@ -382,7 +382,7 @@ This collection MAY not list some or all [`fd:Voter`]s for anonymity purposes.
 
 [`fd:inFavourCount`]: #inFavourCount
 The number of [`fd:Voter`]s that are in favour of this [`fd:Vote`].
-* URI: `https://w3id.org/fep/5a4f#inFavourCount`
+* URI: `https://www.w3id.org/fep/5a4f#inFavourCount`
 * Domain: [`fd:Vote`]
 * Range: `xsd:nonNegativeInteger`
 * Functional: Yes
@@ -393,7 +393,7 @@ The number of [`fd:Voter`]s that are in favour of this [`fd:Vote`].
 [`fd:neutral`]: #neutral
 An ordered collection of all [`fd:Voter`]s neutral to this [`fd:Vote`], sorted by when they voted.
 This collection MAY not list some or all [`fd:Voter`]s for anonymity purposes.
-* URI: `https://w3id.org/fep/5a4f#neutral`
+* URI: `https://www.w3id.org/fep/5a4f#neutral`
 * Domain: [`fd:Vote`]
 * Range: [`as:Link`]
 * Functional: Yes
@@ -403,7 +403,7 @@ This collection MAY not list some or all [`fd:Voter`]s for anonymity purposes.
 
 [`fd:neutralCount`]: #neutralCount
 The number of [`fd:Voter`]s that are neutral to this [`fd:Vote`].
-* URI: `https://w3id.org/fep/5a4f#neutralCount`
+* URI: `https://www.w3id.org/fep/5a4f#neutralCount`
 * Domain: [`fd:Vote`]
 * Range: `xsd:nonNegativeInteger`
 * Functional: Yes
@@ -414,7 +414,7 @@ The number of [`fd:Voter`]s that are neutral to this [`fd:Vote`].
 [`fd:result`]: #result
 What is the result of this [`fd:Vote`],
 or if it hasn't ended yet, what would be its result if it is evaluated using the current data?
-* URI: `https://w3id.org/fep/5a4f#result`
+* URI: `https://www.w3id.org/fep/5a4f#result`
 * Domain: [`fd:Vote`]
 * Range: `xsd:boolean`
 * Functional: Yes
@@ -424,7 +424,7 @@ or if it hasn't ended yet, what would be its result if it is evaluated using the
 
 [`fd:topic`]: #topic
 The topic of this vote, or that this voter is authorized to vote on.
-* URI: `https://w3id.org/fep/5a4f#topic`
+* URI: `https://www.w3id.org/fep/5a4f#topic`
 * Domain: [`fd:Vote`] | [`fd:Voter`]
 * Range: [`as:Link`] | [`as:Topic`]
 * Functional: Yes
@@ -434,7 +434,7 @@ The topic of this vote, or that this voter is authorized to vote on.
 
 [`fd:voter`]: #voter
 Identifies a [`fd:Voter`] when responding to a [`fd:Vote`].
-* URI: `https://w3id.org/fep/5a4f#voter`
+* URI: `https://www.w3id.org/fep/5a4f#voter`
 * Domain: [`as:Accept`] | [`as:Ignore`] | [`as:Reject`]
 * Range: [`as:Link`] | [`as:Voter`]
 * Functional: Yes
@@ -444,7 +444,7 @@ Identifies a [`fd:Voter`] when responding to a [`fd:Vote`].
 
 [`fd:voterCount`]: #voterCount
 The number of [`fd:Voter`]s authorized to vote on this [`fd:Topic`].
-* URI: `https://w3id.org/fep/5a4f#voterCount`
+* URI: `https://www.w3id.org/fep/5a4f#voterCount`
 * Domain: [`fd:Topic`]
 * Range: [`xsd:nonNegativeInteger`]
 * Functional: Yes
@@ -455,7 +455,7 @@ The number of [`fd:Voter`]s authorized to vote on this [`fd:Topic`].
 [`fd:voters`]: #voters
 An ordered collection of all [`fd:Voter`]s authorized to vote on this
 [`fd:Topic`], sorted by when they were authorized.
-* URI: `https://w3id.org/fep/5a4f#voters`
+* URI: `https://www.w3id.org/fep/5a4f#voters`
 * Domain: [`fd:Topic`]
 * Range: [`as:Link`]
 * Functional: Yes
@@ -465,7 +465,7 @@ An ordered collection of all [`fd:Voter`]s authorized to vote on this
 
 [`fd:wasVetoed`]: #wasVetoed
 Was this [`fd:Vote`] vetoed?
-* URI: `https://w3id.org/fep/5a4f#wasVetoed`
+* URI: `https://www.w3id.org/fep/5a4f#wasVetoed`
 * Domain: [`fd:Vote`]
 * Range: `xsd:boolean`
 * Functional: Yes
