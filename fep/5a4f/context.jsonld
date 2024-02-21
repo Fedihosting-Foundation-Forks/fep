@@ -29,12 +29,12 @@
     },
     "inFavour": {
       "type": "@id",
-      "@id": "fd:for",
+      "@id": "fd:inFavour",
       "@container": "@list"
     },
     "inFavourCount": {
       "@type": "xsd:nonNegativeInteger",
-      "@id": "fd:forCount"
+      "@id": "fd:inFavourCount"
     },
     "neutral": {
       "type": "@id",
