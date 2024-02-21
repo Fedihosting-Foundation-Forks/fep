@@ -446,10 +446,10 @@ Stuff that this document still needs to improve.
 
 [RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
 
-- [[ActivityPub]] Christine Lemmer-Webber, Jessica Tallon, 2018
+- [[ActivityPub]], Christine Lemmer-Webber, Jessica Tallon, 2018
 - [[ActivityStreams 2.0]], James M. Snell, Evan Prodromou, 2017
 - [[NodeInfo] 2.1]
-- [[RFC-2119]] S. Bradner, 1997
+- [[RFC-2119]], S. Bradner, 1997
 
 ## Copyright
 
