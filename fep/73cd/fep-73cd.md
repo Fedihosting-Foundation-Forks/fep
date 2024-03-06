@@ -20,19 +20,23 @@ Any one of these user stories could be further elaborated in the spirit of the [
 
 PRs welcome! Add or update!
 
-1. Alice wants to move from Alpha to Gamma, both of which are online and federated to one another. Four possible variants, not mutually exclusive:
-    * A. Alice would like her account on Alpha terminated with some kind of human-readable redirect, i.e., links to old Alice@Alpha content display a warning that “Alice doesn't live here anymore”
-    * B. Alice would like Alpha to dynamically redirect any links to Alice@Alpha or to any specific content she posted/generated there to a reasonable default “homepage” for Alice@Gamma
-    * C. Alice would like Alpha to dynamically redirect any links to Alice@Alpha content to the migrated contents @Gamma (i.e. 301 HTTP codes and nginx-style URL rewrites)
-    * D. Alice would like her account on Alpha to remain active and accept new posts, but would like her followers to know about the new account as well.
-2. Bob is asked to leave Alpha by its moderation team, who have disabled new posts on that account but are allowing Bob to log in to facilitate a one-way, permanent migration to a new server of Bob's choosing as a courtesy.
-3. Bob finds a new home on the server Beta, which is specifically de-federated by Alpha for incompatible moderation policies. Bob would like to announce to his followers his new account, without Alpha and Beta having to communicate with one another.
-4. Charlie would like to move to Gamma from Delta, because the latter was recently and unexpectedly taken offline by government intervention. Before going dark, Gamma had already authorized a custom client for Charlie, which he used to sign each posts with a self-managed private key, and Charlie had backed up his posts and media a few months prior.
-5. Server Delta, when Charlie uploads his back-up of content from Gamma (RIP), would like to check Gamma's moderation records before importing the archive. While Gamma is no longer online, Charlie does find a recent backup of Gamma's moderation records that was more recent than his backup.
-6. Server Epsilon, which Daniel wants to migrate to from Delta, has no moderation policy because Daniel is its only user and he has full admin rights over it. Daniel logs into Epsilon and loads a recent backup without having to worry about Delta's policies at all.
-7. Delta did not support all the same features and Activity types that Gamma did at time of Charlie's import. Two variants:
-    * A. Delta's import wizard warned Charlie to keep his backup and try again later. Years later, he does, and additional content is imported now that Delta supports a bigger subset of Gamma's Activity types.
-    * B. Delta stored all un-imported data in a separate archive for Charlie. Years later, when Charlie goes to export his Delta content, both the un-imported Archive and the imported content alike get included in his backup, and it all gets imported to Zeta.
+1, 2, and 3 describe follower/profile migration, while 4,5,6 and 7 describe migration of posted activities.
+
+1. Alice wants to move her account from Alpha to Gamma, both of which are online and federated to one another, without losing her follow relationships in either direction. Four possible variants, not mutually exclusive:
+    * A. Alice would like her account on Alpha terminated with some kind of human-readable redirect, i.e., links to old Alice@Alpha content display a warning that “Alice doesn't live here anymore”.
+    * B. Alice would like Alpha to dynamically redirect any links to Alice@Alpha or to any specific content she posted/generated there to a reasonable default “homepage” for Alice@Gamma.
+    * C. Alice would like Alpha to dynamically redirect any links to Alice@Alpha content to the migrated contents @Gamma (i.e. 301 HTTP codes and nginx-style URL rewrites).
+    * D. Alice would like her account on Alpha to remain active and accept new posts as a personal account, but would like her followers to know about the new professional account as well. A selection of professional posts from Alpha will be ported over so that her new professional account can carry over a little backhistory (with a disclaimer that they were originally uploaded to Alpha).
+    * E. In addition to her followers and followees, Alice would like to bring her "unfollows" from Alpha to Gamma, i.e. the specific accounts she has manually blocked or muted.
+    * F. In addition to her followers, followees, and "unfollows," Alice would like to bring her Alpha's carefully-curated "defederation list," i.e. its server-level blocklist, from Alpha to Gamma, since Gamma is a younger and less robustly administered community than Alpha.
+2. Bob is asked to leave Alpha by its moderation team, who have disabled new posts on that account but are allowing Bob to execute a one-way, permanent migration to a new server of Bob's choosing as a courtesy. Bob logs in to Alpha and permanently migrates to a new server with which Alpha is federated, allowing a server-to-server connection. Bob instead finds a new home on the server Beta, which is specifically de-federated by Alpha for incompatible moderation policies. Bob would like to announce to his followers his new account, without Alpha and Beta having to communicate with one another (since Alpha refuses connections with Beta altogether).
+3. Charlie would like to move his profile, followers, and his years of original content to Gamma from Delta, because the latter was recently and unexpectedly taken offline by government intervention. Before going dark, Gamma had already authorized a custom client for Charlie, which he used to sign each posts with a self-managed private key, and Charlie had backed up his followers/following lists. Delta is able to load all of the above and authenticate them to display on his new account.
+4. Bob would also like to move his previous content from Alpha to Beta, which are defederated. After having his service partially limited, he is able to export his archive of Alpha content (including media uploads but no moderation records, as Alpha does not generate any) and import it to Beta to be considered for republication.
+5. Charlie also managed to expert an archive of his Gamma content after authorizing Charlie's custom client (including media uploads and moderation records), and is able to use said client to authenticate this content to Delta, who can consider it for republication despite Gamma being offline.
+6. After using Delta for some time, Charlie moves on to server Epsilon, which Daniel wants to migrate to from Delta. Epsilon has no moderation policy because Daniel is its only user and he has full admin rights over it. Epsilon loads a recent backup, skipping over the moderation policies exported by Delta. 
+7. At time of import, Delta does not support all the same features and Activity types that Gamma did at time of export. Two variants, not mutually exclusive:
+    * A. Delta's import wizard warns Charlie to keep his backup and try again later. Years later, he does, and additional content is imported now that Delta supports a bigger subset of Gamma's Activity types, without duplicating the content previously imported.
+    * B. Delta stored all the un-imported Gamma Activities in a separate archive for Charlie. Years later, when Charlie exports this historic data along with Delta data to Epsilon, both the un-imported Gamma content, the imported Gamma content, and the newer Delta content alike get included in his new backup, and it all gets imported to Epsilon.
 
 ## Use-Case to FEP Mapping
 
@@ -47,13 +51,13 @@ Feel free to PR in links to blog posts or other tutorials that explain a given i
 
 |Use cases:|1A|1B|1C|1D|2|3|4|5|6|7A|7B|
 |---|---|---|---|---|---|---|---|---|---|---|---|
-|[FEP-8b32 "Object Integrity Proofs"](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md)|||||||R|||||
-|[FEP-7628 "Move Actor"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md) (push mode)|R1|||||||||||
-|[FEP-7628 "Move Actor"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md) (pull mode)|R2||||||R|||||
-|[FEP-c390 "Identity Proofs"](https://codeberg.org/fediverse/fep/src/branch/main/fep/c390/fep-c390.md)|||||R||R|||||
-|[FEP-ae97 "Client-Side Activity Signing"](https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md)|||||H?R?||R|||||
-|[FEP-ef61 "Portable Objects"](https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md)|||||||R|||||
-|[FEP-521a "Actor's Public KeyS"](https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md)|||||||H?|H?|H?|||
+|[FEP-7628 "Move Actor"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md) (`push` mode)|R1|||R1|R|||||||
+|[FEP-7628 "Move Actor"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md) (`pull` mode)|R2|||||R||||||
+|[FEP-c390 "Identity Proofs"](https://codeberg.org/fediverse/fep/src/branch/main/fep/c390/fep-c390.md)|||||H|H|R|||||
+|[FEP-ae97 "Client-Side Activity Signing"](https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md)|||||||R|||||
+|[FEP-ef61 "Portable Objects"](https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md)||||R|||R|H|H|||
+|[FEP-8b32 "Object Integrity Proofs"](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md) (req'd by ^)||||R^|||R^|H^|H^|||
+|[FEP-521a "Actor's Public Keys"](https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md)||||H|||H|H|H|||
 |FEP-TBD [Per-user? Per-server? both?] "Moderation Records"||||||||R|H|||
 |FEP-TBD "Forwarding and Redirecting Migrated Actors"||H|R|R?|H|H|R|||||
 |FEP-TBD "Activity Archives/Export Format"||||||||||R|R|
