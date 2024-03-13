@@ -1,5 +1,5 @@
 ---
-slug: 9fde
+slug: "9fde"
 authors: Nik Clayton <nik@ngo.org.uk>
 status: DRAFT
 ---
