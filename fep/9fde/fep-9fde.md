@@ -244,7 +244,7 @@ In this proposal that could represented like this:
 
 ```json
 "operations": {
-  "app.manyfold.activitypub.accept.3dModel": ["1.0.0"],
+  "app.manyfold.activitypub.accept.3dmodel": ["1.0.0"],
   ...
 }
 ```
