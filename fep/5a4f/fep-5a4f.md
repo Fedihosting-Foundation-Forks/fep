@@ -69,13 +69,13 @@ and outputs the result if enough information was provided.
 
 ### Responding to Votes
 
-To respond to a [`fd:Vote`], one MUST `PUT` an `Accept`, `Ignore` 
-or `Reject` activity (standing for in favour, neutral, and against, respectively) into its `@id`.
+To respond to a [`fd:Vote`], one MUST `PUT` an [`as:Accept`], [`as:Ignore`] 
+or [`as:Reject`] activity (standing for in favour, neutral, and against, respectively) into its `@id`.
 
-Vote responses MUST have the `fd:voter` property.
+Vote responses MUST have the [`fd:voter`] property.
 
 If the [`fd:allowsEditingResponses`] property is `true`,
-another response made by the same `fd:Voter` MUST replace the previous one.
+another response made by the same [`fd:Voter`] MUST replace the previous one.
 Otherwise, the receiving server MUST respond with 405 Method Not Allowed.
 
 If a server receives a response to a vote whose [`fd:ended`] is not `null`, it MUST respond with 405 Method Not Allowed.
@@ -543,6 +543,8 @@ Stuff that this document still needs to improve.
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 
 [ActivityStreams 2.0]: https://www.w3.org/TR/activitystreams-core/
+
+[FEP-6481]: https://www.w3.org/fep/6481
 
 [NodeInfo]: https://nodeinfo.diaspora.software/protocol.html
 
