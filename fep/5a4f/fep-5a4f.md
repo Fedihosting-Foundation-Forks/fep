@@ -104,9 +104,9 @@ the vote MUST be evaluated by sending a `GET` request to one of the [`fd:Algorit
 The algorithm MUST return a shortened version of the same `fd:Vote` object, only with an `@id` and a `result` on success.
 
 ### Algorithm Discovery
-[`fd:Algorithm`]s are decentralized evalutors of [`fd:Vote`]s.
+[`fd:Algorithm`]s are decentralized [`fd:Vote`] evaluators.
 
-The *definer* of an algorithm is the representation of said algorithm returned by `GET`ting its `@id`.
+The *definer* of an algorithm is the representation of an algorithm returned by `GET`ting its `@id`.
 
 All representations (except for definers that provide alternative representations) MUST implement the algorithm themselves.
 Representations MAY provide different alternatives every call.
@@ -144,8 +144,9 @@ The returned `href` MUST return a JsonLD document containing at least one [`fd:A
 #### Discovering Algorithms via Webfinger
 This section is REQUIRED if an instance implements [[WebFinger]], and only affects [`fd:Algorithm`]s implemented or defined by the server.
 
-An [`fd:Algorithm`]'s `@id` MUST return a link when queried via [[Webfinger]]:
+An [`fd:Algorithm`]'s `@id` MUST return a link when queried via [[Webfinger]].
 
+For example:
 ```json
 {
   "subject": "https://example.dev/algorthims/abc",
