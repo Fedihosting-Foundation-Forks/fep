@@ -3,6 +3,7 @@
     "as": "https://www.w3.org/ns/activitystreams#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "fd": "https://www.w3id.org/fep/5a4f#",
+    "Algorithm": "fd:Algorihtm",
     "Topic": "fd:Topic",
     "Vote": "fd:Vote",
     "Voter": "fd:Voter",

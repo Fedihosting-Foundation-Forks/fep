@@ -1,7 +1,8 @@
 ---
 slug: "5a4f"
-authors: Laxystem <the@laxla.quest>
+authors: Laxystem <@laxla@tech.lgbt>
 status: DRAFT
+relatedFeps: FEP-f1d5, FEP-6481, FEP-888d
 ---
 
 # FEP-5a4f: Federated Democracy
@@ -46,7 +47,7 @@ Additionally, `https://www.w3.org/ns/activitystreams#` prefix is shortened to `a
 
 Types and properties defined by this FEP MUST NOT be used in any way
 not described in this FEP or another FEP extending it.
-To use an extension of this FEP, implementations MUST declare so in their nodeinfo, as defined by FEP-TODO.
+To use an extension of this FEP, implementations MUST declare so in their NodeInfo, as defined by [[FEP-6481]].
 
 ## Specification
 
@@ -68,15 +69,14 @@ and outputs the result if enough information was provided.
 
 ### Responding to Votes
 
-One may respond to a [`fd:Vote`] by `PUT`ting an `Accept`, `Ignore` 
+To respond to a [`fd:Vote`], one MUST `PUT` an `Accept`, `Ignore` 
 or `Reject` activity (standing for in favour, neutral, and against, respectively) into its `@id`.
 
 Vote responses MUST have the `fd:voter` property.
 
 If the [`fd:allowsEditingResponses`] property is `true`,
-another response made by the same `fd:Voter` will replace the previous one.
+another response made by the same `fd:Voter` MUST replace the previous one.
 Otherwise, the receiving server MUST respond with 405 Method Not Allowed.
-
 
 If a server receives a response to a vote whose [`fd:ended`] is not `null`, it MUST respond with 405 Method Not Allowed.
 
@@ -88,8 +88,8 @@ If a response was received successfully, the server MUST respond with 202 Accept
 Votes may use a public algorithm to be evaluated,
 to allow validation of the vote's results, and to ensure consistency.
 
-If the [`fd:algorithm`](#algorithm) property is present,
-the vote MUST be evaluated by sending a `GET` request to its value, with one of the following query parameter lists:
+If the [`fd:algorithm`] property is present,
+the vote MUST be evaluated by sending a `GET` request to one of the [`fd:Algorithm`]'s representations, with one of the following query parameter lists:
 
 * By vote.
     * `vote`, containing the `@id` of the vote to be evaluated.
@@ -98,32 +98,67 @@ the vote MUST be evaluated by sending a `GET` request to its value, with one of 
     * `inFavour` - the number of voters that have responded in favour to this vote.
     * `against` - the number of voters that have responded against to this vote.
     * `neutral` - the number of voters that have responded neutrally to this vote. Defaults to zero.
-    * Any other parameter required by this algorithm.
-* If no parameters are provided, then a [`as:Link`](https://www.w3.org/ns/activitystreams#Link) to this algorithm MUST
-  be returned instead.
+    * Any other parameter required by the [`fd:Algorithm`].
+* If no parameters are provided, then the [`fd:Algorithm`] itself MUST be returned instead.
 
-The algorithm will return a shortened version of the same `fd:Vote` object, only with an `@id` and a `result`.
-Alternatively, the algorithm may return an HTTP error code with an empty body.
+The algorithm MUST return a shortened version of the same `fd:Vote` object, only with an `@id` and a `result` on success.
 
-Algorithms MUST return the same results for the same data.
+### Algorithm Discovery
+[`fd:Algorithm`]s are decentralized evalutors of [`fd:Vote`]s.
 
-### Discovering Algorithms
+The *definer* of an algorithm is the representation of said algorithm returned by `GET`ting its `@id`.
 
-This FEP defines an extension to [[NodeInfo]] at `.well-known/nodeinfo`,
-providing the `https://www.w3id.org/fep/5a4f#Algorithm` relation, for example:
+All representations (except for definers that provide alternative representations) MUST implement the algorithm themselves.
+Representations MAY provide different alternatives every call.
 
+All representations MUST return the same results for the same data.
+When in doubt, one:
+* SHOULD query multiple representations of the algorithm, and consider the more frequent result true.
+* MUST NOT Consider the definer the final authority, as (the following list is non-normative):
+    * The definer may be taken over by a malicious actor.
+    * The definer may be redirecting the request to a different implementation every call.
+
+In case of repetitive conflicts, the algorithm SHOULD be replaced, if possible.
+
+#### Discovering Algorithms via NodeInfo
+This section is REQUIRED if an instance implements or defines an [`fd:Algorithm`].
+
+This FEP defines a [[NodeInfo]] extension at `.well-known/nodeinfo`,
+providing the `https://www.w3id.org/fep/5a4f#Algorithm` relation.
+
+For example:
 ```json
 {
   "links": [
     {
-      "rel": "https://www.w3id.org/fep/5a4f#algorithm",
-      "href": "https://example.social/api/fep/54af/algorithms"
+      "rel": "https://www.w3id.org/fep/5a4f#Algorithm",
+      "href": "https://example.social/api/fep/54af/algorithms",
+
     }
   ]
 }
 ```
 
-This link must return a JsonLD document containing at least one [`as:Link`].
+The returned `href` MUST return a JsonLD document containing at least one [`fd:Algorithm`].
+
+#### Discovering Algorithms via Webfinger
+This section is REQUIRED if an instance implements [[WebFinger]], and only affects [`fd:Algorithm`]s implemented or defined by the server.
+
+An [`fd:Algorithm`]'s `@id` MUST return a link when queried via [[Webfinger]]:
+
+```json
+{
+  "subject": "https://example.dev/algorthims/abc",
+  "links": [
+    {
+        "rel": "https://www.w3.id.org/fep/5a4f#Algorithm",
+        "href": "https://example.social/api/fep/54af/algorithms/abc"
+    }
+  ]
+}
+```
+
+The returned `href` MUST return a JsonLD document containing a *single* representation of the [`fd:Algorithm`].
 
 ## Vocabulary
 
@@ -145,7 +180,11 @@ This link must return a JsonLD document containing at least one [`as:Link`].
 
 [`as:endTime`]: https://www.w3.org/ns/activitystreams#endTime
 
+[`as:href`]: https://www.w3.org/ns/activitystreams#href
+
 [`as:name`]: https://www.w3.org/ns/activitystreams#name
+
+[`as:rel`]: https://www.w3.org/ns/activitystreams#rel
 
 [`as:startTime`]: https://www.w3.org/ns/activitystreams#startTime
 
@@ -153,13 +192,32 @@ This link must return a JsonLD document containing at least one [`as:Link`].
 
 [`as:target`]: https://www.w3.org/ns/activitystreams#target
 
+[`as:url`]: https://www.w3.org/ns/activitystreams#url
+
 ### Types
 
-Implementations MUST NOT accept `Update` activities trying to change properties marked as immutable via an
+Implementations MUST NOT accept `Update` activities trying to change `@id`, and to properties marked as immutable via an
 asterisk (`immutableProperty`*).
 
 <dl>
 
+<dt id="Algorithm">Algorithm</dt><dd>
+
+[`fd:Algorithm`]: #Algorithm
+An algorithm used to evaluate the result of a vote.
+
+Alternative representations of the algorithm are available at [`as:url`]s that:
+* Have a [`as:mediaType`] of `application/ld+json; profile="https://www.w3.org/ns/activitystreams` (and MAY also accept `application/activity+json` and `application/ld+json`).
+* Have a [`as:rel`] of `https://www.w3id.org/fep/5a4f#Algorithm`.
+* Have an [`as:href`] containing a valid URI ([[RFC-3986]]) using the `https` ([[RFC-2818]]) scheme.
+* Function as described [above](#evaluating-votes-via-public-algorithms).
+
+* URI: `https://www.w3id.org/fep/5a4f#Topic`
+* Inherits from: [`as:Object`]
+* REQUIRED properties: `@id`
+* RECOMMENDED properties: [`as:name`] | [`as:summary`] | [`as:url`]
+
+</dd>
 <dt id="Topic">Topic</dt><dd>
 
 [`fd:Topic`]: #Topic
@@ -330,10 +388,10 @@ The number of [`fd:Voter`]s that are against this [`fd:Vote`].
 <dt id="algorithm">algorithm</dt><dd>
 
 [`fd:algorithm`]: #algorithm
-The algorithm used to evaluate this [`fd:Vote`], if publicly available.
+The [`fd:Algorithm`] used to evaluate this [`fd:Vote`], if publicly available.
 * URI: `https://www.w3id.org/fep/5a4f#algorithm`
 * Domain: [`fd:Vote`]
-* Range: [`as:Link`]
+* Range: [`fd:Algorithm`]
 * Functional: Yes
 
 </dd>
@@ -479,7 +537,6 @@ Stuff that this document still needs to improve.
 * Vote `UPDATE`s - who's responsible?
 * A way to know *when* a `fd:Voter` responded?
 * Custom parameters in algorithm discovery?
-* Find or create an FEP that specifies list of implemented FEPs in nodeinfo for extension purposes.
 
 ## References
 
@@ -491,10 +548,16 @@ Stuff that this document still needs to improve.
 
 [RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
 
+[RFC-2818]: https://datatracker.ietf.org/doc/html/rfc2818.html
+
+[RFC-3986]: https://datatracker.ietf.org/doc/html/rfc3986.html
+
 - [[ActivityPub]], Christine Lemmer-Webber, Jessica Tallon, 2018
 - [[ActivityStreams 2.0]], James M. Snell, Evan Prodromou, 2017
 - [[NodeInfo] 2.1]
 - [[RFC-2119]], S. Bradner, 1997
+- [[RFC-2818]], E. Rescorla, RTFM Inc., 2000
+- [[RFC-3986]], T. Berners-Lee, W3C/MIT, R. Fielding, Day Software, L. Mesinter, Adobe Systems, 2005 
 
 ## Copyright
 
