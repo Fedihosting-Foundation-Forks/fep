@@ -1,6 +1,6 @@
 ---
 slug: "8b32"
-authors: silverpill <silverpill@firemail.cc>
+authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2022-11-12
 relatedFeps: FEP-521a
@@ -40,48 +40,6 @@ The process of proof generation consists of the following steps:
 
 The resulting proof is added to the original JSON object under the key `proof`. Objects MAY contain multiple proofs.
 
-Example of unsigned activity:
-
-```json
-{
-    "@context": [
-        "https://www.w3.org/ns/activitystreams",
-        "https://w3id.org/security/data-integrity/v1"
-    ],
-    "type": "Create",
-    "actor": "https://server.example/users/alice",
-    "object": {
-        "type": "Note",
-        "content": "Hello world"
-    }
-}
-```
-
-Example of activity with integrity proof:
-
-```json
-{
-    "@context": [
-        "https://www.w3.org/ns/activitystreams",
-        "https://w3id.org/security/data-integrity/v1"
-    ],
-    "type": "Create",
-    "actor": "https://server.example/users/alice",
-    "object": {
-        "type": "Note",
-        "content": "Hello world"
-    },
-    "proof": {
-        "type": "DataIntegrityProof",
-        "cryptosuite": "eddsa-jcs-2022",
-        "verificationMethod": "https://server.example/users/alice#ed25519-key",
-        "proofPurpose": "assertionMethod",
-        "proofValue": "z3sXaxjKs4M3BRicwWA9peyNPJvJqxtGsDmpt1jjoHCjgeUf71TRFz56osPSfDErszyLp5Ks1EhYSgpDaNM977Rg2",
-        "created": "2023-02-24T23:36:38Z"
-    }
-}
-```
-
 The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs](https://w3c.github.io/vc-data-integrity/#proofs). The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof](https://w3c.github.io/vc-data-integrity/#dataintegrityproof). The value of `verificationMethod` attribute SHOULD be an URL of actor's public key or a [DID][DIDs] associated with an actor. The value of `proofPurpose` attribute MUST be `assertionMethod`.
 
 ### Proof verification
@@ -92,7 +50,7 @@ If both HTTP signature and integrity proof are used, the integrity proof MUST be
 
 ### Algorithms
 
-Implementers SHOULD pursue broad interoperability when choosing algorithms for integrity proofs.
+Implementers are expected to pursue broad interoperability when choosing algorithms for integrity proofs.
 
 [eddsa-jcs-2022][eddsa-jcs-2022] cryptosuite is RECOMMENDED:
 
@@ -102,15 +60,111 @@ Implementers SHOULD pursue broad interoperability when choosing algorithms for i
 
 **WARNING: eddsa-jcs-2022 cryptosuite specification is not stable and may change before it becomes a W3C Recommendation. In particular, the processing of nested objects is not [well defined](https://github.com/w3c/vc-data-integrity/issues/231).**
 
-Support for **RSASSA-PKCS1-v1_5** signature algorithm is OPTIONAL but could be desirable for interoperability with legacy systems.
-
-### Backwards compatibility
+### Backward compatibility
 
 Integrity proofs and linked data signatures can be used together, as they rely on different properties (`proof` and `signature`, respectively).
 
 If compatiblity with legacy systems is desired, the integrity proof MUST be created and inserted before the generation of the linked data signature.
 
 If both `proof` and `signature` are present in a received object, the linked data signature MUST be removed before the verification of the integrity proof.
+
+### Nested objects
+
+Nested objects containing integrity proofs that use [JCS] canonicalization algorithm might not be compatible with JSON-LD processors. To avoid verification errors, implementers MAY re-define properties such as `object` as having `@json` type when signing objects containing other signed objects.
+
+## Examples
+
+### Signed object
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/security/data-integrity/v1"
+  ],
+  "type": "Note",
+  "attributedTo": "https://server.example/users/alice",
+  "content": "Hello world",
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "eddsa-jcs-2022",
+    "verificationMethod": "https://server.example/users/alice#ed25519-key",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "...",
+    "created": "2023-02-24T23:36:38Z"
+  }
+}
+```
+
+### Signed activity
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/security/data-integrity/v1"
+  ],
+  "type": "Create",
+  "actor": "https://server.example/users/alice",
+  "object": {
+    "type": "Note",
+    "attributedTo": "https://server.example/users/alice",
+    "content": "Hello world"
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "eddsa-jcs-2022",
+    "verificationMethod": "https://server.example/users/alice#ed25519-key",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "...",
+    "created": "2023-02-24T23:36:38Z"
+  }
+}
+```
+
+### Signed activity with embedded signed object
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/security/data-integrity/v1",
+    {
+      "object": {
+        "@id": "as:object",
+        "@type": "@json"
+      }
+    }
+  ],
+  "type": "Create",
+  "actor": "https://server.example/users/alice",
+  "object": {
+    "@context": [
+      "https://www.w3.org/ns/activitystreams",
+      "https://w3id.org/security/data-integrity/v1"
+    ],
+    "type": "Note",
+    "attributedTo": "https://server.example/users/alice",
+    "content": "Hello world",
+    "proof": {
+      "type": "DataIntegrityProof",
+      "cryptosuite": "eddsa-jcs-2022",
+      "verificationMethod": "https://server.example/users/alice#ed25519-key",
+      "proofPurpose": "assertionMethod",
+      "proofValue": "...",
+      "created": "2023-02-24T23:36:38Z"
+    }
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "eddsa-jcs-2022",
+    "verificationMethod": "https://server.example/users/alice#ed25519-key",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "...",
+    "created": "2023-02-24T23:36:38Z"
+  }
+}
+```
 
 ## Test vectors
 
@@ -122,6 +176,8 @@ See [fep-8b32.feature](./fep-8b32.feature)
 - Vervis
   ([generation](https://codeberg.org/ForgeFed/Vervis/commit/e8e587af26944d3ea8d91f5c47cc3058cf261387),
   [verification](https://codeberg.org/ForgeFed/Vervis/commit/621275e25762a1c1e5860d07a6ff87b147deed4f))
+- Streams
+- [Hubzilla](https://hub.somaton.com/channel/mario?mid=4214a375-3a18-4acb-b546-75c6c4818e2f)
 
 ## References
 
