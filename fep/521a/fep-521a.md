@@ -43,7 +43,7 @@ Resolution of a URI containing a fragment identifier is performed in two steps:
 
 ### Key types
 
-Implementers can use cryptographic keys of any type for which [Multicodec](https://github.com/multiformats/multicodec/) prefix is registered.
+Implementers can use cryptographic keys of any type for which [Multicodec] prefix is registered.
 
 ## Controller document
 
