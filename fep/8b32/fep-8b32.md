@@ -40,11 +40,13 @@ The process of proof generation consists of the following steps:
 
 The resulting proof is added to the original JSON object under the key `proof`. Objects MAY contain multiple proofs.
 
-The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs](https://w3c.github.io/vc-data-integrity/#proofs). The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof](https://w3c.github.io/vc-data-integrity/#dataintegrityproof). The value of `verificationMethod` attribute SHOULD be an URL of actor's public key or a [DID][DIDs] associated with an actor. The value of `proofPurpose` attribute MUST be `assertionMethod`.
+The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs](https://w3c.github.io/vc-data-integrity/#proofs). The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof](https://w3c.github.io/vc-data-integrity/#dataintegrityproof). The value of `proofPurpose` attribute MUST be `assertionMethod`.
+
+The value of the `verificationMethod` attribute of the proof can be an URL of a public key or a [DID][DIDs]. The [controller document](https://w3c.github.io/vc-data-integrity/#controller-documents) where verification method is expressed MUST be an actor object or another document that can be provably associated with an [ActivityPub] actor (e.g. a [DID][DIDs] document).
 
 ### Proof verification
 
-The recipient of activity SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.5 Verify Proof](https://w3c.github.io/vc-data-integrity/#verify-proof). It starts with the removal of a `proof` value from the JSON object. Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
+Recipients of an object SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.5 Verify Proof](https://w3c.github.io/vc-data-integrity/#verify-proof). It starts with the removal of the `proof` value from the JSON object. Then verification method is retrieved from the controller document as described in section [4.7 Retrieve Verification Method](https://w3c.github.io/vc-data-integrity/#retrieve-verification-method). Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
 
 If both HTTP signature and integrity proof are used, the integrity proof MUST be given precedence over HTTP signature. The HTTP signature MAY be dismissed.
 
@@ -68,9 +70,11 @@ If compatiblity with legacy systems is desired, the integrity proof MUST be crea
 
 If both `proof` and `signature` are present in a received object, the linked data signature MUST be removed before the verification of the integrity proof.
 
-### Nested objects
+### Special cases
 
-Nested objects containing integrity proofs that use [JCS] canonicalization algorithm might not be compatible with JSON-LD processors. To avoid verification errors, implementers MAY re-define properties such as `object` as having `@json` type when signing objects containing other signed objects.
+#### Activities
+
+The controller of the verification method MUST match the actor of activity, or be associated with that actor.
 
 ## Examples
 
@@ -110,50 +114,6 @@ Nested objects containing integrity proofs that use [JCS] canonicalization algor
     "type": "Note",
     "attributedTo": "https://server.example/users/alice",
     "content": "Hello world"
-  },
-  "proof": {
-    "type": "DataIntegrityProof",
-    "cryptosuite": "eddsa-jcs-2022",
-    "verificationMethod": "https://server.example/users/alice#ed25519-key",
-    "proofPurpose": "assertionMethod",
-    "proofValue": "...",
-    "created": "2023-02-24T23:36:38Z"
-  }
-}
-```
-
-### Signed activity with embedded signed object
-
-```json
-{
-  "@context": [
-    "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/security/data-integrity/v1",
-    {
-      "object": {
-        "@id": "as:object",
-        "@type": "@json"
-      }
-    }
-  ],
-  "type": "Create",
-  "actor": "https://server.example/users/alice",
-  "object": {
-    "@context": [
-      "https://www.w3.org/ns/activitystreams",
-      "https://w3id.org/security/data-integrity/v1"
-    ],
-    "type": "Note",
-    "attributedTo": "https://server.example/users/alice",
-    "content": "Hello world",
-    "proof": {
-      "type": "DataIntegrityProof",
-      "cryptosuite": "eddsa-jcs-2022",
-      "verificationMethod": "https://server.example/users/alice#ed25519-key",
-      "proofPurpose": "assertionMethod",
-      "proofValue": "...",
-      "created": "2023-02-24T23:36:38Z"
-    }
   },
   "proof": {
     "type": "DataIntegrityProof",
