@@ -2,7 +2,7 @@
 slug: "e229"
 authors: a <a@trwnh.com>
 status: DRAFT
-dateReceived: 2024-03-28
+dateReceived: 2024-04-02
 ---
 # FEP-e229: Best practices for extensibility
 
