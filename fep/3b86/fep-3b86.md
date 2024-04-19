@@ -36,7 +36,7 @@ When performing an `acct:` (user account) query to the WebFinger endpoint, serve
 
 Parameter names are chosen to correspond with [Activity Vocabulary properties](https://www.w3.org/TR/activitystreams-vocabulary/#properties) and may differ from parameters used by pre-existing implementations.
 
-** Example WebFinger Response:**
+**Example WebFinger Response:**
 ```json
 {
   "subject": "acct:benpate@mastodon.social",
