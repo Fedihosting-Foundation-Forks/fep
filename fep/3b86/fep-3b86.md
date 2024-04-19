@@ -1,6 +1,8 @@
 ---
+slug: 3b86
 authors: Ben Pate \<@benpate@mastodon.social\>
 status: DRAFT
+dateReceived: 2024-04-19
 relatedFeps: FEP-4adb, FEP-888d
 ---
 
