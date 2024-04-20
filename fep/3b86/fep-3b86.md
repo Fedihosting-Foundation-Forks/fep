@@ -8,15 +8,15 @@ relatedFeps: FEP-4adb, FEP-888d
 
 # FEP-3b86: Activity Intents
 
-## 1. Requirements
+## Summary
+Activity Intents extend the capabilities of an ActivityPub server beyond a user's inbox, and simplify the process of interacting with content on the wider social web. They do this by publishing a machine-readable list of public URLs where users can perform key activities (such as `Follow`, `Like`, or `Announce`)  allowing other websites to easily initiate remote social interactions.
+
+## Requirements
 The key words "MUST", "SHOULD", and "MAY" are to be interpreted as described in [RFC2119](https://tools.ietf.org/html/rfc2119.html).
 
 For the purposes of this document, a "Server" is the application that is publishing an Actor's Activity Intents via WebFinger, and a "Client" is the application requesting/receiving those intents.  This should not be confused with the fact that "Clients" will likely be Fediverse servers in their own right, in other interactions on the web.
 
-## 2. Summary
-Activity Intents extend the capabilities of an ActivityPub server beyond a user's inbox, and simplify the process of interacting with content on the wider social web. They do this by publishing a machine-readable list of public URLs where users can perform key activities (such as `Follow`, `Like`, or `Announce`)  allowing other websites to easily initiate remote social interactions.
-
-## 3.  History
+## History
 Most centralized social media services have widgets that allow users on the wider Internet to interact with their social services.  These include "like" and "share" buttons that third-party websites embed into their content, and link users back to their corresponding social media account.
 
 There have been several attempts to make a "Share on Mastodon" button that performs a similar action on the Fediverse.  Some require an intermediate host, while others are run entirely on the user's web browser.  These buttons then forward the user back to the appropriate page on their home server with parameters that pre-populate some data about the original site.
@@ -27,7 +27,7 @@ The lack of a unified standard has led developers to hard code lists of applicat
 
 What is needed is a way for each server to announce their supported endpoints in a systematic way.
 
-## 4. Activity Intents
+## Activity Intents
 In the most basic terms, Activity Intents expand on the common Fediverse use of [WebFinger](https://webfinger.net) in FEP-4adb to include mappings between any [Activity Type](https://www.w3.org/TR/activitystreams-vocabulary/#activity-types) and the URL endpoint where that user can perform it.
 
 When performing an `acct:` (user account) query to the WebFinger endpoint, servers supporting Activity Intents SHOULD respond with one or more intent links in the ["links" property](https://datatracker.ietf.org/doc/html/rfc7033#section-4.4.4). Activity Intent links MUST have `rel` and `href` properties.  All others are ignored.
@@ -79,7 +79,7 @@ Parameter names are chosen to correspond with [Activity Vocabulary properties](h
 
 This expands and standardizes the "remote follow" workflow that was used by oStatus protocol in the past, but has been only partially implemented by newer Fediverse applications.
 
-### 4.1. Announce Intent
+### Announce Intent
 This corresponds to the ActivityStreams [Announce activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-announce).  When included in an account's WebFinger results, `intent:Announce` publishes the API endpoint where the current user can announce, or boost the current document in their own outbox.
 
 #### Parameters
@@ -93,7 +93,7 @@ This corresponds to the ActivityStreams [Announce activity](https://www.w3.org/T
 }
 ```
 
-### 4.2. Create Intent
+### Create Intent
 This corresponds to the ActivityStreams [Create activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-create). When included in an account's WebFinger results, `intent:Create` publishes the API endpoint where the current user can create a new post in their own outbox.  This is similar to the existing "share" endpoints supported by several Fediverse apps, where the user can create a new post in their inbox starting with some pre-populated content.
 
 #### Parameters
@@ -108,7 +108,7 @@ This corresponds to the ActivityStreams [Create activity](https://www.w3.org/TR/
 }
 ```
 
-### 4.3. Follow Intent
+### Follow Intent
 This corresponds to the ActivityStreams [Follow activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-follow).   When included in an account's WebFinger result, `intent:Follow` publishes the API endpoint where the current user can initiate a "follow" request.  This is similar to the existing [remote follow](https://www.hughrundle.net/how-to-implement-remote-following-for-your-activitypub-project/) workflow that is supported at various levels by several Fediverse apps, but is no longer formally documented.
 
 #### Parameters
@@ -125,7 +125,7 @@ This corresponds to the ActivityStreams [Follow activity](https://www.w3.org/TR/
 
 **Note:** to maintain consistency with the rest of the Activity Vocabulary, this 
 
-### 4.4. Like Intent
+### Like Intent
 This corresponds to the ActivityStreams [Like activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-like).  When included in an account's WebFinger result, `intent:Like` publishes the API endpoint where the current user can like the current document.
 
 #### Parameters
@@ -140,7 +140,7 @@ This corresponds to the ActivityStreams [Like activity](https://www.w3.org/TR/ac
 }
 ```
 
-### 4.5. Other Intents
+### Other Intents
 This convention should be flexible enough that *any* [Activity Type](https://www.w3.org/TR/activitystreams-vocabulary/#activity-types) should be supported.  Parameters in each transaction should correspond to the valid [properties](https://www.w3.org/TR/activitystreams-vocabulary/#properties) for each activity type.  To prevent unrecognized properties from corrupting a workflow, Clients MUST be able to replace all recognized values with the appropriate string.  And, Clients MUST replace unrecognized values with an empty string.
 
 ### Security Considerations and CSRF issues
@@ -163,7 +163,7 @@ The `intent:*` namespace is a placeholder for a discussion about what's best, he
 
 Right now, I'm in favor of option 1 because it is the most concise and requires the least amount of up-front work.  However, I want to have a discussion about this and will follow the consensus from the Fediverse developer community.
 
-## 5. Clients: The Other Half of the Equation
+## Clients: The Other Half of the Equation
 This FEP provides the prerequisite information required for a **Server** publish Activity Intents for its Actors.  The **Client** portion (where developers add "share" and "like" buttons to their content) is out of this scope.
 
 But briefly, Developers will need to create the workflows on their own sites that:
