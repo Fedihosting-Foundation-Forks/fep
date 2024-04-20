@@ -53,7 +53,7 @@ Proposal metadata is placed at the top of the document as key-value pairs betwee
 
 Following metadata key-value pairs may be placed at the top of a proposal:
 
-- `slug`: the proposal identifier.
+- `slug`: the proposal identifier. The value must be enclosed within double quote marks, e.g. `"a4ed"`.
 - `authors`: A comma separated list of authors of the proposal. Each item of the list should contain an author's name followed by a contact address in angle brackets (e.g. `Alyssa P. Hacker <alyssa.p.hacker@email.example>`, `Alyssa P. Hacker <@alyssa.p.hacker@fediverse.example>`).
 - `status`: Indicates the proposal status. Can be either `DRAFT`, `WITHDRAWN` or `FINAL`.
 - `dateReceived`: Date of when the proposal was added to the repository (when status is set to `DRAFT`).
