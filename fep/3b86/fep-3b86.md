@@ -97,6 +97,17 @@ Activity Intents MAY include additional query parameters `on-success` and `on-ca
 
 **on-cancel** - If present in the link template, this value signifies a URL that the home server SHOULD redirect clients to if they abort the Activity Intent workflow.  If this parameter is missing, then the resulting page is left up to the home server to choose.
 
+### 3.5 Endpoint Expectations
+The user's home server is a trusted environment that manages the user's sign-in status along with the rest of their social inbox and outbox.  When the remote server links to an Activity Intent provided by the home server, the layout, fields, and UI are all determined by the home server
+
+Remote servers MAY open Activity Intent links in many different environments, such as:
+1. a full browser window
+2. a small pop-up window
+3. a mobile app HTML view
+4. or other constrained environments.
+
+Home servers SHOULD build their UI with minimal assumptions so that the endpoint will fit well into as many environments as possible.  Home servers may not be aware f the remote server opens the Activity Intent link in a separate popup window, so remote servers SHOULD include `on-success` and `on-cancel` parameters that redirect back to its own pages so that it can close the pop-up itself.
+
 ## 4. Intent Definitions
 
 ### 4.1. Accept Intent
