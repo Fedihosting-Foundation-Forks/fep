@@ -21,7 +21,7 @@ Most centralized social media services have widgets that allow users on the wide
 
 This is difficult to achieve in a federated environment.
 
-There have been other attempts to make a "Share on Mastodon" button that performs a similar action on the Fediverse.  But these tasks are implemented differently by different Fediverse servers.  For example, Mastodon uses `/share`, while Hubzilla uses `/rpost`.  Parameters to each application are often different, using variations of `text`, `title`, `url`, and others.
+There have been other attempts to make a "Share on Mastodon" button that performs a similar action on the Fediverse.  But these tasks are implemented differently by different Fediverse servers.  For example, Mastodon uses `/share`, while Hubzilla uses `/rpost`.  Parameters to each application are often different, using variations of `text`, `title`, `url`, and other values.
 
 The lack of a unified standard has led developers to hard-code endpoints for each distinct application.  This is brittle and vulnerable to changes by server authors.  It also pins those URL endpoints, making them difficult for servers to change in the future without breaking an unknown number of "share" buttons out in the wild.
 
@@ -97,7 +97,7 @@ Activity Intents MAY include additional query parameters `on-success` and `on-ca
 
 **on-cancel** - If present in the link template, this value signifies a URL that the home server SHOULD redirect clients to if they abort the Activity Intent workflow.  If this parameter is missing, then the resulting page is left up to the home server to choose.
 
-##  4. Intent Definitions
+## 4. Intent Definitions
 
 ### 4.1. Accept Intent
 This intent corresponds to the ActivityStreams [Accept activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-accept) and is defined using the link relation `https://w3id.org/fep/3b86/Accept`.
