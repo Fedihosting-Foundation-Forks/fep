@@ -81,7 +81,7 @@ After retrieving an object, the client MUST verify its [FEP-8b32][FEP-8b32] inte
 
 ## Portable actors
 
-An actor object identified by `ap://` URL MUST have the `gateway` property containing an ordered list of gateways where the latest version of that actor object can be retrieved. Each item in the list MUST be an HTTP(S) [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin), and the list MUST contain at least one item.
+An actor object identified by `ap://` URL MUST have the `gateways` property containing an ordered list of gateways where the latest version of that actor object can be retrieved. Each item in the list MUST be an HTTP(S) [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin), and the list MUST contain at least one item.
 
 An actor object identified by `ap://` URL MUST contain an [FEP-8b32][FEP-8b32] integrity proof.
 
@@ -95,8 +95,8 @@ Example:
     "https://www.w3.org/ns/activitystreams",
     "https://w3id.org/security/data-integrity/v1",
     {
-      "gateway": {
-        "@id": "https://w3id.org/fep/ef61/gateway",
+      "gateways": {
+        "@id": "https://w3id.org/fep/ef61/gateways",
         "@type": "@id",
         "@container": "@list"
       }
@@ -106,7 +106,7 @@ Example:
   "id": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor",
   "inbox": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox",
   "outbox": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/outbox",
-  "gateway": [
+  "gateways": [
     "https://server1.example",
     "https://server2.example"
   ],
@@ -123,12 +123,12 @@ Example:
 
 ### Location hints
 
-When ActivityPub object containing a reference to another actor is being constructed, implementations SHOULD provide a list of gateways where specified actor object can be retrieved. This list MAY be provided using the `gateway` query parameter. Each gateway address MUST be URL-endcoded, and if multiple addresses are present they MUST be separated by commas.
+When ActivityPub object containing a reference to another actor is being constructed, implementations SHOULD provide a list of gateways where specified actor object can be retrieved. This list MAY be provided using the `gateways` query parameter. Each gateway address MUST be URL-endcoded, and if multiple addresses are present they MUST be separated by commas.
 
 Example:
 
 ```
-ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?gateway=https%3A%2F%2Fserver1.example,https%3A%2F%2Fserver2.example
+ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?gateways=https%3A%2F%2Fserver1.example,https%3A%2F%2Fserver2.example
 ```
 
 This URL indicates that object can be retrieved from two gateways:
@@ -140,7 +140,7 @@ Implementations MUST discard query parameters when comparing `ap://` identifiers
 
 ### Inboxes and outboxes
 
-Servers and clients MUST use gateways to deliver activities to inboxes or outboxes. Servers specified in the `gateway` property of an actor object MUST accept POST requests to respective gateway URLs.
+Servers and clients MUST use gateways to deliver activities to inboxes or outboxes. Servers specified in the `gateways` property of an actor object MUST accept POST requests to respective gateway URLs.
 
 Example:
 
@@ -176,7 +176,7 @@ Example:
   ],
   "type": "Note",
   "id": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
-  "attributedTo": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?gateway=https%3A%2F%2Fserver1.example,https%3A%2F%2Fserver2.example",
+  "attributedTo": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?gateways=https%3A%2F%2Fserver1.example,https%3A%2F%2Fserver2.example",
   "inReplyTo": "ap://did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/objects/f66a006b-fe66-4ca6-9a4c-b292e33712ec",
   "content": "Hello!",
   "attachment": [
@@ -205,9 +205,9 @@ Example:
 
 `ap://` URLs might not be compatible with existing [ActivityPub][ActivityPub] implementations. To provide backward compatibility, gateway-based HTTP(S) URLs of objects can be used instead of their actual `ap://` identifiers.
 
-Publishers MUST use the first gateway from actor's `gateway` list when constructing compatible identifiers. Consuming implementations that support `ap://` URLs MUST remove the part of the URL preceding `did:` and re-construct the canonical `ap://` identifier.
+Publishers MUST use the first gateway from actor's `gateways` list when constructing compatible identifiers. Consuming implementations that support `ap://` URLs MUST remove the part of the URL preceding `did:` and re-construct the canonical `ap://` identifier.
 
-Publishers MUST NOT add the `gateway` query parameter to object IDs if compatible identifiers are used.
+Publishers MUST NOT add the `gateways` query parameter to object IDs if compatible identifiers are used.
 
 ## Discussion
 
@@ -217,7 +217,7 @@ An alternative to the `ap://` URL scheme could be a new DID method providing [DI
 
 ### Discovering locations
 
-This proposal makes use of the `gateway` property, but the following alternatives are being considered:
+This proposal makes use of the `gateways` property, but the following alternatives are being considered:
 
 - `aliases` and [`sameAs`](https://schema.org/sameAs) (containing HTTP(S) URLs of objects)
 - `alsoKnownAs` (used for account migrations, so the usage of this property may cause issues)
