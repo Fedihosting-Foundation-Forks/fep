@@ -9,6 +9,7 @@ Example:
 
 {
 	"@context": ["https://www.w3.org/ns/activitystreams", "https://w3id.org/fep/0391"],
+	"id": "https://example.com/create-some-reply",
 	"actor": "https://example.com/actors/2",
 	"type": "Create",
 	"object": {
@@ -30,6 +31,7 @@ Example:
 		"actor": "https://example.com/actors/1",
 		"type": "Add",
 		"object": "https://example.com/some-reply",
-		"target": "https://example.com/some-object/replies"
+		"target": "https://example.com/some-object/replies",
+		"attributedTo": "https://example.com/create-some-reply"
 	}
 }
