@@ -102,7 +102,7 @@ Fediverse Enhancement Proposals must be placed in the public domain by the autho
 1. A Fediverse Enhancement Proposal can be submitted by individuals or groups of individuals (authors). See the `SUBMISSION.md` file for a list of accepted submission methods.
 2. Within seven days one of the facilitators will read and respond to the proposal. The facilitator checks if the proposal conforms to the required structure and fits the scope and objective of the FEPs. The facilitator may request the authors to clarify, justify, or withdraw the proposal. Such a request must not reflect the personal bias of a facilitator. Rather, it will be made strictly to maintain a high quality of submissions. The facilitators reserve the right to reject a submission when a proposal amounts to blatant misuse of the process. The authors may seek feedback from the wider community if the submitted proposal is rejected or clarifications are requested.
 3. If a FEP facilitator approves a submission it receives the status `DRAFT` and is added to the repository. The facilitator also creates a tracking issue for the proposal and adds `trackingIssue` attribute to the proposal metadata.
-   - Registered proposals must have the following metadata attributes: `slug`, `authors`, `status`, `dateReceived` and `discussionsTo`.
+   - Registered proposals must have the following metadata attributes: `slug`, `authors`, `status`, `dateReceived`, `trackingIssue` and `discussionsTo`.
    - When the status is changed to `FINAL` or `WITHDRAWN`, facilitator adds `dateFinalized` or `dateWithdrawn` attributes to the proposal metadata.
 4. While a proposal has the status `DRAFT`:
    - Authors are responsible for initiating community discussion and collecting feedback.
