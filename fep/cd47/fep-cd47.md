@@ -8,7 +8,7 @@ dateReceived: 2024-01-08
 
 ## Summary
 
-A proposed taxonomy of ways to various kinds of ActivityPub data identifiable across locations to simplify higher-order functions like moderation receipts, tracking for trust and safety purposes, data migration, compliance, etc. This is intended as a light-weight and informational/meta-technical design document, not a specification or an extension.
+A proposed taxonomy of ways to make various kinds of ActivityPub data identifiable across locations to simplify higher-order functions like moderation receipts, tracking for trust and safety purposes, data migration, compliance, etc. This is intended as a light-weight and informational/meta-technical design document, not a specification or an extension.
 
 ## Rationale
 
@@ -19,14 +19,14 @@ While Camille Françoise's originial "[ABCs][]" paper was focused on disinformat
 If we scope this exercise to data conformant to the ActivityStreams data model as extended and federated by ActivityPub, we could scope these categories as:
 
 1. Actors are what ActivityPub calls `Actors`: fediverse "accounts", bots, etc.
-2. Behavior can here be limited to "the Greater Activity Streams," meaning protocol-native activities wrapped in AS objects defined in AS, AP, or in a FEP with a @Context so as to be fully compatible with the protocol in its strictest RDF form.
+2. Behavior can here be limited to "the Greater Activity Streams," meaning protocol-native activities wrapped in AS objects defined in AS, AP, or in a FEP with a @Context so as to be fully compatible with the protocol in a ffpr, still canonicalizable as RDF.
 3. Content can here be a catch-all for three different sub-types of data: the "contents" of an Activity with arbitrary/open-ended fields (like the user-generated content of a `Note` object, for example), media "attachments" (which we could further constrain to defined media-types in the HTML sense, for simplicity), and links out to other data (URLs, but also other URIs TBD?)
 
-What we mean by "addressing" given the scope defined above is tricky, because there is a URI-based system of `id`s inherent to the JSON-LD data model that the AS and AP specifications build on, and most references to addressing or identification in the core specifications refer only to this graph-friendly but static scheme of resources and links. In practice to date, this has been coextensive with HTTPS URLs and DNS-resolveable domains. Whether non-HTTPS URLs could or should be used _as_ `id`s or `@id`s is out-of-scope of this use-case document, and should be considered a design/implementation decision treated elsewhere. Regardless, today's data is all addressed by domain-based (and domain-dependent) `id`s that any new system should be able to handle and deduplicate in its current form, at least as "legacy" data if any breaking changes were proposed to these practices or to the core specifications.
+What we mean by "addressing" given the scope defined above is tricky, because there is a URI-based system of `id`s inherent to the JSON-LD data model that the AS and AP specifications build on, and most references to addressing or identification in the core specifications refer only to this graph-friendly but static scheme of resources and links. In practice to date, this has been coextensive with HTTPS URLs and DNS-resolveable domains. Whether non-HTTPS URLs could or should be used _as_ `id`s or `@id`s is out-of-scope of this use-case document, and should be considered a design/implementation decision treated elsewhere. Regardless, today's Fediverse data is overwhelmingly (perhaps exclusively?) addressed by domain-based (and domain-dependent) `id`s that any new system should be able to handle and deduplicate in its current form, at least as "legacy" data if any breaking changes were proposed to these practices or to the core specifications.
 
 Today, most actors and behaviors are addressed by their `id`s that are also their current HTTPS "location"; Content is similarly All of these addresses are brittle vis-a-vis duplication, migration, and "server death"-- moving them to a new location creates a new address for identical content/referent, often without a "forwarding" redirection (HTTP-code-based or otherwise), or a backlink to its previous address, while a server going down suddenly just breaks all those links with no verifiable remedy.
 
-One form of location-independent addressing is "content-addressing", the most common form of which is addressing canonicalizable contents by hashing them in canonicalized form, often used in key/value stores. It can sometimes be trickier than expected, however, to excise the location (or all properties that break if location changes) from the canonical form hashed to identify a piece of content, or an actor or a specific behavior.
+One form of location-independent addressing is "content-addressing", the most common form of which is addressing canonicalizable contents by hashing them in canonicalized form, often used in key/value stores, package managers, etc. It can sometimes be trickier than expected, however, to excise the location (or all properties that break if location changes) from the canonical form hashed to identify a piece of content, or an actor or a specific behavior.
 
 ## Non-technical Requirements
 
@@ -42,21 +42,20 @@ One form of location-independent addressing is "content-addressing", the most co
 
 ## Use Cases
 
-(Rough notes for now)
-
 1. As a server offering data migration to users bringing over old data, I can ingest content-addressed versions of each all actor collections, behavior and content without having to know server-specific paths, `id` patterns, annotations, bucket-storage URL schemes, etc.
-   1. I can also check data imports against content-addressed moderation records of that former server, if it is still live and federated with me
-   2. I can also access a mirror or snapshot of that data, if the server is no longer online or disfederated from me
-2. As a server auditing another server's moderation track record, I can parse receipts or logs of moderation actions that refer to behaviors and content by internal addresses (not necessarily content-addressed!) and retrieve the subjects of those actions by them, even if the actors, behaviors, and/or content in question have been deleted (note: assumes authorization to do so and trust between servers)
-3. As a server promising its users the "right to be forgotten" (or just honoring UX expectations of deletion), I can request receipts of deletion from the servers of followers and followers' followers' by content-address of the behavior or content being deleted. (See References)
+   1. I can also check imported datasets of behavior and/or content against content-addressed moderation records from the server that originally hosted them, assuming that server is still live and federated with me.
+   2. I can also access a mirror or snapshot of that data, if the server is no longer online or disfederated from me.
+2. As a server (A) auditing another server (B)'s moderation track record, I can parse receipts or logs of moderation actions that refer to behaviors and content by addresses internal to Server B (not necessarily content-addressed!) and use those address to retrieve the behavior and/or content moderated, even if the actors, behaviors, and/or content in question have been deleted. (Note: this use case assumes Server B is authorized appropriately by Server A and assumes significant trust between servers.)
+3. As a server promising its users the "right to be forgotten" (or just honoring UX expectations of deletion), I can request receipts of deletion from the servers of followers and followers' followers' by content-address of the behavior or content being deleted. (See [fediverse-ideas#55]() on fediverse-ideas reference; may be more pertinent for attachments than activities per se)
 
-## Technical Considerations
+## Open Questions
 
 1. Ephemeral, "in-memory" and/or service-internal objects (which the AP spec recommends to be excluded from the axiom that all Activity objects should have a unique and dereferenceable `id`!) are perhaps the simplest to content-address. These do not need to be addressed by unknown, external, or future parties, but MAY benefit from addressing the same way other content is addressed, e.g. when string-comparing uploads or pre-published content to a content-addressed blocklist before publishing.
-2. Sub-Resource Integrity? Hashes of `@Context` files, [Emoji sets](https://codeberg.org/fediverse/fediverse-ideas/issues/53), or other shared resources that might mutate at a static address?
-3. Where is RDFC needed and where would JCS be enough?
-4. Similarly, how are attachments, links, images, videos, etc canonicalized for hashing? How are arbitrary files (uploads?) canonicalized?
-5. Is there a property for Actor objects to backlink to previous `id`s?
+2. Should the [Sub-Resource Integrity][SRI] hashes of `@Context` files or javascript files, [Emoji sets][fediverse-ideas#53], or other shared resources that might mutate at a static address be brought into scope? Is it redundant or dangerous to have similar-but-different content addressing mechanisms for those kinds of resource verifiability running parallel to Actor, Behavior, and Content verifiability?
+3. Do Actors, Behaviors, and/or Contents need to be RDF-canonicalized, or is JCS more appropriate for portability between JSON-LD native and JSON-only implementations? What translation corner-cases arise from assuming one or the other canonicalization?
+   1. Thanks to @pukkamustard for sharing their [IETF RFC draft for RDF/CBOR][RDF-CBOR], [explainer][openengiadina], and [relevant](https://purl.org/eris) [prior art](https://datashards.net/)-- seems a well-designed and standardizable way forward, at least for Behaviors, particularly for implementations that already have RDF-canonicalization in the dependency graph and featureset.
+4. Similarly, how are attachments, links, images, videos, etc canonicalized for hashing in content-type-aware ways? How to deal with filesystems, bucket storage, etc? How are arbitrary files (uploads?) canonicalized?
+5. Is there a property for Actor objects to backlink to previous `id`s? How to deduplicate across migrations that change `id` property?
 
 ## References
 
@@ -70,13 +69,19 @@ Normative
 Informational
 
 - [SocialHub: We need to build “trust” in this space and the fediverse (2023)](https://socialhub.activitypub.rocks/t/we-need-to-build-trust-in-this-space-and-the-fedivers/3227/10)
-- [Fediverse-ideas: Delete Receipts for responsive and responsible federation?](https://codeberg.org/fediverse/fediverse-ideas/issues/55)
+- [Fediverse-ideas: Delete Receipts for responsive and responsible federation?][fediverse-ideas#55]
+- [Fediverse-ideas: Emoji Sets][fediverse-ideas#53]
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [ActivityStreams]: https://www.w3.org/TR/activitystreams/
 [ABCs]: https://www.ivir.nl/publicaties/download/ABC_Framework_2019_Sept_2019.pdf
 [ISCC]: https://iscc.codes/
 [ISCCSpec]: https://iscc.codes/specification/
+[SRI]: https://www.w3.org/TR/SRI/
+[fediverse-ideas#55]: https://codeberg.org/fediverse/fediverse-ideas/issues/55
+[fediverse-ideas#53]: https://codeberg.org/fediverse/fediverse-ideas/issues/53
+[openengiadina]: https://openengiadina.net/papers/content-addressable-rdf.html
+[RDF-CBOR]: https://openengiadina.codeberg.page/rdf-cbor/
 
 ## Copyright
 
