@@ -30,7 +30,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-c118: Content licensing support](./fep/c118/fep-c118.md) | `DRAFT` | [#57](https://codeberg.org/fediverse/fep/issues/57) | 2023-01-16 | - |
 | [FEP-2e40: The FEP Vocabulary Extension Process](./fep/2e40/fep-2e40.md) | `WITHDRAWN` | [#62](https://codeberg.org/fediverse/fep/issues/62) | 2023-02-13 | 2023-09-04 |
 | [FEP-7888: Demystifying the context property](./fep/7888/fep-7888.md) | `DRAFT` | [#68](https://codeberg.org/fediverse/fep/issues/68) | 2023-03-14 | - |
-| [FEP-d767: Extend ActivityPub with Valueflows](./fep/d767/fep-d767.md) | `DRAFT` | [#76](https://codeberg.org/fediverse/fep/issues/76) | 2023-04-02 | - |
+| [FEP-d767: Extend ActivityPub with Valueflows](./fep/d767/fep-d767.md) | `WITHDRAWN` | [#76](https://codeberg.org/fediverse/fep/issues/76) | 2023-04-02 | 2024-02-03 |
 | [FEP-5bf0: Collection sorting and filtering](./fep/5bf0/fep-5bf0.md) | `DRAFT` | [#80](https://codeberg.org/fediverse/fep/issues/80) | 2023-04-10 | - |
 | [FEP-888d: Using https://w3id.org/fep as a base for FEP-specific namespaces](./fep/888d/fep-888d.md) | `DRAFT` | [#83](https://codeberg.org/fediverse/fep/issues/83) | 2023-04-10 | - |
 | [FEP-612d: Identifying ActivityPub Objects through DNS](./fep/612d/fep-612d.md) | `DRAFT` | [#89](https://codeberg.org/fediverse/fep/issues/89) | 2023-04-18 | - |
@@ -58,6 +58,19 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-ef61: Portable Objects](./fep/ef61/fep-ef61.md) | `DRAFT` | [#209](https://codeberg.org/fediverse/fep/issues/209) | 2023-12-06 | - |
 | [FEP-7502: Limiting visibility to authenticated actors](./fep/7502/fep-7502.md) | `DRAFT` | [#218](https://codeberg.org/fediverse/fep/issues/218) | 2023-12-24 | - |
 | [FEP-2c59: Discovery of a Webfinger address from an ActivityPub actor](./fep/2c59/fep-2c59.md) | `DRAFT` | [#226](https://codeberg.org/fediverse/fep/issues/226) | 2024-01-04 | - |
+| [FEP-d556: Server-Level Actor Discovery Using WebFinger](./fep/d556/fep-d556.md) | `DRAFT` | [#243](https://codeberg.org/fediverse/fep/issues/243) | 2024-01-20 | - |
+| [FEP-3264: Federated Work Coordination](./fep/3264/fep-3264.md) | `DRAFT` | [#255](https://codeberg.org/fediverse/fep/issues/255) | 2024-01-31 | - |
+| [FEP-c5a1: To-do's](./fep/c5a1/fep-c5a1.md) | `DRAFT` | [#256](https://codeberg.org/fediverse/fep/issues/256) | 2024-01-31 | - |
+| [FEP-61cf: The OpenWebAuth Protocol](./fep/61cf/fep-61cf.md) | `DRAFT` | [#263](https://codeberg.org/fediverse/fep/issues/263) | 2024-02-06 | - |
+| [FEP-73cd: Migration User Stories](./fep/73cd/fep-73cd.md) | `DRAFT` | [#265](https://codeberg.org/fediverse/fep/issues/265) | 2024-02-07 | - |
+| [FEP-96ff: Explicit signalling of ActivityPub Semantics](./fep/96ff/fep-96ff.md) | `DRAFT` | [#272](https://codeberg.org/fediverse/fep/issues/272) | 2024-02-17 | - |
+| [FEP-6481: Specifying ActivityPub extension support with NodeInfo](./fep/6481/fep-6481.md) | `DRAFT` | [#279](https://codeberg.org/fediverse/fep/issues/279) | 2024-03-12 | - |
+| [FEP-9fde: Mechanism for servers to expose supported operations](./fep/9fde/fep-9fde.md) | `DRAFT` | [#282](https://codeberg.org/fediverse/fep/issues/282) | 2024-03-14 | - |
+| [FEP-e229: Best practices for extensibility](./fep/e229/fep-e229.md) | `DRAFT` | [#293](https://codeberg.org/fediverse/fep/issues/293) | 2024-04-02 | - |
+| [FEP-3b86: Activity Intents](./fep/3b86/fep-3b86.md) | `DRAFT` | [#302](https://codeberg.org/fediverse/fep/issues/302) | 2024-04-19 | - |
+| [FEP-7458: Using the replies collection](./fep/7458/fep-7458.md) | `DRAFT` | [#307](https://codeberg.org/fediverse/fep/issues/307) | 2024-04-26 | - |
+| [FEP-0391: Special collection proofs](./fep/0391/fep-0391.md) | `DRAFT` | [#310](https://codeberg.org/fediverse/fep/issues/310) | 2024-04-29 | - |
+| [FEP-db0e: Authentication mechanism for non-public groups](./fep/db0e/fep-db0e.md) | `DRAFT` | [#313](https://codeberg.org/fediverse/fep/issues/313) | 2024-05-03 | - |
 
 ## Submitting a FEP
 
@@ -81,7 +94,7 @@ b3f0
     - For example, if your computed identifier was `abcd`, then your file would be located at `fep/abcd/fep-abcd.md` and your frontmatter would include `slug: "abcd"`.
 
 7. Write down your idea in the newly created file and commit it to a new branch in your repository (ex. fep-xxxx).
-8. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./feps/fep-a4ed.md). Further process is described in FEP-a4ed.
+8. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md). Further process is described in FEP-a4ed.
 
 Alternatively to steps 3. to 6., you can run
 
@@ -91,9 +104,9 @@ python scripts/new_proposal.py TITLE OF YOUR PROPOSAL
 
 that should create a prefilled template for you.
 
-## Editors
+## Facilitators
 
-The list of FEP's is facilitated by Editors who are listed in the [EDITORS.md](EDITORS.md) file. Editors are neutral custodians of the FEP process, who merge PR's, create tracking issues, and start discussion threads for each FEP in the [SocialHub](https://socialhub.activitypub.rocks) developer community forum.
+The list of FEP's is maintained by the facilitators who are listed in the [FACILITATORS.md](FACILITATORS.md) file. Facilitators are neutral custodians of the FEP process, who merge PR's, create tracking issues, and start discussion threads for each FEP in the [SocialHub](https://socialhub.activitypub.rocks) developer community forum.
 
 ## Contributing
 

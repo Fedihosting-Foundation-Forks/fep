@@ -79,23 +79,23 @@ At the time of writing this FEP, the Codeberg repository at `https://codeberg.or
 (This section is non-normative.)
 
 ```perl
-Header set Access-Control-Allow-Origin *
-Header set Access-Control-Allow-Headers DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified$
-Options +FollowSymLinks
 RewriteEngine on
 
 # catch FEP-specific context requests
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([^/\.]*)/?(.*?)?/?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1/context.jsonld [R=302,L]
+RewriteRule ^([A-Za-z0-9]+)\/?(.*?)?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1/context.jsonld [R=302,L]
 
 # catch FEP-specific context requests without content negotiation
-RewriteRule ^([^/\.]*)/?(.*?)?.jsonld$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1/context.jsonld [R=302,L]
+RewriteRule ^([A-Za-z0-9]+).jsonld$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1/context.jsonld [R=302,L]
 
 # catch FEP proposal documents
-RewriteRule ^([^/\.]*)/?(.*?)?/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/fep-$1.md [R=302,L]
+RewriteRule ^([A-Za-z0-9]+)\/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/fep-$1.md [R=302,L]
+
+# catch root request
+RewriteRule ^$ https://codeberg.org/fediverse/fep [R=302,L]
 
 # a generic catch-all rule
-RewriteRule ^(.*?)\/?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1 [R=302,L]
+RewriteRule ^(.*)\/?$  https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1 [R=302,L]
 ```
 
 ### Defining terms associated with an FEP
@@ -181,7 +181,7 @@ An example of a definition list can be found below:
 <li>Inherits from: <code>https://www.w3.org/ns/activitystreams#Object</code></li>
 <li>Properties: 
 <a href="#exampleA"><code>exampleA</code></a> | 
-<a href="#exampleB"><code>examplB</code></a> | 
+<a href="#exampleB"><code>exampleB</code></a> | 
 <a href="#exampleC"><code>exampleC</code></a>
 </li>
 </ul>
@@ -225,7 +225,7 @@ An example of a definition list can be found below:
 - [CM-ATTRS] mb21, [Consistent attribute syntax](https://talk.commonmark.org/t/consistent-attribute-syntax/272/), 2014
 - [LD-TERM-DFN] Gregg Kellogg, Pierre-Antoine Champin, Dave Longley, [JSON-LD 1.1 - Section 9.15.1 "Expanded term definition"](https://www.w3.org/TR/json-ld/#expanded-term-definition), 2020
 - [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119.html)
-- [1] helge, [FEP-1570: The FEP Ontology Process](https://socialhub.activitypub.rocks/t/fep-1570-the-fep-ontology-process/2972), 2023
+- [1] helge, [FEP-2e40: The FEP Vocabulary Extension Process](https://socialhub.activitypub.rocks/t/fep-2e40-the-fep-vocabulary-extension-process/2972), 2023
 
 ## Copyright
 

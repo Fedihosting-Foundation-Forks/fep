@@ -21,7 +21,7 @@ b3f0
     - For example, if your computed identifier was `abcd`, then your file would be located at `fep/abcd/fep-abcd.md` and your frontmatter would include `slug: "abcd"`.
 
 7. Write down your idea in the newly created file and commit it to a new branch in your repository (ex. fep-xxxx).
-8. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./feps/fep-a4ed.md). Further process is described in FEP-a4ed.
+8. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md). Further process is described in FEP-a4ed.
 
 Alternatively to steps 3. to 6., you can run
 
@@ -31,9 +31,9 @@ python scripts/new_proposal.py TITLE OF YOUR PROPOSAL
 
 that should create a prefilled template for you.
 
-## Editors
+## Facilitators
 
-The list of FEP's is facilitated by Editors who are listed in the [EDITORS.md](EDITORS.md) file. Editors are neutral custodians of the FEP process, who merge PR's, create tracking issues, and start discussion threads for each FEP in the [SocialHub](https://socialhub.activitypub.rocks) developer community forum.
+The list of FEP's is maintained by the facilitators who are listed in the [FACILITATORS.md](FACILITATORS.md) file. Facilitators are neutral custodians of the FEP process, who merge PR's, create tracking issues, and start discussion threads for each FEP in the [SocialHub](https://socialhub.activitypub.rocks) developer community forum.
 
 ## Contributing
 

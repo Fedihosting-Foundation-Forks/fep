@@ -13,6 +13,9 @@ args = parser.parse_args()
 
 fep_file = FepFile(args.fep)
 
+if "trackingIssue" in fep_file.parsed_frontmatter:
+    print("File already has trackingIssue")
+    exit(1)
 if "discussionsTo" in fep_file.parsed_frontmatter:
     print("File already has discussionsTo")
     exit(1)
@@ -33,7 +36,7 @@ Please post links to relevant discussions as comment to this issue.
 
 `dateReceived`: {date1}
 
-If no further actions are taken, the proposal may be set by editors to `WITHDRAWN` on {date2} (in 1 year).
+If no further actions are taken, the proposal may be set by the facilitators to `WITHDRAWN` on {date2} (in 1 year).
 """
 
 with open("scripts/config.json") as f:
@@ -54,6 +57,7 @@ response = urlopen(request)
 
 issue_url = json.loads(response.read())["html_url"]
 
+fep_file.frontmetter.append(f"trackingIssue: {issue_url}")
 fep_file.frontmatter.append(f"discussionsTo: {issue_url}")
 fep_file.write()
 
