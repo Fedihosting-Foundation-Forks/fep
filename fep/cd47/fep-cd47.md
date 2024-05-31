@@ -2,7 +2,8 @@
 slug: "cd47"
 authors: Bumblefudge <bumblefudge@learningproof.xyz>
 status: DRAFT
-dateReceived: 2024-01-08
+dateReceived: 2024-05-31
+discussionsTo: https://socialhub.activitypub.rocks/t/account-migration/3058/55
 ---
 # FEP-cd47: Federation-friendly Addressing and Deduplication Use-Cases
 
@@ -24,7 +25,7 @@ If we scope this exercise to data conformant to the ActivityStreams data model a
 
 What we mean by "addressing" given the scope defined above is tricky, because there is a URI-based system of `id`s inherent to the JSON-LD data model that the AS and AP specifications build on, and most references to addressing or identification in the core specifications refer only to this graph-friendly but static scheme of resources and links. In practice to date, this has been coextensive with HTTPS URLs and DNS-resolveable domains. Whether non-HTTPS URLs could or should be used _as_ `id`s or `@id`s is out-of-scope of this use-case document, and should be considered a design/implementation decision treated elsewhere. Regardless, today's Fediverse data is overwhelmingly (perhaps exclusively?) addressed by domain-based (and domain-dependent) `id`s that any new system should be able to handle and deduplicate in its current form, at least as "legacy" data if any breaking changes were proposed to these practices or to the core specifications.
 
-Today, most actors and behaviors are addressed by their `id`s that are also their current HTTPS "location"; content is similarly location-addressed most of the time, except insofar as some attachments are sometimes renamed in bucket storage configurations. All of these addresses are brittle vis-a-vis duplication, migration, and "server death"-- moving them to a new location creates a new address for identical content/referent, often without a "forwarding" redirection (HTTP-code-based or otherwise), or a backlink to its previous address, while a server going down suddenly just breaks all those links with no verifiable remedy.
+Today, most actors and behaviors are addressed by their `id`s that are also their current HTTPS "location"; content is similarly location-addressed most of the time, except insofar as some attachments are sometimes renamed in bucket storage configurations.  All of these addresses are brittle vis-a-vis duplication, migration, and "server death"-- moving them to a new location creates a new address for identical content/referent, often without a "forwarding" redirection (HTTP-code-based or otherwise), or a backlink to its previous address, while a server going down suddenly just breaks all those links with no verifiable remedy.
 
 One form of location-independent addressing is "content-addressing", the most common form of which is addressing canonicalizable contents by hashing them in canonicalized form, often used in key/value stores, package managers, etc. It can sometimes be trickier than expected, however, to excise the location (or all properties that break if location changes) from the canonical form hashed to identify a piece of content, or an actor or a specific behavior.
 
