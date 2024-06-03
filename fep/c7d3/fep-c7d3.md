@@ -3,6 +3,7 @@ slug: "c7d3"
 authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2024-06-04
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-c7d3-ownership/4292
 ---
 # FEP-c7d3: Ownership
 
