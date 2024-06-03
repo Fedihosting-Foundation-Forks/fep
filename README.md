@@ -33,8 +33,8 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-d767: Extend ActivityPub with Valueflows](./fep/d767/fep-d767.md) | `WITHDRAWN` | [#76](https://codeberg.org/fediverse/fep/issues/76) | 2023-04-02 | 2024-02-03 |
 | [FEP-5bf0: Collection sorting and filtering](./fep/5bf0/fep-5bf0.md) | `DRAFT` | [#80](https://codeberg.org/fediverse/fep/issues/80) | 2023-04-10 | - |
 | [FEP-888d: Using https://w3id.org/fep as a base for FEP-specific namespaces](./fep/888d/fep-888d.md) | `DRAFT` | [#83](https://codeberg.org/fediverse/fep/issues/83) | 2023-04-10 | - |
-| [FEP-612d: Identifying ActivityPub Objects through DNS](./fep/612d/fep-612d.md) | `DRAFT` | [#89](https://codeberg.org/fediverse/fep/issues/89) | 2023-04-18 | - |
 | [FEP-0ea0: Payment Links](./fep/0ea0/fep-0ea0.md) | `DRAFT` | [#88](https://codeberg.org/fediverse/fep/issues/88) | 2023-04-18 | - |
+| [FEP-612d: Identifying ActivityPub Objects through DNS](./fep/612d/fep-612d.md) | `DRAFT` | [#89](https://codeberg.org/fediverse/fep/issues/89) | 2023-04-18 | - |
 | [FEP-fffd: Proxy Objects](./fep/fffd/fep-fffd.md) | `DRAFT` | [#95](https://codeberg.org/fediverse/fep/issues/95) | 2023-04-29 | - |
 | [FEP-4adb: Dereferencing identifiers with webfinger](./fep/4adb/fep-4adb.md) | `DRAFT` | [#100](https://codeberg.org/fediverse/fep/issues/100) | 2023-05-13 | - |
 | [FEP-a070: Ordered properties for plain JSON consumers](./fep/a070/fep-a070.md) | `DRAFT` | [#121](https://codeberg.org/fediverse/fep/issues/121) | 2023-06-13 | - |
@@ -71,6 +71,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-7458: Using the replies collection](./fep/7458/fep-7458.md) | `DRAFT` | [#307](https://codeberg.org/fediverse/fep/issues/307) | 2024-04-26 | - |
 | [FEP-0391: Special collection proofs](./fep/0391/fep-0391.md) | `DRAFT` | [#310](https://codeberg.org/fediverse/fep/issues/310) | 2024-04-29 | - |
 | [FEP-db0e: Authentication mechanism for non-public groups](./fep/db0e/fep-db0e.md) | `DRAFT` | [#313](https://codeberg.org/fediverse/fep/issues/313) | 2024-05-03 | - |
+| [FEP-cd47: Federation-friendly Addressing and Deduplication Use-Cases](./fep/cd47/fep-cd47.md) | `DRAFT` | [#319](https://codeberg.org/fediverse/fep/issues/319) | 2024-05-31 | - |
 
 ## Submitting a FEP
 
