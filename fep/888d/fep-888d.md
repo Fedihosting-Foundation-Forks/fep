@@ -156,7 +156,7 @@ The context document might look like this, at minimum:
 
 Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
 
-A folder within the FEP's directory may be used to provide additional documentation for the term, such as ontology or schema definitions via JSON-LD, RDF/XML, and/or Turtle.
+A folder within the FEP's directory should be used to provide additional documentation for the term, such as ontology or schema definitions via JSON-LD, RDF/XML, and/or Turtle.
 
 #### Example using fragment identifiers
 
