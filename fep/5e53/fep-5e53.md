@@ -27,7 +27,7 @@ refers to existing OOPSs that have already been documented, and does not propose
 
 ## Declaring an OOPS
 
-In order to apply an OOPs to an object, an author MAY set the JSON-LD properties `xRobotsTag` and/or
+In order to apply an OOPS to an object, an author MAY set the JSON-LD properties `xRobotsTag` and/or
 `secGPC`.  For example,
 
 
@@ -64,7 +64,7 @@ with centralized social sites.
 Content sharing platforms that operate in a centralized manner
 are now frequently promoting their support for signaling opt-outs
 to <q>generative AI</q> training, using the [noai] value for the X-Robots-Tag header. See [RobotsMeta] and [RobotExclusion].
-tag. In order for federated content sharing systems to provide an
+In order for federated content sharing systems to provide an
 attractive alternative to centralized ones, federated systems will
 likely need to also offer an opt out signaling feature.
 
