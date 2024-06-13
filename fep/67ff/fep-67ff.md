@@ -1,8 +1,9 @@
 ---
 slug: "67ff"
-authors: silverpill <silverpill@firemail.cc>
+authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2023-09-05
+trackingIssue: https://codeberg.org/fediverse/fep/issues/157
 discussionsTo: https://codeberg.org/fediverse/fep/issues/157
 ---
 # FEP-67ff: FEDERATION.md
@@ -66,6 +67,8 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Bovine](https://bovine-herd.readthedocs.io/en/latest/FEDERATION/) in [repo](https://codeberg.org/bovine/bovine/src/branch/main/bovine_herd/docs/docs/FEDERATION.md) and the [symlink](https://codeberg.org/bovine/bovine/src/branch/main/FEDERATION.md)
 - [BookWyrm](https://github.com/bookwyrm-social/bookwyrm/blob/main/FEDERATION.md)
 - [Hatsu](https://github.com/importantimport/hatsu/blob/main/FEDERATION.md)
+- [tootik](https://github.com/dimkr/tootik/blob/main/FEDERATION.md)
+- [Bridgy Fed](https://github.com/snarfed/bridgy-fed/blob/main/FEDERATION.md)
 
 ## References
 

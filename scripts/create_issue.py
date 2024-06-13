@@ -13,8 +13,8 @@ args = parser.parse_args()
 
 fep_file = FepFile(args.fep)
 
-if "discussionsTo" in fep_file.parsed_frontmatter:
-    print("File already has discussionsTo")
+if "trackingIssue" in fep_file.parsed_frontmatter:
+    print("File already has trackingIssue")
     exit(1)
 
 title = f"[TRACKING] FEP-{args.fep}: {fep_file.title}"
@@ -54,7 +54,9 @@ response = urlopen(request)
 
 issue_url = json.loads(response.read())["html_url"]
 
-fep_file.frontmatter.append(f"discussionsTo: {issue_url}")
+fep_file.frontmatter.append(f"trackingIssue: {issue_url}")
+if "discussionsTo" not in fep_file.parsed_frontmatter:
+    fep_file.frontmatter.append(f"discussionsTo: {issue_url}")
 fep_file.write()
 
 print(f"Issue url: {issue_url}")

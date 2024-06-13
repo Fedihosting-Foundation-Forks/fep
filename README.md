@@ -67,6 +67,12 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-6481: Specifying ActivityPub extension support with NodeInfo](./fep/6481/fep-6481.md) | `DRAFT` | [#279](https://codeberg.org/fediverse/fep/issues/279) | 2024-03-12 | - |
 | [FEP-9fde: Mechanism for servers to expose supported operations](./fep/9fde/fep-9fde.md) | `DRAFT` | [#282](https://codeberg.org/fediverse/fep/issues/282) | 2024-03-14 | - |
 | [FEP-e229: Best practices for extensibility](./fep/e229/fep-e229.md) | `DRAFT` | [#293](https://codeberg.org/fediverse/fep/issues/293) | 2024-04-02 | - |
+| [FEP-3b86: Activity Intents](./fep/3b86/fep-3b86.md) | `DRAFT` | [#302](https://codeberg.org/fediverse/fep/issues/302) | 2024-04-19 | - |
+| [FEP-7458: Using the replies collection](./fep/7458/fep-7458.md) | `DRAFT` | [#307](https://codeberg.org/fediverse/fep/issues/307) | 2024-04-26 | - |
+| [FEP-0391: Special collection proofs](./fep/0391/fep-0391.md) | `DRAFT` | [#310](https://codeberg.org/fediverse/fep/issues/310) | 2024-04-29 | - |
+| [FEP-db0e: Authentication mechanism for non-public groups](./fep/db0e/fep-db0e.md) | `DRAFT` | [#313](https://codeberg.org/fediverse/fep/issues/313) | 2024-05-03 | - |
+| [FEP-cd47: Federation-friendly Addressing and Deduplication Use-Cases](./fep/cd47/fep-cd47.md) | `DRAFT` | [#319](https://codeberg.org/fediverse/fep/issues/319) | 2024-05-31 | - |
+| [FEP-c7d3: Ownership](./fep/c7d3/fep-c7d3.md) | `DRAFT` | [#323](https://codeberg.org/fediverse/fep/issues/323) | 2024-06-04 | - |
 
 ## Submitting a FEP
 
