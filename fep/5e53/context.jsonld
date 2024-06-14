@@ -1,0 +1,6 @@
+{
+	"@context": {
+		"xRobotsTag": "https://www.robotstxt.org/meta.html",
+		"secGPC": "https://privacycg.github.io/gpc-spec/#the-sec-gpc-header-field-for-http-requests"
+	}
+}
