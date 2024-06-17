@@ -28,7 +28,7 @@ Proposals may include descriptions of technical protocols and mechanism, documen
 Proposals are not limited to technical topics and may focus on social and cultural aspects.
 
 Proposals that promote a commercial interest, product, or service are inappropriate for this community venue; similarly, those whose adoption would make much or all of the Fediverse dependent on a single infrastructure provider or a single point of failure can be hard for this venue to publish without compromising its technical and market neutrality.
-If editors or community members feel this line has been crossed, they are encouraged to suggest concrete changes that would mitigate the possible market or dependency issues.
+If facilitators or community members feel this line has been crossed, they are encouraged to suggest concrete changes that would mitigate the possible market or dependency issues.
 
 Proposals may be entertaining and humorous (unlike this proposal).
 
@@ -38,7 +38,7 @@ All Fediverse Enhancement Proposals must be written in English, be properly form
 
 Authors should use inclusive language and examples and refrain from using [oppressive terminology][Internet-Draft-terminology].
 
-Similarly, when discussing proposals in issues and pull request comments, proposers, contributors and editors alike should engage in good faith and avoid attributing malicious intent to contributions that fall outside the scope of the project or exercises of editorial authority.
+Similarly, when discussing proposals in issues or managing contributions through one or more [submission pipelines](SUBMISSION.md), authors should engage in good faith and avoid attributing malicious intent to facilitators volunteering their time for the project.
 
 ### Proposal Title and Identifier
 
@@ -125,6 +125,8 @@ Fediverse Enhancement Proposals must be placed in the public domain by the autho
 ### Facilitators
 
 A list of facilitators is maintained in the `FACILITATORS.md` file at the root of the FEP repository.
+
+Facilitators should err on the side of mutual good faith and avoid attributing malicious intent to authors, facilitators or other contributors without evidence to keep discussions productive and impersonal.
 
 ### Submission Methods
 
