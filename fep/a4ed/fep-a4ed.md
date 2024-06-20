@@ -35,6 +35,8 @@ All Fediverse Enhancement Proposals must be written in English, be properly form
 
 Authors should use inclusive language and examples and refrain from using [oppressive terminology][Internet-Draft-terminology].
 
+Similarly, when discussing proposals publicly through one or more [submission pipelines](SUBMISSION.md), authors should engage in good faith and avoid attributing malicious intent to facilitators volunteering their time for the project.
+
 ### Proposal Title and Identifier
 
 Every Fediverse Enhancement Proposal must have a descriptive title.
@@ -123,6 +125,9 @@ Fediverse Enhancement Proposals must be placed in the public domain by the autho
 ### Facilitators
 
 A list of facilitators is maintained in the `FACILITATORS.md` file at the root of the FEP repository.
+
+Facilitators should err on the side of mutual good faith and avoid attributing malicious intent to authors, facilitators or other contributors without evidence to keep discussions productive and impersonal.
+If bad faith or malicious intent is suspected, the preferred mode of achieving consensus is bringing other facilitators into the public discussion.
 
 ### Submission Methods
 
