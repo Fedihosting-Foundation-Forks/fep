@@ -1,11 +1,7 @@
 {
     "@context": {
-      "services": {
-        "@id": "https://w3id.org/fep/7952#service-property",
-        "@type": "@id"
-      },
-      "collectionStorage": {
-        "@id": "https://w3id.org/fep/7952#collectionstorage-reserved-service-endpoint",
+      "CollectionStorage": {
+        "@id": "https://w3id.org/fep/7952#CollectionStorage",
         "@type": "@id"
       }
     }
