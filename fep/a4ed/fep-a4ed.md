@@ -25,6 +25,8 @@ The Fediverse includes applications, services and communities using the Activity
 
 Proposals may include descriptions of technical protocols and mechanism, documentation of experimental work or current best practices.
 
+Proposals should not be written in a way that promotes specific product or service. Vendor-neutral solutions are always preferred.
+
 Proposals are not limited to technical topics and may focus on social and cultural aspects.
 
 Proposals may be entertaining and humorous (unlike this proposal).
