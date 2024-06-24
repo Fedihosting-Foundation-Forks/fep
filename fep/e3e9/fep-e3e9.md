@@ -19,9 +19,36 @@ has the following properties:
 * IDs are regular HTTP(S) URLs that are resolvable via an HTTP `GET` request
   (provided the client allows following `302` redirects).
 
-## Implementing Actor-Relative URLs for Objects and Collections
+The proposed mechanism identifies objects by adding query parameters to existing
+Actor profile URLs. ActivityPub clients wishing to fetch the objects make an
+HTTP `GET` request to this URL, as usual, carrying whatever authentication
+mechanism is required currently, and then follow the HTTP `302` status code
+redirect in the response to the current storage location of the object.
 
-### Actor-Relative URLs
+Example Actor-Relative URL:
+
+`https://alice-personal-site.example/actor?service=storage&relativeRef=/AP/objects/567`
+
+An AP client, encountering an Object ID with this URL makes an HTTP `GET` request
+just as it would with any other Object ID:
+
+```http
+HTTP GET /actor?service=storage&relativeRef=/AP/objects/567
+Host: alice-personal-site.example
+```
+
+And the server responds with a `302` redirect (which all HTTP clients are able
+to automatically follow) pointing to the current storage location of the object.
+For example:
+
+```HTTP
+HTTP 302 Found
+Location: https://storage-provider.example/users/1234/AP/objects/567
+```
+
+## Actor-Relative URLs for Objects and Collections
+
+
 
 ## References
 
