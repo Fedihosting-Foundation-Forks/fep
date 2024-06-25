@@ -411,8 +411,11 @@ function expect({ actor, assertionMethod }) {
         outcome: "failed",
         info: "assertionMethod is not a valid fep-521a multikey",
         pointer: {
-          assertionMethod,
-          error,
+          error: {
+            message: error.message,
+            cause: error.cause,
+            ...error,
+          },
         }
       }
     }
@@ -445,7 +448,10 @@ async function run(input) {
     if (!target.actor) throw new Error(`got undefined target.actor. this should not happen`, { cause: target })
     // check expectations against targets
     const expectations = expect(target)
-    if (expectations && 'result' in expectations) results.push({ result: expectations.result, target })
+    if (expectations && 'result' in expectations) results.push({
+      target,
+      result: expectations.result,
+    })
   }
   if (results.length) {
     return {
