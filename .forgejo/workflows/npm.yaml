@@ -1,9 +1,0 @@
-on:
-- push
-jobs:
-  test:
-    runs-on: docker
-    steps:
-    - uses: https://code.forgejo.org/actions/checkout@v3
-    - run: npm ci
-    - run: npm test
