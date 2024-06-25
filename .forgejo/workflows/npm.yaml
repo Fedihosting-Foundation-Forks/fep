@@ -2,6 +2,8 @@ on:
 - push
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: docker
     steps:
-    - run: echo all good
+    - uses: https://code.forgejo.org/actions/checkout@v3
+    - run: npm ci
+    - run: npm test
