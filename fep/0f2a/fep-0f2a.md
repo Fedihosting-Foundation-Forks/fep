@@ -1,0 +1,124 @@
+---
+slug: "0f2a"
+authors: bumblefudge <bumblefudge@learningproof.xyz>, Dmitri Zagidulin <@dmitri@social.coop>
+status: DRAFT
+dateReceived: 2024-06-XX
+discussionTo: XXXX
+---
+# FEP-0f2a: Announce Activity for Migrations and Tombstone Events
+
+## Summary
+
+This FEP specifies exactly one narrow step in almost all the migration user-stories defined in [FEP-73cd: User Migration Stories][FEP-73cd]:
+the updates to an Actor object made after a migration, and the Announcement activity which a source server propagates to inform followers of a migration and/or tombstoning event, i.e., a major update to the Actor object.
+
+Our proposal clarifies semantics and behavior of these "tombstoned Actors" to better accomodate migrations to new forms of Actor object, such as "Nomadic"-style Portable Actors as described in [FEP-ef61: Portable Objects][FEP-ef61] and "Independently-hosted" Actor objects as described in [FEP-7952][FEP-7952].
+As such, fully implementing all optional features of this proposal takes on a hard dependence on [FEP-521a: Representing actor's public keys][FEP-521a].
+It also proposes a general notation for the "tombstoning" of deleted accounts as a special case of the above process.
+
+### Current Approaches
+
+Migration is currently supported in a somewhat ad hoc and piecemeal way, without harmonized expectations for how to update, announce, or interpret an Actor object after a migration, or after a "migration to null," sometimes referred to as a "tombstone" event.
+We did not do a review of existing codebases, and the only public prior art that we're aware of is the retrospecification of current practice in [FEP-7628: Move Actor][FEP-7628].
+
+To our knowledge, there have been no public proposals for how to express a "right to be forgotten" to other servers, much less how to document that for legal purposes (out of scope here).
+
+## Specification
+
+MUST, MAY, and SHOULD used in the [RFC-2119] sense.
+
+### Tombstoning an Actor object
+
+In the section, ["Move Activity"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md#move-activity) of [FEP-7628][], two variations of the Mastodon-style `Move` Activity are defined, as well as semantics for the `movedTo` and `copiedTo` properties that MUST be applied to the Actor object on the source server of the activity:
+
+> If previous primary actor is deactivated after migration, it MUST have movedTo property containing the ID of the new primary actor. [...]
+If previous primary actor is not deactivated, copiedTo property MUST be used.
+
+Many other current and future process and Activities could also be using the same semantics, including new "styles" or "profiles" of Actor such as [Nomadic][FEP-ef61], or [separately-hosted][FEP-7952] Actors.
+Support.
+If an account is moving to one of these configurations, the `movedTo` or `copiedTo` value will be the `id` and location of an `ap://` URL, or an actor-relative URL.
+
+If the source server before the tombstoning event included a public key for signing Activities expressed according to [Client-Signing][FEP-521a], and the same public key will not be published at the destination server for verifying future Activities, it is RECOMMENDED that an `expires` key and timestamp value be added to the key's `assertionMethod` object as described in [section #2.3.1: Verification Methods](https://www.w3.org/TR/vc-data-integrity/#verification-methods) of the [W3C Data Integrity](https://www.w3.org/TR/vc-data-integrity) specification (to which [FEP-521a] normatively refers).
+
+If an account has been deleted deliberately and consuming implementations are expected to recognize this, we propose a `movedTo` value of "", i.e. an empty string, as many JSON-LD parsers will interpret `null` as equivalent to no `movedTo` value as being present.
+
+### Announcing a Tombstone Event
+
+After these changes have been made to the Actor object on the source server, an Announce activity may be sent out with the Actor as its object.
+
+//no idea about whom to address it to-- just the Actor's followers? are there server-actors that might like the update?
+
+//todo example
+
+### Interpreting an Actor Object Tombstone
+
+In the section, ["`movedTo` and `copiedTo` properties"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md#movedto-and-copiedto-properties) of [FEP-7628][], the following general rule for all Actor objects is proposed:
+
+> Publishers SHOULD NOT deliver activities to actor's inbox if movedTo property is present.
+
+We would add the following behavioral expectations:
+
+* Publishers SHOULD attempt to resolve the `movedTo` property to find out if it contains an inbox property.
+  * If an inbox is found, publishers SHOULD apply security, privacy, and federation policies on the domain at which it is hosted before taking any further action.
+  * If said inbox is permitted, publishers MAY attempt to deliver activities to the new inbox.
+* If no `movedTo` value is set and a `copiedTo` value is set, publishers MAY resolve a `copiedTo` value to retrieve an `inbox` value and similarly process it.
+  * In the case of a value `copiedTo` inbox and allowance by policy, delivery SHOULD be attempted to the new inbox ONLY.
+  * In the case of invalid `copiedTo` inbox or disallowing policy, delivery MAY be attempted to the tombstoned inbox ONLY.
+* Consuming implementations that keep redirect or alias records MAY persist the above-resolved relationship to avoid repeating this resolution in the future.
+
+There are caveats to interpreting these values if the value of `movedTo` or `copiedTo` contains an unconventional URL generated by an implementation extended by the above-mentioned FEPs:
+
+* If the `movedTo` or `copiedTo` value is a valid URL beginning with the prefix `ap://`, the target server and the `@Context` value includes the relevant extension properties, the destination server of the migration is likely implementing [FEP-ef61] and may require custom resolution logic to return an Actor object.
+* Similarly, if the `movedTo` or `copiedTo` value contains an actor-relative URL of the type defined in [FEP-7952], it should resolve as usual if the server is live, as long as the querying implementation allows for the HTTP redirect and has no policy against (or hardcoded assumptions incompatible with) `inbox` values on different domains than `id` values for a given Actor.
+* If an actor returned contains a `movedTo` or `copiedTo` value in turn, this should in turn be dereferenced, barring domain-based policies to the contrary.
+* If a querying implementation cannot resolve a value of these types or further indirections, it SHOULD treat them as equivalent to URLs that return 404 and MAY log an error or warning to user or system log as appropriate.
+* It is RECOMMENDED that unresolvable `movedTo` values be displayed to end-users as corrupted or incomplete moves, rather than as deliberate tombstones (i.e., `movedTo` === "").
+
+### Interpreting a Tombstone Announcement
+
+Servers receiving an Announce object with an Actor as its object should NOT increment a `shares` collection (as Actors never, to our knowledge, have one to increment!).
+If a receiving server persists redirects or aliases to more smoothly remain aware of migrating users or for other reasons, it MAY resolve the new Actor object and perform the above-described checks and MAY record said Actor update.
+
+### Example Actor Equivalence Attestation Object
+
+TODO - possibly in separate FEP. Not strictly needed for the rest of this FEP to
+be actionable.
+
+## References
+
+* [FEP-521a: Representing actor's public keys][FEP-521a]
+* [FEP-73cd: Migration User Stories][FEP-73cd]
+* [FEP-7628: Move Actor][FEP-7628]
+* [FEP-7952: Roadmap for Actor and Object Portability][FEP-7952]
+* [FEP-8b32: Object Integrity Proofs][FEP-8b32]
+* [FEP-cd47: Federation-friendly Addressing and Deduplication Use-Cases][FEP-cd47]
+* [FEP-ef61: Portable Objects][FEP-ef61]
+
+* Christine Lemmer Webber, Jessica Tallon, [ActivityPub][AP], 2018
+* S. Bradner, Key words for use in RFCs to Indicate Requirement Levels, 1997
+* Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][DI for VCs], 2023
+* Manu Sporny, Dave Longley, Markus Sabadell, Drummond Reed, Orie Steele,  Christopher Allen, [Decentralized Identifiers][DID] (DIDs) v1.0, 2022
+* Dave Longley, Manu Sporny, [Data Integrity EdDSA Cryptosuites][DI Sigs] v1.0, 2023
+* A. Rundgren, B. Jordan, S. Erdtman, [JSON Canonicalization Scheme][JCS] (JCS), 2020
+
+[FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
+[FEP-73cd]: https://codeberg.org/fediverse/fep/src/branch/main/fep/73cd/fep-73cd.md#migration-user-stories
+[FEP-7628]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md
+[FEP-7952]: https://codeberg.org/bumblefudge/fep/src/branch/fep-7952--roadmap-for-actor-and-object-portability/fep/7952/fep-7952.md
+[FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
+[FEP-cd47]: https://codeberg.org/fediverse/fep/src/branch/main/fep/cd47/fep-cd47.md
+[FEP-ef61]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md
+
+[AP]: https://www.w3.org/TR/activitypub/
+[DI Sigs]: https://w3c.github.io/vc-di-eddsa/#eddsa-jcs-2022
+[DI for VCs]: https://w3c.github.io/vc-data-integrity/
+[DID]: https://www.w3.org/TR/did-core/
+[JCS]: https://www.rfc-editor.org/rfc/rfc8785
+[RFC-2119]: https://tools.ietf.org/html/rfc2119.html
+
+## Copyright
+
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+
+To the extent possible under law, the authors of this Fediverse Enhancement
+Proposal have waived all copyright and related or neighboring rights to this work.
