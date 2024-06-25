@@ -22,7 +22,7 @@ respec:
     - name: bumblefudge
       url: "https://bumblefudge.com"
       w3cid: 143155
-    latestVersion: https://socialweb.coop/activitypub/fep-test-cases/actor-objects-must-express-signing-key-as-assertionMethod-multikey/
+    latestVersion: https://codeberg.org/socialweb.coop/activitypub-testing-fep-521a
 
 ---
 
@@ -31,17 +31,10 @@ respec:
 ## Background
 
 [FEP-521a][] defines how Actor object MUST express the public key for its signing key in the `assertionMethod` property, as a Multikey object of a given shape and `id` URI shape.
-(Behavior d566e96d-1831-4437-8593-26f053c026ba )
 
 ## About this Test
 
 This is a Test Case testing conformance with the one behavior specified in FEP-521a.
-
-This behavior is encoded as behavior d566e96d-1831-4437-8593-26f053c026ba in the socialweb.coop's `activitypub-testing` suite.
-
-### Identifier
-
-The identifier of this test is `urn:uuid:36f73f6e-8c14-4606-864d-32b9a74abc87`.
 
 ## Test Subject
 
