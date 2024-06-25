@@ -1,0 +1,6 @@
+pipeline:
+  build:
+    image: codeberg.org/woodpecker-plugins/node-pm
+    settings:
+      run:
+        - test
