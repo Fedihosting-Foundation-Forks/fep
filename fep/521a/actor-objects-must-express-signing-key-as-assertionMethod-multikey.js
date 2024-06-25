@@ -16,6 +16,7 @@ const description = 'This rule checks whether a given Actor Object has a Multike
 /**
  * The test will check expectations against test Target derived from Input
  * @typedef Target
+ * @property {object} actor
  * @property {unknown} assertionMethod
  */
 
@@ -117,6 +118,36 @@ export default {
     },
 
     // # below are test cases not in spec
+
+    {
+      name: 'Valid Actor (as JSON string)',
+      input: {
+        actor: JSON.stringify({
+          "type": "Person",
+          "inbox": "https://example.com/inbox",
+          "outbox": "https://example.com/outbox",
+          "id": "https://example.com/",
+          "assertionMethod": [
+            {
+              "id": "https://example.com/#ed25519-key",
+              "type": "Multikey",
+              "controller": "https://example.com/",
+              "publicKeyMultibase": "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2"
+            },
+            {
+              "inappropriateKey": "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2"
+            }
+          ]
+        }),
+      },
+      result: {
+        outcome: 'passed',
+      },
+      targets: [
+        ['assertionMethod[0]', { outcome: 'passed' }],
+        ['assertionMethod[1]', { outcome: 'inapplicable' }],
+      ]
+    },
 
     {
       name: 'multikey has non multibase-base58btc encoded publicKeyMultibase',
@@ -265,29 +296,39 @@ export default {
  * (does some checks from 'Applicability' section of test rule)
  * @param {Input} input
  * @returns {{ outcome: "inapplicable", info: string }
- *          |undefined}
+ *          |{ actor: object }}
  */
 function checkApplicability(input) {
-  if (typeof input.actor !== 'object' || !input.actor) return {
+  let actor
+  if (typeof input.actor === "string") {
+    // if a string, it must be a JSON string
+    actor = JSON.parse(input.actor)
+  } else {
+    actor = input.actor
+  }
+  if (typeof actor !== 'object' || !actor) return {
     outcome: "inapplicable",
     info: 'applicability requires input.actor MUST be an object'
   }
-  if (!('type' in input.actor)) return {
+  if (!('type' in actor)) return {
     outcome: 'inapplicable',
     info: 'applicability requires input.actor MUST have a type property',
   }
-  if (!('assertionMethod' in input.actor)) return {
+  if (!('assertionMethod' in actor)) return {
     outcome: 'inapplicable',
     info: 'applicability requires input.actor MUST have an assertionMethod'
   }
-  if (!(Array.isArray(input.actor.assertionMethod))) return {
+  if (!(Array.isArray(actor.assertionMethod))) return {
     outcome: 'inapplicable',
     info: 'applicability requires input.actor.assertionMethod MUST be an Array'
   }
-  if (!input.actor.assertionMethod.find(m => assertionMethodHasType(m, 'Multikey'))) return {
+  if (!actor.assertionMethod.find(m => assertionMethodHasType(m, 'Multikey'))) return {
     outcome: 'inapplicable',
     info: 'actor.assertionMethod array MUST contain at least one entry with type "Multikey"',
 
+  }
+  return {
+    actor,
   }
 }
 
@@ -298,7 +339,11 @@ function checkApplicability(input) {
  * @returns {{result: import("../../test-utils").TestResult<import("../../test-utils").Outcome>} 
  *          |{targets: Iterable<Target>}}}
  */
-function getTarget({ actor }) {
+function getTarget({ actor, console = globalThis.console }) {
+  if (typeof actor === "string") {
+    // if actor is a string, it must be JSON
+    actor = JSON.parse(actor)
+  }
   if (typeof actor !== 'object' || !actor) {
     return {
       result: {
@@ -314,14 +359,8 @@ function getTarget({ actor }) {
       info: 'input.actor MUST have an assertionMethod property'
     }
   }
-  if (!Array.isArray(actor.assertionMethod)) return {
-    result: {
-      outcome: 'inapplicable',
-      info: 'input.actor.assertionMethod MUST be an Array'
-    }
-  }
-  const actorAssertionMethods = actor.assertionMethod
 
+  const actorAssertionMethods = Array.isArray(actor.assertionMethod) ? actor.assertionMethod : [actor.assertionMethod]
   // gather only the assertionMethods that should be test targets
   /** @type {Array<{ assertionMethod: unknown }>} */
   const assertionMethodTargets = []
@@ -338,7 +377,7 @@ function getTarget({ actor }) {
     } else {
       // it is typed as Multikey
       // "each entry typed as `Multikey` passes or fails the tests of its validity as a Multikey"
-      assertionMethodTargets.push({ assertionMethod })
+      assertionMethodTargets.push({ actor, assertionMethod })
     }
   }
 
@@ -357,29 +396,24 @@ function assertionMethodHasType(assertionMethod, t) {
 
 /**
  * run expectations against target
- * @param {Input} input
  * @param {Target} target
  * @returns {{result:import("../../test-utils").TestResult<import("../../test-utils").Outcome>}
  *           |undefined}
  */
-function expect(input, { assertionMethod }) {
-  // input.actor MUST be an object
-  if (!(input.actor && typeof input.actor === 'object')) return {
-    result: {
-      outcome: 'failed',
-      info: 'input.actor MUST be an object'
-    }
-  }
-
+function expect({ actor, assertionMethod }) {
   let isMultikey = false
   try {
-    expectAssertionMethodIsFep521aMultikey(assertionMethod, input.actor)
+    expectAssertionMethodIsFep521aMultikey(assertionMethod, actor)
     isMultikey = true
   } catch (error) {
     return {
       result: {
         outcome: "failed",
-        pointer: assertionMethod
+        info: "assertionMethod is not a valid fep-521a multikey",
+        pointer: {
+          assertionMethod,
+          error,
+        }
       }
     }
   }
@@ -397,14 +431,20 @@ async function run(input) {
   const applicability = await checkApplicability(input)
   if (applicability?.outcome === "inapplicable") return applicability
 
+  input = {
+    ...input,
+    actor: applicability.actor,
+  }
   // get test targets
   const targeting = getTarget(input)
   if ('result' in targeting) return targeting.result
   /** @type {Array<{ target: Target, result: import("../../test-utils").TestResult<Outcome, unknown>}>} */
   const results = []
   for (const target of targeting.targets) {
+    if (!target) throw new Error(`got undefined target. this should not happen`)
+    if (!target.actor) throw new Error(`got undefined target.actor. this should not happen`, { cause: target })
     // check expectations against targets
-    const expectations = expect(input, target)
+    const expectations = expect(target)
     if (expectations && 'result' in expectations) results.push({ result: expectations.result, target })
   }
   if (results.length) {
