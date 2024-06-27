@@ -9,6 +9,7 @@ description: |
 uuid: 36f73f6e-8c14-4606-864d-32b9a74abc87
 attributedTo:
 - https://bumblefudge.com
+exampleImplementation: https://codeberg.org/socialweb.coop/activitypub-testing-fep-521a
 
 "@context":
 - TestCase:
@@ -22,7 +23,7 @@ respec:
     - name: bumblefudge
       url: "https://bumblefudge.com"
       w3cid: 143155
-    latestVersion: https://codeberg.org/socialweb.coop/activitypub-testing-fep-521a
+    latestVersion: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a-test-case.md
 
 ---
 

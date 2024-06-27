@@ -88,7 +88,8 @@ This proposal describes how to represent actor's public keys. The corresponding 
 
 ## Test vectors
 
-See [fep-521a.feature](./fep-521a.feature)
+See [fep-521a.feature](./fep-521a.feature) for manual testing
+and [fep-521a-test-case-specification.md](./fep-521a-test-case.md) for implementing as a test case (sample implementation on [codeberg](https://codeberg.org/socialweb.coop/activitypub-testing-fep-521a))
 
 ## Implementations
 
