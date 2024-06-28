@@ -74,6 +74,23 @@ In addition:
 
 ### Validating an Object's Author/Controller
 
+Given the following example Actor profile:
+
+```js
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/multikey/v1"
+  ],
+  "service": [{
+     "id": "https://alice-personal-site.example/actor#storage",
+     "serviceEndpoint": "https://a-storage-provider.example"
+  }],
+  // Rest of the Actor profile goes here
+}
+```
+
 When fetching an ActivityPub Object or Collection identified by an Actor-Relative
 URL (that is, when the Object or Collection ID contains the URL query parameters
 `service` and `relativeRef`), a client MUST validate that the server hosting
@@ -125,7 +142,7 @@ the Object is authorized by the Actor profile:
        `response.url === (authorizedStorageEndpoint + query.relativeRef)`
     d. If these checks fail (if the _current URL_ of the object is not equal to
        the string concatenation of the _authorized storage endpoint_ and the
-       `relativeRef` query parameter),  the Client SHOULD
+       `relativeRef` query parameter), the Client SHOULD
        indicate to the user that the provenance of this Object cannot be determined,
        or that the storage location of the Object has not been authorized by
        the profile of the claimed author/controller.
@@ -137,9 +154,87 @@ at whose domain the Object is currently stored.
 
 ### Client-Side Implementation
 
+An ActivityPub client conforming to this FEP:
+
+1. When encountering an Actor-Relative URL as an ID of an object, fetch it using the same
+   HTTP `GET` mechanism that it currently does.
+   * Note: An Actor-Relative URL is defined as a URL containing the `service` and
+     `relativeRef` query parameters.
+2. The client MUST follow the `302` redirect in the response.
+3. The client MUST perform the validation steps outlined in the [Validating an Object's
+   Author/Controller]() section above.
+
 ### Server-Side Implementation
 
-On the server side (specifically, the server hosting the Actor profile), 
+On the server side (specifically, the server hosting the Actor profile), an ActivityPub
+server conforming to this FEP:
+
+1. For every request to the Actor profile object (for example, to 
+  `https://alice-personal-site.example/actor`), examine the HTTP QUERY parameters.
+  If the `service` and `relativeRef` query parameters are present in the request,
+  treat this as an _Actor-Relative URL Request_ (by following the steps below).
+2. Examine the Actor profile object for this request. If the profile does not contain
+   a valid `serviceEndpoint` that corresponds to the `service` query parameter,
+   the server MUST return a `422 Unprocessable Entity` HTTP status code error.
+   To determine whether the profile contains a valid service endpoint:
+
+   * If the Actor profile does not contain a top level `service` property: INVALID
+   * If the Actor has a `service` property, but its value is `null` or `[]`: INVALID
+   * Search through the array of service endpoints (the value of the `service`) property,
+     until you find a service object with the id that ends in
+     `<actor profile url>#<contents of the 'service' query param>`. See sample Actor
+     profile and request below. If no valid service endpoint is found: INVALID
+
+3. Assuming that a matching service endpoint is found, compose a _current location URL_
+   from the `serviceEndpoint` contained in the profile concatenated with the contents
+   of the `relativeRef` query parameter (see below for example).
+
+4. Return a `302 Found` HTTP status code response, and set the `Location` response header
+   to the value of the _current location URL_ composed in the previous step.
+   Note: Servers SHOULD NOT return a `301` status response (a 301 response implies a
+   _permanent_ relocation, and the whole point of this FEP is that Actor-Relative URLs are
+   changeable at any point). Similarly, servers SHOULD not return a `303 See Other` status
+   response.
+
+### Example Server-Side Request and Response
+
+Example request URL:
+
+```
+GET https://alice-personal-site.example/actor?service=storage&relativeRef=/AP/objects/567
+```
+
+The query parameters would be parsed on the server side as something similar to:
+
+```json
+{ "service": "storage", "relativeRef": "/AP/objects/567" }
+```
+
+Example Actor profile at that URL:
+
+```js
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://www.w3.org/ns/did/v1"
+  ],
+  "service": [{
+     "id": "https://alice-personal-site.example/actor#storage",
+     "serviceEndpoint": "https://a-storage-provider.example"
+  }],
+  // Rest of the Actor profile goes here
+}
+```
+
+Example _current location URL_ (from concatenating the `serviceEndpoint` value with the `relativeRef`
+query parameter): `https://storage-provider.example/AP/objects/567`
+
+Example response from the server:
+
+```http
+HTTP/1.1 302 Found
+Location: https://storage-provider.example/AP/objects/567
+```
 
 ## References
 
