@@ -1,10 +1,10 @@
 ---
-slug: "00d3"
+slug: "d9ad"
 authors: bengo <ben@bengo.co>
 status: DRAFT
 ---
 
-# FEP-00d3: Create Conformance Tests for Fediverse Enhancement Proposals
+# FEP-d9ad: Create Conformance Tests for Fediverse Enhancement Proposals
 
 ## Summary
 
@@ -17,7 +17,7 @@ The proposal describes a Conformance Test Rule format that FEP authors and teste
 * [Proposal](#proposal)
 * [Conformance Tests](#conformance-tests)
   * [W3C Accessibility Conformance Testing (ACT) Rules Format](#w3c-accessibility-conformance-testing-act-rules-format)
-  * [FEP-003d Conformance Test Format](#fep-003d-conformance-test-format)
+  * [FEP-d9ad Conformance Test Format](#fep-d9ad-conformance-test-format)
 * [Conformance Test Components](#conformance-test-components)
   * [Applicability](#applicability)
   * [Change Log](#change-log)
@@ -85,7 +85,7 @@ W3C ACT ([spec](https://www.w3.org/TR/act-rules-format/#input)) is a conformance
 
 While there may be other formats for Conformance Tests, the ACT Format is sufficient for expressing Conformance Tests not only for accessibility, but for FEPs as well. This author was unable to find any other commonly used conformance test formats. At the same time, because the ACT format was designed specifically for accessibility guidelines, the ACT format may be imperfect for FEP Conformance Tests. So this FEP does not specify a strict conformance test format. Instead, it specifies useful [components of a Conformance Test](#conformance-test-components), most of which are inspired by similar subcomponents of ACT Rules.
 
-### FEP-003d Conformance Test Format
+### FEP-d9ad Conformance Test Format
 
 This FEP defines a kind of Conformance Test that may be used. It reuses many good decisions from the ACT Rule Format, while generalizing the format to be useful for expressing tests for things other than accessibility (e.g. FEPs).
 
@@ -136,7 +136,7 @@ An example of an Applicability clause for a hypothetical conformance test is:
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/applicability>
+<https://w3id.org/fep/d9ad/ns/test/applicability>
 
 <!-- conformance test component separator -->
 
@@ -148,7 +148,7 @@ For example, if a test if maintained over many years, it is likely that the edit
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/changeLog>
+<https://w3id.org/fep/d9ad/ns/test/changeLog>
 
 <!-- conformance test component separator -->
 
@@ -166,7 +166,7 @@ Inspired by
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/description>
+<https://w3id.org/fep/d9ad/ns/test/description>
 
 ### Expectations
 
@@ -193,7 +193,7 @@ Inspired by
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/expectations>
+<https://w3id.org/fep/d9ad/ns/test/expectations>
 
 <!-- conformance test component separator -->
 
@@ -223,11 +223,11 @@ Inspired by
 ##### Examples
 
 * `urn:uuid:93bafe14-b13f-4a9a-9d47-0a9316d50c97`
-* `https://bengo.is/fep/00d3`
+* `https://bengo.is/fep/d9ad`
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/id>
+<https://w3id.org/fep/d9ad/ns/test/id>
 
 <!-- conformance test component separator -->
 
@@ -252,14 +252,14 @@ The Input and its components MAY be represented as a JSON Object with a property
 
 ```json
 {
-    "object": "https://bengo.is/fep/00d3",
+    "object": "https://bengo.is/fep/d9ad",
     "authorization": "mellon"
 }
 ```
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/input>
+<https://w3id.org/fep/d9ad/ns/test/input>
 
 ### Issues List
 
@@ -273,7 +273,7 @@ Inspired by
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/issuesList>
+<https://w3id.org/fep/d9ad/ns/test/issuesList>
 
 ### Name
 
@@ -299,7 +299,7 @@ An example name for a hypothetical test:
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/name>
+<https://w3id.org/fep/d9ad/ns/test/name>
 
 <!-- conformance test component separator -->
 
@@ -309,7 +309,7 @@ A test's glossary SHOULD define every possible outcome that the test may assign 
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/glossary>
+<https://w3id.org/fep/d9ad/ns/test/glossary>
 
 <!-- conformance test component separator -->
 
@@ -330,7 +330,7 @@ Inspired by
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/requirementsMapping>
+<https://w3id.org/fep/d9ad/ns/test/requirementsMapping>
 
 ### Target
 
@@ -347,7 +347,7 @@ Inspired by
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/input>
+<https://w3id.org/fep/d9ad/ns/test/input>
 
 ### Test Cases
 
@@ -366,7 +366,7 @@ Inspired by
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/testCases>
+<https://w3id.org/fep/d9ad/ns/test/testCases>
 
 ### Test Subject
 
@@ -387,11 +387,11 @@ For each test suite membership, the test should specify:
 
 #### URI
 
-<https://w3id.org/fep/00d3/ns/test/testSuiteMemberships>
+<https://w3id.org/fep/d9ad/ns/test/testSuiteMemberships>
 
 ## Conformance with this Specification
 
-<section id="conformance">Conformance requirements are indicated by sentences containing MUST a la <a href="https://datatracker.ietf.org/doc/html/rfc2119">RFC2119</a>. A FEP-00d3 Conformant Conformance Test is a document satisfying all conformance requirements in this document.</section>
+<section id="conformance">Conformance requirements are indicated by sentences containing MUST a la <a href="https://datatracker.ietf.org/doc/html/rfc2119">RFC2119</a>. A FEP-d9ad Conformant Conformance Test is a document satisfying all conformance requirements in this document.</section>
 
 ## Related Links
 
