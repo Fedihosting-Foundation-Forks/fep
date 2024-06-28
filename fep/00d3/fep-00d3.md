@@ -6,7 +6,10 @@ status: DRAFT
 
 # FEP-00d3: Create Conformance Tests for Fediverse Enhancement Proposals
 
-<section id="abstract">This is a proposal to enhance the fediverse by creating test cases for FEPs.</section>
+## Summary
+
+This is a proposal to enhance the fediverse by creating test cases for FEPs.
+The proposal describes a Conformance Test Rule format that FEP authors and testers may find useful when creating tests cases as proposed.
 
 ## Contents
 
@@ -432,9 +435,11 @@ These links were helpful when researching conformance testing
 
 &horbar;[w3.org - QA Framework: Specification Guidelines](https://www.w3.org/TR/qaframe-spec/#specify-conformance)
 
-## License
+## Copyright
 
-[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+
+To the extent possible under law, the authors of this Fediverse Enhancement Proposal have waived all copyright and related or neighboring rights to this work.
 
 [FEP]: https://codeberg.org/fediverse/fep/src/branch/main/fep/a4ed/fep-a4ed.md#fep-a4ed-the-fediverse-enhancement-proposal-process
 [ActivityPub]: https://www.w3.org/TR/activitypub/]
