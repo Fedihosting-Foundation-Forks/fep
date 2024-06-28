@@ -227,6 +227,10 @@ The Input and its components MAY be represented as a JSON Object with a property
 }
 ```
 
+##### URI
+
+https://w3id.org/fep/00d3/ns/test/input
+
 #### Issues List
 
 A list of unresolved issues with the test.
