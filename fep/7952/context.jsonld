@@ -1,8 +1,0 @@
-{
-    "@context": {
-      "CollectionStorage": {
-        "@id": "https://w3id.org/fep/7952#CollectionStorage",
-        "@type": "@id"
-      }
-    }
-}
