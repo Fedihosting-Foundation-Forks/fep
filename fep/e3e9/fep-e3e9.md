@@ -80,12 +80,11 @@ Given the following example Actor profile:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://www.w3.org/ns/did/v1",
-    "https://w3id.org/security/multikey/v1"
+    "https://www.w3.org/ns/did/v1"
   ],
   "service": [{
      "id": "https://alice-personal-site.example/actor#storage",
-     "serviceEndpoint": "https://a-storage-provider.example"
+     "serviceEndpoint": "https://storage-provider.example"
   }],
   // Rest of the Actor profile goes here
 }
@@ -220,14 +219,14 @@ Example Actor profile at that URL:
   ],
   "service": [{
      "id": "https://alice-personal-site.example/actor#storage",
-     "serviceEndpoint": "https://a-storage-provider.example"
+     "serviceEndpoint": "https://storage-provider.example"
   }],
   // Rest of the Actor profile goes here
 }
 ```
 
-Example _current location URL_ (from concatenating the `serviceEndpoint` value with the `relativeRef`
-query parameter): `https://storage-provider.example/AP/objects/567`
+Example _current location URL_ (from concatenating the `serviceEndpoint` value with the
+`relativeRef` query parameter): `https://storage-provider.example/AP/objects/567`
 
 Example response from the server:
 
@@ -235,6 +234,127 @@ Example response from the server:
 HTTP/1.1 302 Found
 Location: https://storage-provider.example/AP/objects/567
 ```
+
+## Object Storage Migration Using Actor-Relative URLs
+
+Actor-Relative URLs can be used as an option for portable Object and Collection IDs that
+remain unchanged even through migrating to a different object hosting provider (as long
+as the Actor ID remains constant).
+
+### Example Storage Provider Migration
+
+Before migration, Alice uses the `https://old-storage-provider.example` as a
+storage provider for her AP objects. She makes sure `https://old-storage-provider.example`
+is specified as a service endpoint in her Actor profile.
+
+`GET https://alice-personal-site.example/actor`
+
+returns
+
+```js
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://www.w3.org/ns/did/v1"
+  ],
+  "id": "https://alice-personal-site.example/actor",
+  "type": "Person",
+  "service": [{
+     "id": "https://alice-personal-site.example/actor#storage",
+     "serviceEndpoint": "https://old-storage-provider.example"
+  }],
+  "assertionMethod": { /* … */ },
+  // All the other profile properties …
+}
+```
+
+Alice then creates a Note and stores it with the storage provider (making sure to
+add an Object Identity Proof). Example request:
+
+```HTTP
+POST /AP/objects/
+Host: old-storage-provider.example
+
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "type": "Note",
+  "content": "This is a note",
+  "attributedTo": "https://alice-personal-site.example/actor",
+  "id": "https://alice-personal-site.example/actor?service=storage&relativeRef=/AP/objects/567"
+}
+```
+
+returns
+
+```HTTP
+HTTP 201 Created
+Location: https://old-storage-provider.example/AP/objects/567
+```
+
+Note that this created Object can now be fetched at TWO different URLs:
+
+1. The direct URL (also called _current location URL_), 
+   `https://old-storage-provider.example/AP/objects/567`
+2. The indirect Actor-Relative URL
+   `https://alice-personal-site.example/actor?service=storage&relativeRef=/AP/objects/567`
+
+When it comes time to migrate to a different service provider, the new one being
+located at `https://brand-new-storage.example`, Alice performs the following steps.
+
+She updates her Actor profile service endpoint, to point to the new provider,
+so that it looks like this:
+
+```js
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://www.w3.org/ns/did/v1"
+  ],
+  "id": "https://alice-personal-site.example/actor",
+  "type": "Person",
+  "service": [{
+     "id": "https://alice-personal-site.example/actor#storage",
+     "serviceEndpoint": "https://brand-new-storage.example"
+  }],
+  "assertionMethod": { /* … */ },
+  // All the other profile properties …
+}
+```
+
+Note that the `serviceEndpoint` is the only property in the Actor profile that
+has to change during migration.
+
+Alice then transfers her Object to the new provider (for this example, she'll be
+transferring the object individually, though in future FEPs, we expect
+specification of APIs to transfer _all_ of the objects in one's storage):
+
+```HTTP
+POST /AP/objects/
+Host: brand-new-storage.example
+
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "type": "Note",
+  "content": "This is a note",
+  "attributedTo": "https://alice-personal-site.example/actor",
+  "id": "https://alice-personal-site.example/actor?service=storage&relativeRef=/AP/objects/567"
+}
+```
+
+returns:
+
+```HTTP
+HTTP 201 Created
+Location: https://brand-new-storage.example/AP/objects/567
+```
+
+Notice that the object being stored at the new provider is byte-for-byte
+identical to the object hosted at the old provider; its _indirect_ `id` and
+contents do not change.
+
+Throughout this service provider migration, the external indirect `id` of the
+object _does not change_, for the purposes of all other AP mechanisms such as
+Inbox delivery, Likes and Reposts, and so on.
 
 ## References
 
