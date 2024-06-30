@@ -5,7 +5,7 @@
       "@type": "@id",
       "@container": "@list"
     },
-    "secGPC": {
+    "SPC": {
       "@id": "https://privacycg.github.io/gpc-spec/#the-sec-gpc-header-field-for-http-requests",
       "@type": "@id",
       "@container": "@list"
