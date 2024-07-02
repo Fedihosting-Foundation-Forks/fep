@@ -76,7 +76,7 @@ This test applies directly to the `actor` input.
 * If `actor` is not an Actor Object, the outcome MUST be `inapplicable`.
 * If `actor` is not a JSON object, the outcome MUST be `inapplicable`.
 * If `actor` JSON does not have a `type` property, the outcome MUST be `inapplicable`.
-* If `actor` JSON's dereferenced `@Context` does not include [both terms defined by FEP-7628](../7628/context.jsonld), the outcome MUST be `inapplicable`
+* If `actor` JSON's `@Context` array does not include `https://w3id.org/fep/7628`, the outcome MUST be `inapplicable`
 
 ### Test Targets
 
