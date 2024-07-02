@@ -66,7 +66,7 @@ This test requires the following [inputs](https://www.w3.org/TR/act-rules-format
     * must be an actor as per core AP test e7ee491d-88d7-4e67-80c8-f74781bb247c
       * i.e. has inbox and outbox
       * If not actor, the test result outcome MUST be `inapplicable`.
-    * dereferenced `@Context` array should include [both terms defined by FEP-7628](../7628/context.jsonld)
+    * dereferenced `@context` array should include [both terms defined by FEP-7628](../7628/context.jsonld)
       * if does not, the test result outcome MUST be `inapplicable`.
 
 ## Applicability
@@ -76,7 +76,7 @@ This test applies directly to the `actor` input.
 * If `actor` is not an Actor Object, the outcome MUST be `inapplicable`.
 * If `actor` is not a JSON object, the outcome MUST be `inapplicable`.
 * If `actor` JSON does not have a `type` property, the outcome MUST be `inapplicable`.
-* If `actor` JSON's `@Context` array does not include `"https://w3id.org/fep/7628"`, the outcome MUST be `inapplicable`
+* If `actor` JSON's `@context` array does not include `"https://w3id.org/fep/7628"`, the outcome MUST be `inapplicable`
 
 ### Test Targets
 
@@ -96,8 +96,8 @@ For the purposes of determining whether the active status and migration history 
 
 * the input is valid JSON
 * the input, once parsed as JSON
-  * has an `@Context` property
-  * after expanding the `@Context` property, the resulting @Context object
+  * has an `@context` property
+  * after expanding the `@context` property, the resulting @context object
     * has a `movedTo` property, containing the URI `https://w3id.org/fep/7628#movedTo`
     * has a `copiedTo` property, containing the URI `https://w3id.org/fep/7628#copiedTo`
 
@@ -144,7 +144,7 @@ For the purposes of determining the in/active status and migration history of a 
 
 These are test cases for this test case, and can be used to verify that an implementation of this test case specification will be [consistent](https://www.w3.org/WAI/standards-guidelines/act/implementations/#understanding-act-consistency) with other implementations.
 
-### Missing `@Context values`
+### Missing `@context values`
 
 input
 
@@ -354,4 +354,4 @@ An outcome can be one of the three following types:
 ## Issues List
 
 * Are log events worth including? is there a better place to put "optional" test behavior and notifications/outputs?
-* the `@Context` expansion/dereferencing requirement is a pain because it forces the issue of how test cases can import methods from standard libraries (in this case, JSON-LD JS libraries), but it is probably good practice to open-source at least one example of a test that does this for others to copypaste, and to specify how external dependencies in test runners can be work in `activitypub-testing`
+* the `@context` expansion/dereferencing requirement is a pain because it forces the issue of how test cases can import methods from standard libraries (in this case, JSON-LD JS libraries), but it is probably good practice to open-source at least one example of a test that does this for others to copypaste, and to specify how external dependencies in test runners can be work in `activitypub-testing`
