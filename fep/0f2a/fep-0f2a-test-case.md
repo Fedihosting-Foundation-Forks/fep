@@ -31,7 +31,11 @@ respec:
 
 ## Background
 
-[FEP-0f2a][] extends and combines prior FEPs to define syntax and parsing rules for Actor objects which unambiguously express termination, migration to another URI, OR (exclusive) duplication at another URI.
+This proposal extends and combines prior FEPs to define syntax and parsing rules for Actor objects which unambiguously express exactly one of the three following states:
+
+1. termination, OR
+2. migration to another URI, OR
+3. duplication at another URI.
 
 ## About this Test
 
@@ -115,20 +119,20 @@ For the purposes of determining the in/active status and migration history of a 
   * //log (malformed actor - both movedTo and copiedTo present)
   * outcome is `FAILED`
 * else if `movedTo` is present,
-  * value can be `""` (empty string) 
+  * value can be `""` (empty string)
     * //log (actor is deactivated)
     * outcome is `PASSED`
   * else value MUST be a valid URI
     * //log (actor has migrated to $movedTo)
     * if URI is 404 //OPTIONAL CHECK
-      * throw warning($movedTo not resolvable) 
+      * throw warning($movedTo not resolvable)
     * outcome is `PASSED`
   * else
     * outcome is `FAILED`
 * else if `copiedTo` is present,
   * value MUST be a valid URI
     * if URI is 404 //OPTIONAL CHECK
-      * throw warning($copiedTo not resolvable) 
+      * throw warning($copiedTo not resolvable)
     * outcome is `PASSED`
   * else
     * outcome is `FAILED`
@@ -169,10 +173,10 @@ actor:
 {
     "@context": {
         "https://www.w3.org/ns/activitystreams",
-        [
+        {
             "movedTo": "https://w3id.org/fep/7628#movedTo",
             "copiedTo": "https://w3id.org/fep/7628#copiedTo"
-        ]
+        }
     },
     "type": "Person",
     "inbox": "https://example.com/inbox",
@@ -196,10 +200,10 @@ actor:
 {
     "@context": {
         "https://www.w3.org/ns/activitystreams",
-        [
+        {
             "movedTo": "https://w3id.org/fep/7628#movedTo",
             "copiedTo": "https://w3id.org/fep/7628#copiedTo"
-        ]
+        }
     },
     "type": "Person",
     "inbox": "https://example.com/inbox",
@@ -222,10 +226,10 @@ actor:
 {
     "@context": {
         "https://www.w3.org/ns/activitystreams",
-        [
+        {
             "movedTo": "https://w3id.org/fep/7628#movedTo",
             "copiedTo": "https://w3id.org/fep/7628#copiedTo"
-        ]
+        }
     },
     "type": "Person",
     "inbox": "https://example.com/inbox",
@@ -259,6 +263,7 @@ input
     "movedTo": ""
 }
 ```
+
 test return
 
 * outcome: `PASSED`, log (`movedTo` set to empty string)
@@ -288,6 +293,7 @@ input
 test return
 
 * outcome: `PASSED`, log (`movedTo` set to valid URL)
+  * optional: check and log validity of actor referenced by that URI
 
 ### Valid Multi-homed Actor
 
@@ -313,7 +319,8 @@ input
 
 test return
 
-* outcome: `PASSED`, log (`copiedTo` set to empty string)
+* outcome: `PASSED`, log (`copiedTo` set to valid URI)
+  * optional: check and log validity of actor referenced by that URI
 
 ## Glossary
 
@@ -335,7 +342,7 @@ An outcome can be one of the three following types:
     * when test target `assertionMethod` has outcome `failed`, requirement is not satisfied
     * when test target `assertionMethod` has outcome `inapplicable`, further testing is needed to determine whether this requirement is satisfied
 
-## References 
+## References
 
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
 [FEP-7628]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md
@@ -346,4 +353,5 @@ An outcome can be one of the three following types:
 
 ## Issues List
 
-* Are log events worth including? If not, CTRL-F and remove those lines. If so, maybe we refer to them as optional test steps or something?
+* Are log events worth including? is there a better place to put "optional" test behavior and notifications/outputs?
+* the `@Context` expansion/dereferencing requirement is a pain because it forces the issue of how test cases can import methods from standard libraries (in this case, JSON-LD JS libraries), but it is probably good practice to open-source at least one example of a test that does this for others to copypaste, and to specify how external dependencies in test runners can be work in `activitypub-testing`
