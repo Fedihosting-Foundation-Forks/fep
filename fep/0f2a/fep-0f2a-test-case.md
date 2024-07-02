@@ -173,10 +173,7 @@ actor:
 {
     "@context": {
         "https://www.w3.org/ns/activitystreams",
-        {
-            "movedTo": "https://w3id.org/fep/7628#movedTo",
-            "copiedTo": "https://w3id.org/fep/7628#copiedTo"
-        }
+        "https://w3id.org/fep/7628"
     },
     "type": "Person",
     "inbox": "https://example.com/inbox",
@@ -200,10 +197,7 @@ actor:
 {
     "@context": {
         "https://www.w3.org/ns/activitystreams",
-        {
-            "movedTo": "https://w3id.org/fep/7628#movedTo",
-            "copiedTo": "https://w3id.org/fep/7628#copiedTo"
-        }
+        "https://w3id.org/fep/7628"
     },
     "type": "Person",
     "inbox": "https://example.com/inbox",
@@ -226,10 +220,7 @@ actor:
 {
     "@context": {
         "https://www.w3.org/ns/activitystreams",
-        {
-            "movedTo": "https://w3id.org/fep/7628#movedTo",
-            "copiedTo": "https://w3id.org/fep/7628#copiedTo"
-        }
+        "https://w3id.org/fep/7628"
     },
     "type": "Person",
     "inbox": "https://example.com/inbox",
@@ -252,10 +243,7 @@ input
 {
     "@context": {
         "https://www.w3.org/ns/activitystreams",
-        [
-            "movedTo": "https://w3id.org/fep/7628#movedTo",
-            "copiedTo": "https://w3id.org/fep/7628#copiedTo"
-        ]
+        "https://w3id.org/fep/7628"
     },
     "type": "Person",
     "inbox": "https://example.com/inbox",
@@ -278,10 +266,7 @@ input
 {
     "@context": {
         "https://www.w3.org/ns/activitystreams",
-        [
-            "movedTo": "https://w3id.org/fep/7628#movedTo",
-            "copiedTo": "https://w3id.org/fep/7628#copiedTo"
-        ]
+        "https://w3id.org/fep/7628"
     },
     "type": "Person",
     "inbox": "https://example.com/inbox",
