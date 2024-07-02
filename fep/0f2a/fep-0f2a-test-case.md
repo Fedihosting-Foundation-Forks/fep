@@ -335,5 +335,4 @@ An outcome can be one of the three following types:
 
 ## Issues List
 
-* Are log events worth including? is there a better place to put "optional" test behavior and notifications/outputs?
-* the `@context` expansion/dereferencing requirement is a pain because it forces the issue of how test cases can import methods from standard libraries (in this case, JSON-LD JS libraries), but it is probably good practice to open-source at least one example of a test that does this for others to copypaste, and to specify how external dependencies in test runners can be work in `activitypub-testing`
+* Are log events worth including in this format, for now? is there a better place to put "optional" test behavior and notifications/outputs?\
