@@ -76,7 +76,7 @@ This test applies directly to the `actor` input.
 * If `actor` is not an Actor Object, the outcome MUST be `inapplicable`.
 * If `actor` is not a JSON object, the outcome MUST be `inapplicable`.
 * If `actor` JSON does not have a `type` property, the outcome MUST be `inapplicable`.
-* If `actor` JSON's `@context` array does not include `"https://w3id.org/fep/7628"`, the outcome MUST be `inapplicable`
+* If `actor` JSON does not include a `movedTo` property, AND does not include a `copiedTo` property, AND `@context` does not include the URL `"https://w3id.org/fep/7628"`, then it is uncertain whether this Actor is from a conforming implementation and MUST be `inapplicable`
 
 ### Test Targets
 
@@ -87,6 +87,7 @@ This test applies directly to the `actor` input.
 1. `movedTo` - MUST be a URI OR an empty string, if present
 2. `copiedTo` - MUST be a URI, if present
 3. `movedTo` and `copiedTo` MUST NOT both be present
+4. `actor` JSON's `@context` array SHOULD include `"https://w3id.org/fep/7628"` to signal conformance
 
 ## Assumptions
 
@@ -97,11 +98,9 @@ For the purposes of determining whether the active status and migration history 
 * the input is valid JSON
 * the input, once parsed as JSON
   * has an `@context` property
-  * after expanding the `@context` property, the resulting @context object
-    * has a `movedTo` property, containing the URI `https://w3id.org/fep/7628#movedTo`
-    * has a `copiedTo` property, containing the URI `https://w3id.org/fep/7628#copiedTo`
+  * `@context` array includes the URL `"https://w3id.org/fep/7628"`
 
-If these two properties are defined any other way or either is not present, then the values (if present) for `movedTo` and/or `copiedTo` cannot be interpreted safely according to their meaning in [FEP-7628].
+A warning should be returned if this value is not present.
 
 ### 2. Property value expectations
 
@@ -162,6 +161,7 @@ actor:
 test result
 
 * outcome: `inapplicable`
+  * optional: warning ("value "https://w3id.org/fep/7628" not present in "@context" to signal conformance")
 
 ### both `movedTo` and `copiedTo` present
 
@@ -290,10 +290,7 @@ input
 {
     "@context": {
         "https://www.w3.org/ns/activitystreams",
-        [
-            "movedTo": "https://w3id.org/fep/7628#movedTo",
-            "copiedTo": "https://w3id.org/fep/7628#copiedTo"
-        ]
+        "https://w3id.org/fep/7628"
     },
     "type": "Person",
     "inbox": "https://example.com/inbox",
