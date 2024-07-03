@@ -1,5 +1,5 @@
 const name = 'Actor Object Tombstone Syntax'
-const slug = 'fep-0f2a-actor-object-tombstone-syntax'
+const slug = 'fep-c551-actor-object-tombstone-syntax'
 const uuid = '73257c1a-70da-42df-9698-579940c7065a'
 const description = 'This rule checks whether a given Actor Object has used valid `movedTo` or `copiedTo` values and exclusively.'
 const attributedTo = [
@@ -42,7 +42,7 @@ export default {
   description,
   testCases: [
 
-    // # test cases from ./fep-0f2a-test-case.md:
+    // # test cases from ./fep-c551-test-case.md:
 
     {
       name: 'Missing `@context values`',
@@ -59,7 +59,7 @@ export default {
       }
     },
 
-    // @todo add remaining test cases from ./fep-0f2a-test-case.md
+    // @todo add remaining test cases from ./fep-c551-test-case.md
 
     // # below are test cases not in spec
 

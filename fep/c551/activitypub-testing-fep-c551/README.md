@@ -1,25 +1,25 @@
-# activitypub-testing-fep-0f2a
+# activitypub-testing-fep-c551
 
-An [activitypub-testing][] test suite that tests for conformance to [FEP-0f2a: Announce Activity for Migrations and Tombstone Events][FEP-0f2a].
+An [activitypub-testing][] test suite that tests for conformance to [FEP-c551: Announce Activity for Migrations and Tombstone Events][FEP-c551].
 
 ## Tests
 
 ### Actor Object Tombstone Syntax
 
-* [Implementation ECMAScript Module](./fep/0f2a/fep-0f2a-actor-object-tombstone-syntax.js)
+* [Implementation ECMAScript Module](./fep/c551/fep-c551-actor-object-tombstone-syntax.js)
 
 [activitypub-testing]: https://socialweb.coop/activitypub-testing/
-[FEP-0f2a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/0f2a/fep-0f2a.md
+[FEP-c551]: https://codeberg.org/fediverse/fep/src/branch/main/fep/c551/fep-c551.md
 
 ## Usage
 
 ### test actor `https://socialweb.coop`
 
-Note: this runs the tests in this repo via [a public URL on codeberg.org](https://codeberg.org/socialweb.coop/activitypub-testing-fep-0f2a/raw/branch/main/fep/0f2a/fep-0f2a-actor-object-tombstone-syntax.js).
+Note: this runs the tests in this repo via [a public URL on codeberg.org](https://codeberg.org/socialweb.coop/activitypub-testing-fep-c551/raw/branch/main/fep/c551/fep-c551-actor-object-tombstone-syntax.js).
 
 ```shell
 ⚡ activitypub-testing run test \
-    --url="$(data-url fep/0f2a/fep-0f2a-actor-object-tombstone-syntax.js)" \
+    --url="$(data-url fep/c551/fep-c551-actor-object-tombstone-syntax.js)" \
     --input.actor="$(\
       curl https://socialweb.coop \
         --silent \
@@ -75,7 +75,7 @@ Note: this runs the tests in this repo via [a public URL on codeberg.org](https:
     }
   },
   "test": {
-    "slug": "fep-0f2a-actor-object-tombstone-syntax",
+    "slug": "fep-c551-actor-object-tombstone-syntax",
     "description": "This rule checks whether a given Actor Object has used valid `movedTo` or `copiedTo` values and exclusively.",
     "name": "Actor Object Tombstone Syntax",
     "id": "urn:uuid:73257c1a-70da-42df-9698-579940c7065a",
@@ -95,7 +95,7 @@ Note: this runs the tests in this repo via [a public URL on codeberg.org](https:
 
 ```shell
 ⚡ activitypub-testing run test \
-    --url="$(data-url fep/0f2a/fep-0f2a-actor-object-tombstone-syntax.js)" \
+    --url="$(data-url fep/c551/fep-c551-actor-object-tombstone-syntax.js)" \
     --input.actor="$(\
       curl https://socialweb.coop \
         --silent \
