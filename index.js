@@ -1,3 +1,3 @@
-import _fep521a from "./fep/521a/index.js"
+import _fep0f2a from "./fep/0f2a/index.js"
 
-export const fep521a = _fep521a
+export const fep0f2a = _fep0f2a
