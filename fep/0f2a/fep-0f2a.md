@@ -67,7 +67,7 @@ After these changes have been made to the Actor object on the source server, an 
 
 If a user account is being tombstoned but the source server wants to enable a future migration to be authenticated cryptographically, it is RECOMMENDED that the Announce activity be signed as per [FEP-8b32].
 
-An Actor-update Announce activity SHOULD be addressed to all of the Actor's Followers.
+An Actor-update Announce activity SHOULD be addressed to the Actor's Followers.
 
 ### Interpreting an Actor Object Tombstone
 
