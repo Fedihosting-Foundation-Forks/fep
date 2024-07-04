@@ -156,7 +156,25 @@ export default {
       }
     },
 
-    // @todo add remaining test cases from ./fep-0f2a-test-case.md
+    {
+      name: 'Valid Multi-homed Actor',
+      input: {
+        actor: {
+          "@context": [
+              "https://www.w3.org/ns/activitystreams",
+              "https://w3id.org/fep/7628"
+          ],
+          "type": "Person",
+          "inbox": "https://example.com/inbox",
+          "outbox": "https://example.com/outbox",
+          "copiedTo": "https://personalarchive.otherexample.com"
+        }
+      },
+      result: {
+        // log (`movedTo` set to empty string)
+        outcome: 'passed',
+      }
+    },
 
     // # below are test cases not in spec
 
@@ -282,7 +300,7 @@ function expect({ actor }) {
   }
 
   // if not an empty string, movedTo value MUST be a URI
-  if (actor.movedTo !== "") {
+  if (actor.movedTo) {
     try {
       new URL(actor.movedTo)
     } catch (error) {
