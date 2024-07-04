@@ -250,7 +250,7 @@ input
 
 test return
 
-* outcome: `PASSED`, log (`movedTo` set to empty string)
+* outcome: `PASSED`
 
 ### Valid Migrated Actor
 
@@ -273,7 +273,7 @@ input
 
 test return
 
-* outcome: `PASSED`, log (`movedTo` set to valid URL)
+* outcome: `PASSED`
   * optional: check and log validity of actor referenced by that URI
 
 ### Valid Multi-homed Actor
@@ -297,7 +297,7 @@ input
 
 test return
 
-* outcome: `PASSED`, log (`copiedTo` set to valid URI)
+* outcome: `PASSED`
   * optional: check and log validity of actor referenced by that URI
 
 ## Glossary
