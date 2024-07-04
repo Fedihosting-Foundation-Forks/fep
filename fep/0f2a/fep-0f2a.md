@@ -100,7 +100,7 @@ There are caveats to interpreting these values if the value of `movedTo` or `cop
 
 ### Interpreting an Announce Activity of a Deactivated Actor
 
-Servers receiving an Announce object with an Actor as its object should NOT increment a `shares` collection (as Actors never, to our knowledge, have one to increment!).
+Servers receiving an Announce object with an Actor as its object should NOT increment a `shares` collection.
 If a receiving server persists redirects or aliases to more smoothly remain aware of migrating or multi-homed users, or for other reasons, it MAY resolve the new Actor object and perform the above-described checks and MAY record said Actor update.
 
 ## Open Issues
