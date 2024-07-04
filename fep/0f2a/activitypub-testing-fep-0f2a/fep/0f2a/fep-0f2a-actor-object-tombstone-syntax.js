@@ -2,9 +2,6 @@ const name = 'Actor Object Tombstone Syntax'
 const slug = 'fep-0f2a-actor-object-tombstone-syntax'
 const uuid = '73257c1a-70da-42df-9698-579940c7065a'
 const description = 'This rule checks whether a given Actor Object has used valid `movedTo` or `copiedTo` values and exclusively.'
-const attributedTo = [
-  'https://bumblefudge.com',
-]
 
 /**
  * Expected input to the test rule.
@@ -38,7 +35,6 @@ const attributedTo = [
  * @type {TestCase<Input,Outcome>}
  */
 export default {
-  attributedTo,
   description,
   testCases: [
 
@@ -56,6 +52,47 @@ export default {
       },
       result: {
         outcome: 'inapplicable',
+      }
+    },
+
+    {
+      name: 'both `movedTo` and `copiedTo` present',
+      input: {
+        actor: {
+          "@context": [
+              "https://www.w3.org/ns/activitystreams",
+              "https://w3id.org/fep/7628"
+          ],
+          "type": "Person",
+          "inbox": "https://example.com/inbox",
+          "outbox": "https://example.com/outbox",
+          "movedTo": "https://otherexample.com/newname",
+          "copiedTo": "https://otherexample.com/thirdname"
+        }
+      },
+      result: {
+        // log (`movedTo` and `copiedTo` MUST NOT both be present)
+        outcome: 'failed',
+      }
+    },
+
+    {
+      name: '`movedTo` set to JSON null',
+      input: {
+        actor: {
+          "@context": [
+              "https://www.w3.org/ns/activitystreams",
+              "https://w3id.org/fep/7628"
+          ],
+          "type": "Person",
+          "inbox": "https://example.com/inbox",
+          "outbox": "https://example.com/outbox",
+          "movedTo": null
+        }
+      },
+      result: {
+        // log (`movedTo` MUST NOT to be set to null)
+        outcome: 'failed',
       }
     },
 
@@ -119,22 +156,13 @@ function checkApplicability(input) {
     outcome: "inapplicable",
     info: 'applicability requires input.actor MUST be an object'
   }
-  if (!('type' in actor)) return {
+  // @context MUST be an array
+  if ( ! ('@context' in actor && Array.isArray(actor['@context']))) return {
     outcome: 'inapplicable',
-    info: 'applicability requires input.actor MUST have a type property',
-  }
-  if (!('assertionMethod' in actor)) return {
-    outcome: 'inapplicable',
-    info: 'applicability requires input.actor MUST have an assertionMethod'
-  }
-  if (!(Array.isArray(actor.assertionMethod))) return {
-    outcome: 'inapplicable',
-    info: 'applicability requires input.actor.assertionMethod MUST be an Array'
-  }
-  if (!actor.assertionMethod.find(m => assertionMethodHasType(m, 'Multikey'))) return {
-    outcome: 'inapplicable',
-    info: 'actor.assertionMethod array MUST contain at least one entry with type "Multikey"',
-
+    info: 'actor["@context"] MUST be an Array',
+    pointer: {
+      '@context': actor['@context']
+    }
   }
   return {
     actor,
@@ -163,26 +191,33 @@ function getTarget({ actor, console = globalThis.console }) {
   }
 
   return {
-    targets: [actor]
+    targets: [{actor}]
   }
-}
-
-// @ts-expect-error todo
-function assertionMethodHasType(assertionMethod, t) {
-  if (Array.isArray(assertionMethod.type)) {
-    return assertionMethod.type.includes(t)
-  }
-  return assertionMethod.type === t
 }
 
 /**
  * run expectations against target
  * @param {Target} target
- * @returns {{result:import("../../test-utils").TestResult<import("../../test-utils").Outcome>}
- *           |undefined}
+ * @returns {{result:import("../../test-utils").TestResult<import("../../test-utils").Outcome>}}
  */
-function expect({ actor, assertionMethod }) {
+function expect({ actor }) {
   // @todo check requirements per FEP
+  if (('movedTo' in actor) && ('copiedTo' in actor)) {
+    return {
+      result: {
+        outcome: 'failed',
+        info: '`movedTo` and `copiedTo` MUST NOT both be present',
+      }
+    }
+  }
+  if (('movedTo' in actor) && typeof actor.movedTo !== 'string') {
+    return {
+      result: {
+        outcome: 'failed',
+        info: 'actor.movedTo, if present, MUST be a string'
+      }
+    }
+  }
   return { result: { outcome: "passed" } }
 }
 
@@ -215,7 +250,7 @@ async function run(input) {
     })
   }
   if (results.length === 1) {
-    return results[0]
+    return results[0].result
   } else if (results.length) {
     return {
       outcome: results.every(r => r.result.outcome === "passed") ? "passed" : "failed",
