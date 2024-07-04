@@ -233,7 +233,7 @@ test return
 
 * outcome: `FAILED`, log (`movedTo` MUST NOT be a non-URI string)
 
-### Valid Tombstone Actor
+### Valid Deactivated Actor
 
 input
 
