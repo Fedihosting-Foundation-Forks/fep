@@ -2,8 +2,8 @@
 type:
 - TestCase
 status: draft
-name: Actor Object Tombstone Syntax
-slug: fep-0f2a-actor-object-tombstone-syntax
+name: Actor Object Migration and Deactivation Syntax
+slug: fep-0f2a-actor-object-migration-and-deactivation-syntax
 description: |
   This rule checks whether a given Actor Object has used valid `movedTo` or `copiedTo` values and exclusively.
 uuid: 73257c1a-70da-42df-9698-579940c7065a
@@ -27,13 +27,13 @@ respec:
 
 ---
 
-# Actor Object Tombstone Syntax
+# Actor Object Migration and Deactivation Syntax
 
 ## Background
 
 This proposal extends and combines prior FEPs to define syntax and parsing rules for Actor objects which unambiguously express exactly one of the three following states:
 
-1. termination, OR
+1. deactivation, OR
 2. migration to another URI, OR
 3. duplication at another URI.
 
