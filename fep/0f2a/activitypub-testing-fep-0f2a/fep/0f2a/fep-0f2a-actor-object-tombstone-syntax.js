@@ -2,9 +2,6 @@ const name = 'Actor Object Tombstone Syntax'
 const slug = 'fep-0f2a-actor-object-tombstone-syntax'
 const uuid = '73257c1a-70da-42df-9698-579940c7065a'
 const description = 'This rule checks whether a given Actor Object has used valid `movedTo` or `copiedTo` values and exclusively.'
-const attributedTo = [
-  'https://bumblefudge.com',
-]
 
 /**
  * Expected input to the test rule.
@@ -38,7 +35,6 @@ const attributedTo = [
  * @type {TestCase<Input,Outcome>}
  */
 export default {
-  attributedTo,
   description,
   testCases: [
 
@@ -76,6 +72,26 @@ export default {
       },
       result: {
         // log (`movedTo` and `copiedTo` MUST NOT both be present)
+        outcome: 'failed',
+      }
+    },
+
+    {
+      name: '`movedTo` set to JSON null',
+      input: {
+        actor: {
+          "@context": [
+              "https://www.w3.org/ns/activitystreams",
+              "https://w3id.org/fep/7628"
+          ],
+          "type": "Person",
+          "inbox": "https://example.com/inbox",
+          "outbox": "https://example.com/outbox",
+          "movedTo": null
+        }
+      },
+      result: {
+        // log (`movedTo` MUST NOT to be set to null)
         outcome: 'failed',
       }
     },
@@ -191,6 +207,14 @@ function expect({ actor }) {
       result: {
         outcome: 'failed',
         info: '`movedTo` and `copiedTo` MUST NOT both be present',
+      }
+    }
+  }
+  if (('movedTo' in actor) && typeof actor.movedTo !== 'string') {
+    return {
+      result: {
+        outcome: 'failed',
+        info: 'actor.movedTo, if present, MUST be a string'
       }
     }
   }
