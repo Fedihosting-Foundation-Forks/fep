@@ -80,7 +80,7 @@ In the section, ["`movedTo` and `copiedTo` properties"](https://codeberg.org/fed
 
 > Publishers SHOULD NOT deliver activities to actor's inbox if movedTo property is present.
 
-We would add the following behavioral expectations:
+We add the following behavioral expectations:
 
 * Publishers SHOULD attempt to resolve the `movedTo` property to find out if it contains an inbox property.
   * If an inbox is found, publishers SHOULD apply security, privacy, and federation policies on the domain at which it is hosted before taking any further action.
