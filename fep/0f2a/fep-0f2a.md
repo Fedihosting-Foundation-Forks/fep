@@ -84,7 +84,7 @@ We add the following behavioral expectations:
 
 * Publishers SHOULD attempt to resolve the `movedTo` property to find out if it contains an inbox property.
   * If an inbox is found, publishers SHOULD apply security, privacy, and federation policies on the domain at which it is hosted before taking any further action.
-  * If said inbox is permitted, publishers MAY attempt to deliver activities to the new inbox.
+  * If said inbox is permitted, publishers SHOULD attempt to deliver activities to the new inbox.
 * If no `movedTo` value is set and a `copiedTo` value is set, publishers MAY resolve a `copiedTo` value to retrieve an `inbox` value and similarly process it.
   * In the case of a value `copiedTo` inbox and allowance by policy, delivery SHOULD be attempted to the new inbox ONLY.
   * In the case of invalid `copiedTo` inbox or disallowing by policy, delivery MAY be attempted to the deactivated inbox ONLY.
