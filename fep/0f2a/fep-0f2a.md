@@ -80,11 +80,11 @@ In the section, ["`movedTo` and `copiedTo` properties"](https://codeberg.org/fed
 
 > Publishers SHOULD NOT deliver activities to actor's inbox if movedTo property is present.
 
-We would add the following behavioral expectations:
+We add the following behavioral expectations:
 
 * Publishers SHOULD attempt to resolve the `movedTo` property to find out if it contains an inbox property.
   * If an inbox is found, publishers SHOULD apply security, privacy, and federation policies on the domain at which it is hosted before taking any further action.
-  * If said inbox is permitted, publishers MAY attempt to deliver activities to the new inbox.
+  * If said inbox is permitted, publishers SHOULD attempt to deliver activities to the new inbox.
 * If no `movedTo` value is set and a `copiedTo` value is set, publishers MAY resolve a `copiedTo` value to retrieve an `inbox` value and similarly process it.
   * In the case of a value `copiedTo` inbox and allowance by policy, delivery MAY attempt delivery to both inboxes.
 * Consuming implementations that keep redirect or alias records MAY persist the above-resolved relationship to avoid repeating this resolution in the future.
@@ -99,7 +99,7 @@ There are caveats to interpreting these values if the value of `movedTo` or `cop
 
 ### Interpreting an Announce Activity of a Deactivated Actor
 
-Servers receiving an Announce object with an Actor as its object should NOT increment a `shares` collection (as Actors never, to our knowledge, have one to increment!).
+Servers receiving an Announce object with an Actor as its object should NOT increment a `shares` collection.
 If a receiving server persists redirects or aliases to more smoothly remain aware of migrating or multi-homed users, or for other reasons, it MAY resolve the new Actor object and perform the above-described checks and MAY record said Actor update.
 
 ## Open Issues
