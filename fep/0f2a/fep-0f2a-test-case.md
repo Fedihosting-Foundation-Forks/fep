@@ -63,8 +63,7 @@ This test requires the following [inputs](https://www.w3.org/TR/act-rules-format
   * constraints
     * will be interpreted as JSON.
       * If not parseable as JSON, the test result MUST be `inapplicable`.
-    
-    * dereferenced `@context` array should include [both terms defined by FEP-7628](../7628/context.jsonld)
+    * dereferenced `@context` array should include [both terms defined by FEP-7628](../7628/context.jsonld) to signal support for this FEP
       * if does not, the test result outcome MUST be `inapplicable`.
 
 ## Applicability
@@ -72,7 +71,7 @@ This test requires the following [inputs](https://www.w3.org/TR/act-rules-format
 This test applies directly to the `actor` input.
 
 * If `actor` is not a JSON object, the outcome MUST be `inapplicable`.
-* input `actor` MUST have a `@context` property whose value is an Array containing the string `https://w3id.org/fep/7628`. If it does not, the outcome MUST be `inapplicable`. 
+* input `actor` MUST have a `@context` property whose value is an Array containing the string `https://w3id.org/fep/7628`. If it does not, the outcome MUST be `inapplicable`.
 
 ### Test Targets
 
@@ -209,32 +208,6 @@ test return
 
 * outcome: `FAILED`, log (`movedTo` MUST be a functional property)
 
-### `copiedTo` set to array
-
-input
-
-actor:
-
-```json
-{
-    "@context": [
-        "https://www.w3.org/ns/activitystreams",
-        "https://w3id.org/fep/7628"
-    ],
-    "type": "Person",
-    "inbox": "https://example.com/inbox",
-    "outbox": "https://example.com/outbox",
-    "copiedTo": [
-      "https://example2.com/id",
-      "https://example3.com/id"
-    ],
-}
-```
-
-test return
-
-* outcome: `PASSED`, log (`copiedTo` contains multiple valid URIs)
-
 ### `movedTo` set to invalid URI
 
 input
@@ -293,7 +266,7 @@ input
         "https://www.w3.org/ns/activitystreams",
         "https://w3id.org/fep/7628"
     ],
-    "type": "Person",
+    "type": ["Person","Tombstone"],
     "inbox": "https://example.com/inbox",
     "outbox": "https://example.com/outbox",
     "movedTo": "https://actorname.otherexample.com"
@@ -303,6 +276,34 @@ input
 test return
 
 * outcome: `PASSED`
+  * optional: check and log validity of actor referenced by that URI
+ 
+### Valid Migrated Actor (Missing Tombstone)
+
+This test vector does NOT conform to [FEP0-f2a] but DOES conform to the older [FEP-7628].
+It is included to assist in testing the consumption of legacy migrated actors.
+
+input
+
+* `actor`:
+
+```json
+{
+    "@context": [
+        "https://www.w3.org/ns/activitystreams",
+        "https://w3id.org/fep/7628"
+    ],
+    "type": ["Person"],
+    "inbox": "https://example.com/inbox",
+    "outbox": "https://example.com/outbox",
+    "movedTo": "https://actorname.otherexample.com"
+}
+```
+
+test return
+
+* outcome: `FAILED`
+  * log ("Missing Tombstone but backwards-compatible")
   * optional: check and log validity of actor referenced by that URI
 
 ### Valid Multi-homed Actor
@@ -328,6 +329,32 @@ test return
 
 * outcome: `PASSED`
   * optional: check and log validity of actor referenced by that URI
+
+### Valid Multi-homed Actor (`copiedTo` set to array)
+
+input
+
+actor:
+
+```json
+{
+    "@context": [
+        "https://www.w3.org/ns/activitystreams",
+        "https://w3id.org/fep/7628"
+    ],
+    "type": "Person",
+    "inbox": "https://example.com/inbox",
+    "outbox": "https://example.com/outbox",
+    "copiedTo": [
+      "https://example2.com/id",
+      "https://example3.com/id"
+    ],
+}
+```
+
+test return
+
+* outcome: `PASSED`, log (`copiedTo` contains multiple valid URIs)
 
 ## Glossary
 
