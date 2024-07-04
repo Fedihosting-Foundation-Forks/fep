@@ -44,6 +44,9 @@ export async function testHasTestCases({ testCases = [], run }, { minimum = 0 } 
   let remainingForMinimum = minimum
   for (const testCase of testCases) {
     const result = await run(testCase.input)
+    if ( ! result.outcome) {
+      throw new Error(`result has no .outcome`, { cause: { result }})
+    }
     if (result.outcome !== testCase.result.outcome) {
       throw Object.assign(
         new Error(`expected result.outcome to be "${testCase.result.outcome}" but got '${result.outcome}'`),
