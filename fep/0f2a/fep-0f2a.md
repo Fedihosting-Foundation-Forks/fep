@@ -90,7 +90,7 @@ We add the following behavioral expectations:
   * If an inbox is found, publishers SHOULD apply security, privacy, and federation policies on the domain at which it is hosted before taking any further action.
   * If said inbox is permitted, publishers SHOULD attempt to deliver activities to the new inbox.
 * If no `movedTo` value is set and one or more `copiedTo` values are set, publishers MAY resolve a `copiedTo` value to retrieve an `inbox` value and similarly process it.
-  * In the case of a value `copiedTo` inbox and allowance by policy, delivery MAY attempt delivery to both Actor inbox and `copiedTo` inbox(es).
+  * In the case of a valid `copiedTo` inbox and allowance by policy, delivery MAY attempt delivery to both Actor inbox and `copiedTo` inbox(es).
 * Consuming implementations that keep redirect or alias records MAY persist the above-resolved relationship to avoid repeating this resolution in the future.
 * If a `movedTo` value has been set to a valid URI, but `type` does not include "Tombstone", consuming implementations SHOULD treat it as a deactivated actor per Postel's Law.
 
