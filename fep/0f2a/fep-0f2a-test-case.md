@@ -183,7 +183,7 @@ test return
 
 * outcome: `FAILED`, log (`movedTo` and `copiedTo` MUST NOT both be present)
 
-### `movedTo` set to JSON null
+### `movedTo` set to array
 
 input
 
@@ -198,13 +198,42 @@ actor:
     "type": "Person",
     "inbox": "https://example.com/inbox",
     "outbox": "https://example.com/outbox",
-    "movedTo": null
+    "movedTo": [
+      "https://example2.com/id",
+      "https://example3.com/id"
+    ],
 }
 ```
 
 test return
 
-* outcome: `FAILED`, log (`movedTo` MUST NOT to be set to null)
+* outcome: `FAILED`, log (`movedTo` MUST be a functional property)
+
+### `copiedTo` set to array
+
+input
+
+actor:
+
+```json
+{
+    "@context": [
+        "https://www.w3.org/ns/activitystreams",
+        "https://w3id.org/fep/7628"
+    ],
+    "type": "Person",
+    "inbox": "https://example.com/inbox",
+    "outbox": "https://example.com/outbox",
+    "copiedTo": [
+      "https://example2.com/id",
+      "https://example3.com/id"
+    ],
+}
+```
+
+test return
+
+* outcome: `FAILED`, log (`movedTo` MUST be a functional property)
 
 ### `movedTo` set to invalid URI
 
@@ -221,7 +250,7 @@ actor:
     "type": "Person",
     "inbox": "https://example.com/inbox",
     "outbox": "https://example.com/outbox",
-    "movedTo": "trustmebro"
+    "movedTo": "Tombstone"
 }
 ```
 
