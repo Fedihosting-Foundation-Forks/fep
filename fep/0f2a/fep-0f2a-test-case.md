@@ -183,7 +183,7 @@ test return
 
 * outcome: `FAILED`, log (`movedTo` and `copiedTo` MUST NOT both be present)
 
-### `movedTo` set to JSON NULL
+### `movedTo` set to JSON null
 
 input
 
@@ -227,7 +227,7 @@ actor:
 
 test return
 
-* outcome: `FAILED`, log (`movedTo` MUST NOT be a non-URI string)
+* outcome: `FAILED`, log (`movedTo` MUST be a URI)
 
 ### Valid Deactivated Actor
 

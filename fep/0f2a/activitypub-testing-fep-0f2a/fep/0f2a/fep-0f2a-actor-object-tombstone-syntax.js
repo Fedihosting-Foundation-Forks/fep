@@ -96,6 +96,26 @@ export default {
       }
     },
 
+    {
+      name: '`movedTo` set to invalid URI',
+      input: {
+        actor: {
+          "@context": [
+              "https://www.w3.org/ns/activitystreams",
+              "https://w3id.org/fep/7628"
+          ],
+          "type": "Person",
+          "inbox": "https://example.com/inbox",
+          "outbox": "https://example.com/outbox",
+          "movedTo": "trustmebro"
+        }
+      },
+      result: {
+        // log (`movedTo` MUST be a URI)
+        outcome: 'failed',
+      }
+    },
+  
     // @todo add remaining test cases from ./fep-0f2a-test-case.md
 
     // # below are test cases not in spec
@@ -201,7 +221,7 @@ function getTarget({ actor, console = globalThis.console }) {
  * @returns {{result:import("../../test-utils").TestResult<import("../../test-utils").Outcome>}}
  */
 function expect({ actor }) {
-  // @todo check requirements per FEP
+  // movedTO and copiedTo properties MUST NOT both be present
   if (('movedTo' in actor) && ('copiedTo' in actor)) {
     return {
       result: {
@@ -210,6 +230,8 @@ function expect({ actor }) {
       }
     }
   }
+
+  // movedTo value MUST be a string
   if (('movedTo' in actor) && typeof actor.movedTo !== 'string') {
     return {
       result: {
@@ -218,6 +240,25 @@ function expect({ actor }) {
       }
     }
   }
+
+  // movedTo value MUST be a URI
+  try {
+    new URL(actor.movedTo)
+  } catch (error) {
+    if (error?.code === 'ERR_INVALID_URL') {
+      return {
+        result: {
+          outcome: 'failed',
+          info: `movedTo value MUST be a URL, but URL constructor reported ERR_INVALID_URL`,
+          pointer: {
+            movedTo: actor.movedTo
+          }
+        }
+      }
+    }
+    throw error
+  }
+
   return { result: { outcome: "passed" } }
 }
 
