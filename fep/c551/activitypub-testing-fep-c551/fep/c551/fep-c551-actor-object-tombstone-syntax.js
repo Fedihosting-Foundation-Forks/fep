@@ -1,9 +1,8 @@
-const name = 'Actor Object Tombstone Syntax'
-const slug = 'fep-c551-actor-object-tombstone-syntax'
-const uuid = '73257c1a-70da-42df-9698-579940c7065a'
-const description = 'This rule checks whether a given Actor Object has used valid `movedTo` or `copiedTo` values and exclusively.'
+const name = 'fep-c551 module must export test object'
+const slug = 'fep-c551-module-must-export-test-object'
+const uuid = '14bab0ae-e682-4f4c-9474-ef65ca47d527'
 const attributedTo = [
-  'https://bumblefudge.com',
+  'https://bengo.is',
 ]
 
 /**
@@ -13,83 +12,42 @@ const attributedTo = [
  * then check expectations against the Target
  * returning a result with Outcomes
  * @typedef Input
- * @property {unknown} actor
+ * @property {unknown} module
  */
 
 /**
  * The test will check expectations against test Target derived from Input
  * @typedef Target
- * @property {object} actor
+ * @property {string} module
  */
 
 /** 
  * Outcome - every test Target has an outcome
- * @typedef {import("../../test-utils").Outcome} Outcome
+ * @typedef {"inapplicable"|"passed"|"failed"} Outcome
  */
 
-/**
- * TestCase
- * @typedef {import("../../test-utils").TestCase<I,O>} TestCase
- * @template I
- * @template {string} O
- */
-
-/**
- * @type {TestCase<Input,Outcome>}
- */
 export default {
   attributedTo,
-  description,
   testCases: [
 
-    // # test cases from ./fep-c551-test-case.md:
-
     {
-      name: 'Missing `@context values`',
+      name: 'valid script',
       input: {
-        actor: {
-          "@context": "https://www.w3.org/ns/activitystreams",
-          "type": "Person",
-          "inbox": "https://example.com/inbox",
-          "outbox": "https://example.com/outbox"
-        }
+        module: `
+        export const name = 'invalid script module name';
+        export default { name };
+        `
       },
       result: {
-        outcome: 'inapplicable',
-      }
-    },
-
-    // @todo add remaining test cases from ./fep-c551-test-case.md
-
-    // # below are test cases not in spec
-
-    {
-      name: 'undefined input actor',
-      input: {
-        actor: undefined
-      },
-      result: {
-        outcome: 'inapplicable'
-      }
-    },
-
-    // If `actor` JSON does not have a `type` property, the outcome MUST be `inapplicable`.
-    {
-      name: 'input actor has no type property',
-      input: {
-        actor: {},
-      },
-      result: {
-        outcome: 'inapplicable'
+        outcome: 'passed',
       }
     },
 
   ],
   input: {
-    actor: {
-      help: 'the actor object that should be tested',
+    module: {
+      help: 'ECMAScript Module that exports a test object',
       required: true,
-      rangeIncludes: ["https://www.w3.org/ns/activitystreams#Actor"],
     }
   },
   name,
@@ -105,39 +63,15 @@ export default {
  * (does some checks from 'Applicability' section of test rule)
  * @param {Input} input
  * @returns {{ outcome: "inapplicable", info: string }
- *          |{ actor: object }}
+ *          |{ module: string }}
  */
 function checkApplicability(input) {
-  let actor
-  if (typeof input.actor === "string") {
-    // if a string, it must be a JSON string
-    actor = JSON.parse(input.actor)
-  } else {
-    actor = input.actor
-  }
-  if (typeof actor !== 'object' || !actor) return {
+  if (typeof input.module !== 'string') return {
     outcome: "inapplicable",
-    info: 'applicability requires input.actor MUST be an object'
-  }
-  if (!('type' in actor)) return {
-    outcome: 'inapplicable',
-    info: 'applicability requires input.actor MUST have a type property',
-  }
-  if (!('assertionMethod' in actor)) return {
-    outcome: 'inapplicable',
-    info: 'applicability requires input.actor MUST have an assertionMethod'
-  }
-  if (!(Array.isArray(actor.assertionMethod))) return {
-    outcome: 'inapplicable',
-    info: 'applicability requires input.actor.assertionMethod MUST be an Array'
-  }
-  if (!actor.assertionMethod.find(m => assertionMethodHasType(m, 'Multikey'))) return {
-    outcome: 'inapplicable',
-    info: 'actor.assertionMethod array MUST contain at least one entry with type "Multikey"',
-
+    info: 'applicability requires input.module MUST be a string'
   }
   return {
-    actor,
+    module: input.module,
   }
 }
 
@@ -148,31 +82,19 @@ function checkApplicability(input) {
  * @returns {{result: import("../../test-utils").TestResult<import("../../test-utils").Outcome>} 
  *          |{targets: Iterable<Target>}}}
  */
-function getTarget({ actor, console = globalThis.console }) {
-  if (typeof actor === "string") {
-    // if actor is a string, it must be JSON
-    actor = JSON.parse(actor)
-  }
-  if (typeof actor !== 'object' || !actor) {
+function getTarget({ module, console = globalThis.console }) {
+  if (typeof module !== 'string') {
     return {
       result: {
         outcome: 'inapplicable',
-        info: 'input.actor MUST be an object',
+        info: 'input.actor MUST be a string',
       }
     }
   }
 
   return {
-    targets: [actor]
+    targets: [{ module }]
   }
-}
-
-// @ts-expect-error todo
-function assertionMethodHasType(assertionMethod, t) {
-  if (Array.isArray(assertionMethod.type)) {
-    return assertionMethod.type.includes(t)
-  }
-  return assertionMethod.type === t
 }
 
 /**
@@ -181,7 +103,8 @@ function assertionMethodHasType(assertionMethod, t) {
  * @returns {{result:import("../../test-utils").TestResult<import("../../test-utils").Outcome>}
  *           |undefined}
  */
-function expect({ actor, assertionMethod }) {
+function expect({ module }) {
+  if (typeof module !== 'string') return { result: { outcome: 'failed', info: 'input.module MUST be a string' } }
   // @todo check requirements per FEP
   return { result: { outcome: "passed" } }
 }
@@ -215,7 +138,7 @@ async function run(input) {
     })
   }
   if (results.length === 1) {
-    return results[0]
+    return results[0].result
   } else if (results.length) {
     return {
       outcome: results.every(r => r.result.outcome === "passed") ? "passed" : "failed",
