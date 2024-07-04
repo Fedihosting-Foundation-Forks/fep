@@ -233,7 +233,7 @@ actor:
 
 test return
 
-* outcome: `FAILED`, log (`movedTo` MUST be a functional property)
+* outcome: `PASSED`, log (`copiedTo` contains multiple valid URIs)
 
 ### `movedTo` set to invalid URI
 
