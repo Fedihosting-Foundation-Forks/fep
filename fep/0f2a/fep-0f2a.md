@@ -47,7 +47,11 @@ In the section, ["Move Activity"](https://codeberg.org/fediverse/fep/src/branch/
 If previous primary actor is not deactivated, copiedTo property MUST be used.
 
 We add a third formal requirement, that both `movedTo` and `copiedTo` MUST NOT be present in the same Actor object.
-Consuming implementations SHOULD treat an Actor with both properties as malformed.
+
+We add add some recommendations:
+* Consuming implementations SHOULD treat an Actor with both properties as malformed.
+* `movedTo` SHOULD be a functional property.
+* `copiedTo` MAY be an array.
 
 Many other current and future process and Activities could also be using the same semantics, including new "styles" or "profiles" of the many possible Actor objects allowed by the [ActivityPub] specification.
 These include Actors that *do not change `id` after migrating*, whether they conform to the [Nomadic][FEP-ef61] Actor extension, or to the [separately-hosted][FEP-7952] Actor extension.
@@ -59,12 +63,12 @@ Any consumer fetching this `assertionMethod` object for the purposes of verifyin
 If an account has been deleted intentionally and consuming implementations are expected to recognize this, regardless of whether or not a `movedTo` value has been set, a server MUST include the string "Tombstone" in the `type` array of the deactivated or moved Actor object.
 Whether any other types are present is out of scope of this specification, to minimize side effects or complications for implementers.
 
-An Actor object set to `Tombstone` SHOULD also set a top-level [`as:deleted`](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-deleted) property containing a current XSD `dateTime` as a courtesy to consumers.
-
-If an account whose Actor object contains a valid `copiedTo` value has been deleted intentionally, this MUST be expressed by set the `movedTo` property to the value of the current `copiedTo` property and removing the former `copiedTo` property.
-An invalid, malformed, or non-resolving `copiedTo` MAY remove the property when adding `Tombstone` to an Actor's `type`.
+If an account whose Actor object containing a valid `copiedTo` value has been deleted intentionally, this MUST be removed before adding `Tombstone` to the Actor's `type`.
+A server performing this removal MAY move one valid URI from `copiedTo` to `movedTo` to aid discovery.
 
 If a user account is being deactivated but the source server wants to enable a future migration to be authenticated cryptographically, it MAY add to the Actor object a public key authenticated to the account (if not already present), as per to [FEP-521a].
+
+An Actor object set to `Tombstone` SHOULD also set a top-level [`as:deleted`](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-deleted) property containing a current XSD `dateTime` as a courtesy to consumers.
 
 ### Announcing a Migration or Deactivation Event
 
@@ -74,7 +78,7 @@ If a user account is being deactivated but the source server wants to enable a f
 
 An Actor-update Announce activity SHOULD be addressed to the Actor's Followers.
 
-### Interpreting a Deactivated Actor Object
+### Interpreting a Migrated or Deactivated Actor Object
 
 In the section, ["`movedTo` and `copiedTo` properties"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md#movedto-and-copiedto-properties) of [FEP-7628][], the following general rule for all Actor objects is proposed:
 
