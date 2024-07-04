@@ -103,8 +103,8 @@ For the purposes of determining the in/active status and migration history of a 
 
 * the input is valid JSON
 * `movedTo` and `copiedTo` MUST NOT both be present
-* `movedTo` can be `""` (empty string) OR a valid URI OR not present
-* `copiedTo` can be a valid URI or not present
+* `movedTo` can be a valid URI OR not present
+* `copiedTo` can be a valid URI or an array containing one or more valid URIs OR not present
 
 #### Property Value evaluation logic (Pseudocode)
 
@@ -124,12 +124,14 @@ For the purposes of determining the in/active status and migration history of a 
   * else
     * outcome is `FAILED`
 * else if `copiedTo` is present,
-  * value MUST be a valid URI
+  * `type` MUST not include `"Tombstone"`
+    * outcome is `FAILED`; log ("Cannot be tombstoned if copiedTo is set")
+  * each value MUST be a valid URI
     * if URI is 404 //OPTIONAL CHECK
       * log ($copiedTo is not resolvable)
     * outcome is `PASSED`
   * else
-    * outcome is `FAILED`
+    * outcome is `FAILED`; log ("invalid values in `copiedTo`")
 * else
   * //log (actor is currently active and unlinked)
   * outcome is `PASSED`
@@ -200,6 +202,32 @@ actor:
     "movedTo": [
       "https://example2.com/id",
       "https://example3.com/id"
+    ],
+}
+```
+
+test return
+
+* outcome: `FAILED`, log (`movedTo` MUST be a functional property)
+  
+### `copiedTo` contains invalid URI
+
+input
+
+actor:
+
+```json
+{
+    "@context": [
+        "https://www.w3.org/ns/activitystreams",
+        "https://w3id.org/fep/7628"
+    ],
+    "type": "Person",
+    "inbox": "https://example.com/inbox",
+    "outbox": "https://example.com/outbox",
+    "copiedTo": [
+      "https://example2.com/id",
+      "Tombstone"
     ],
 }
 ```
