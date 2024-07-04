@@ -1,11 +1,11 @@
 ---
 slug: "0f2a"
-authors: bumblefudge <bumblefudge@learningproof.xyz>, Dmitri Zagidulin <@dmitri@social.coop>
+authors: bumblefudge <bumblefudge@learningproof.xyz>, bengo <@bengo@social.coop>
 status: DRAFT
 dateReceived: 2024-06-XX
 discussionTo: XXXX
 ---
-# FEP-0f2a: Announce Activity for Migrations and Deactivation Events
+# FEP-0f2a: Announce Activity for Migrations and Tombstone Events
 
 ## Summary
 
@@ -15,19 +15,18 @@ This FEP normatively specifies exactly one narrow step in almost all the migrati
 * the Announcement activity which a source server propagates to inform followers of said Actor object update
 
 Our proposal clarifies semantics and behavior of the earlier [FEP-7628][FEP-7628] on which it strictly relies.
-It also proposes a simple, additive approach to use the above to express "deactivated" Actors.
+It also proposes a simple, additive approach to use the above to express "deactivated" Actors by "tombstoning" their Actor objects, i.e. adding "Tombstone" to their `type` array (already afforded by the Activity Streams vocabulary).
 It also accomodates migrations to new forms of Actor object, such as "Nomadic"-style Portable Actors as described in [FEP-ef61: Portable Objects][FEP-ef61] and "Independently-hosted" Actor objects as described in [FEP-7952][FEP-7952], both for conforming and non-conforming consumers.
 As such, fully implementing all optional features of this proposal would require implementing [FEP-521a: Representing actor's public keys][FEP-521a], which adds terms to the Actor object for publishing a verification method to verify assertions about the Actor independently of domain.
 
 ### Current Approaches
 
 Migration is currently supported in a somewhat ad hoc and piecemeal way, without harmonized expectations for how to update, announce, or interpret an Actor object after a migration, or after a deactiviation.
-Deactivation is sometimes referred to colloquially as a "tombstone" event, although we have opted to explore a "migration to null" approach rather than use the Activity Streams [Tombstone](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tombstone) Type, which is specified and widely used for content objects but less established for Actor objects.
-Changing the `type` of a deactivated Actor itself to `Tombstone` was considered as an approach, but this additive approach was chosen over one based on `Actor.type` due to diversity of handling of Actor types and the potential for unexpected side-effects and backwards-incompatibility it could introduce.
-
+Deactivation is sometimes referred to as a "tombstone" event, both in general usage in distributed systems and in the Activity Streams sense of the [Tombstone](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tombstone) object type.
+Adding the "Tombstone" member to the `type` array of an Actor object marks it as deactivated, as is already possible but more commonly implemented for deleted content or Activities than for Actors.
 We did not do a review of existing codebases, and the only public prior art that we're aware of is the retrospecification of current practice in [FEP-7628: Move Actor][FEP-7628].
 
-To our knowledge, there have been no public proposals for how to express a given Actor's controller expressing an "intent [for that Actor] to be forgotten" to other servers where interactions with it may be stored, much less how to document that intent for legal purposes (which is explicitly out of scope here). `Tombstone` does seem to be [used for this kind of intent broadcasting](https://socialhub.activitypub.rocks/t/the-delete-activity-and-its-misconceptions/137) for objects, at least in Pleroma.
+Beyond passively leaving a `Tombstone` hint for future queries, there have been no public proposals to our knowledge specifying how to actively express a given Actor's controller expressing an "intent [for that Actor] to be forgotten" to other servers where interactions with it may be stored, much less how to document that intent for legal purposes (which is explicitly out of scope here).
 
 ## Specification
 
@@ -40,7 +39,7 @@ Implementations SHOULD signal their support for this specification by including 
 Implementations MAY prove support for this specification by publishing a Conformance Report referencing the tests run.
 A specification for possible tests is provided in [fep-0f2a-test-case](./fep-0f2a-test-case.md).
 
-### Actor Object Deactivation Syntax
+### Actor Object Migration and Deactivation Syntax
 
 In the section, ["Move Activity"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md#move-activity) of [FEP-7628][], two variations of the Mastodon-style `Move` Activity are defined, as well as semantics for the `movedTo` and `copiedTo` properties that MUST be applied to the Actor object on the source server of the activity:
 
@@ -57,16 +56,17 @@ If an account is moving to one of these configurations, the `movedTo` or `copied
 If the Actor object before the deactivation event included a public key for signing Activities expressed according to [Client-Signing][FEP-521a], and the same public key will NOT be published at the destination server for verifying post-migration Activities, then the source server MAY add an `expires` key and current-timestamp value to the key's `assertionMethod` object as described in [section #2.3.1: Verification Methods](https://www.w3.org/TR/vc-data-integrity/#verification-methods) of the [W3C Data Integrity](https://www.w3.org/TR/vc-data-integrity) specification (to which [FEP-521a] normatively refers).
 Any consumer fetching this `assertionMethod` object for the purposes of verifying signatures according to the Data Integrity algorithm will thus invalidate signatures newer than the deactivation of that key.
 
-If an account has been deleted intentionally and consuming implementations are expected to recognize this, we propose that a `movedTo` value of `""`, i.e. an empty string, MUST be used, and a JSON value of "NULL" MUST NOT be used.
-The reason for this constraint is that some JSON-LD parsers will interpret `null` as equivalent to the `movedTo` value being "unset" or never having been sent, i.e. an Actor in its default, active, pre-migration/pre-deactivation state.
-See the [JSON-LD 1.1 specification](https://w3c.github.io/json-ld-syntax/#terms-imported-from-other-specifications) for more details on "NULL" and JSON-LD parsing.
+If an account has been deleted intentionally and consuming implementations are expected to recognize this, regardless of whether or not a `movedTo` value has been set, a server MUST include the string "Tombstone" in the `type` array of the deactivated or moved Actor object.
+Whether any other types are present is out of scope of this specification, to minimize side effects or complications for implementers.
 
-If an account containing a valid `copiedTo` value has been deleted intentionally, this MUST be expressed by set the `movedTo` property to the value of the current `copiedTo` property and removing the former `copiedTo` property.
-An invalid, malformed, or non-resolving `copiedTo` MUST be deleted when setting `movedTo` to `""`.
+An Actor object set to `Tombstone` SHOULD also set a top-level [`as:deleted`](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-deleted) property containing a current XSD `dateTime` as a courtesy to consumers.
+
+If an account whose Actor object contains a valid `copiedTo` value has been deleted intentionally, this MUST be expressed by set the `movedTo` property to the value of the current `copiedTo` property and removing the former `copiedTo` property.
+An invalid, malformed, or non-resolving `copiedTo` MAY remove the property when adding `Tombstone` to an Actor's `type`.
 
 If a user account is being deactivated but the source server wants to enable a future migration to be authenticated cryptographically, it MAY add to the Actor object a public key authenticated to the account (if not already present), as per to [FEP-521a].
 
-### Announcing a Deactivation Event
+### Announcing a Migration or Deactivation Event
 
 After these changes have been made to the Actor object on the source server, an Announce activity SHOULD be sent out with the Actor as its object.
 
@@ -85,21 +85,24 @@ We add the following behavioral expectations:
 * Publishers SHOULD attempt to resolve the `movedTo` property to find out if it contains an inbox property.
   * If an inbox is found, publishers SHOULD apply security, privacy, and federation policies on the domain at which it is hosted before taking any further action.
   * If said inbox is permitted, publishers SHOULD attempt to deliver activities to the new inbox.
-* If no `movedTo` value is set and a `copiedTo` value is set, publishers MAY resolve a `copiedTo` value to retrieve an `inbox` value and similarly process it.
-  * In the case of a value `copiedTo` inbox and allowance by policy, delivery MAY attempt delivery to both inboxes.
+* If no `movedTo` value is set and one or more `copiedTo` values are set, publishers MAY resolve a `copiedTo` value to retrieve an `inbox` value and similarly process it.
+  * In the case of a value `copiedTo` inbox and allowance by policy, delivery MAY attempt delivery to both Actor inbox and `copiedTo` inbox(es).
 * Consuming implementations that keep redirect or alias records MAY persist the above-resolved relationship to avoid repeating this resolution in the future.
+* If a `movedTo` value has been set to a valid URI, but `type` does not include "Tombstone", consuming implementations SHOULD treat it as a deactivated actor per Postel's Law.
 
-There are caveats to interpreting these values if the value of `movedTo` or `copiedTo` contains an unconventional URL generated by an implementation extended by the above-mentioned FEPs:
+#### Behavior for unfamiliar Actor URIs
+
+There are caveats to interpreting these values if the `movedTo` or `copiedTo` properties contain unconventional URLs, such as those generated by an implementation extended by the above-mentioned FEPs:
 
 * If the `movedTo` or `copiedTo` value is a valid URL beginning with the prefix `ap://` and the `@context` value includes the relevant extension properties, the destination server of the migration is likely implementing [FEP-ef61] and may require custom resolution logic to return an Actor object.
 * Similarly, if the `movedTo` or `copiedTo` value contains an actor-relative URL of the type defined in [FEP-7952], it should resolve as usual if the server is live, as long as the querying implementation allows for the HTTP redirect and has no policy against (or hardcoded assumptions incompatible with) `inbox` values on different domains than `id` values for a given Actor.
 * If an actor returned contains a non-empty `movedTo` or a non-empty `copiedTo` value in turn, this should in turn be dereferenced, barring domain-based policies to the contrary.
 * If a querying implementation cannot resolve a value of these types or further indirections, it SHOULD consider them equivalent to URLs that return 404 and MAY log an error or warning to user or system log as appropriate.
-* It is RECOMMENDED that unresolvable `movedTo` values be displayed to end-users as corrupted or incomplete moves, rather than as deactivated accounts (i.e., `movedTo` === "").
+* It is RECOMMENDED that unresolvable `movedTo` values be displayed to end-users as corrupted or incomplete moves, rather than as deactivated accounts.
 
 ### Interpreting an Announce Activity of a Deactivated Actor
 
-Servers receiving an Announce object with an Actor as its object should NOT increment a `shares` collection.
+Servers receiving an Announce object with an Actor as its object SHOULD NOT increment a `shares` collection.
 If a receiving server persists redirects or aliases to more smoothly remain aware of migrating or multi-homed users, or for other reasons, it MAY resolve the new Actor object and perform the above-described checks and MAY record said Actor update.
 
 ## Open Issues
