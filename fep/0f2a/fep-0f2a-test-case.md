@@ -80,7 +80,7 @@ This test applies directly to the `actor` input.
 
 ### Test Targets
 
-* whole Actor object is target
+* input `actor` is the only test target
 
 ## Expectations
 
