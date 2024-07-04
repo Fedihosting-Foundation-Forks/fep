@@ -167,10 +167,10 @@ actor:
 
 ```json
 {
-    "@context": {
+    "@context": [
         "https://www.w3.org/ns/activitystreams",
         "https://w3id.org/fep/7628"
-    },
+    ],
     "type": "Person",
     "inbox": "https://example.com/inbox",
     "outbox": "https://example.com/outbox",
@@ -191,10 +191,10 @@ actor:
 
 ```json
 {
-    "@context": {
+    "@context": [
         "https://www.w3.org/ns/activitystreams",
         "https://w3id.org/fep/7628"
-    },
+    ],
     "type": "Person",
     "inbox": "https://example.com/inbox",
     "outbox": "https://example.com/outbox",
@@ -214,10 +214,10 @@ actor:
 
 ```json
 {
-    "@context": {
+    "@context": [
         "https://www.w3.org/ns/activitystreams",
         "https://w3id.org/fep/7628"
-    },
+    ],
     "type": "Person",
     "inbox": "https://example.com/inbox",
     "outbox": "https://example.com/outbox",
@@ -237,10 +237,10 @@ input
 
 ```json
 {
-    "@context": {
+    "@context": [
         "https://www.w3.org/ns/activitystreams",
         "https://w3id.org/fep/7628"
-    },
+    ],
     "type": "Person",
     "inbox": "https://example.com/inbox",
     "outbox": "https://example.com/outbox",
@@ -260,10 +260,10 @@ input
 
 ```json
 {
-    "@context": {
+    "@context": [
         "https://www.w3.org/ns/activitystreams",
         "https://w3id.org/fep/7628"
-    },
+    ],
     "type": "Person",
     "inbox": "https://example.com/inbox",
     "outbox": "https://example.com/outbox",
@@ -284,10 +284,10 @@ input
 
 ```json
 {
-    "@context": {
+    "@context": [
         "https://www.w3.org/ns/activitystreams",
         "https://w3id.org/fep/7628"
-    },
+    ],
     "type": "Person",
     "inbox": "https://example.com/inbox",
     "outbox": "https://example.com/outbox",
