@@ -1,4 +1,4 @@
-import { describe, it } from 'node:test';
+import { describe, it, test } from 'node:test';
 import assert from "node:assert";
 
 import testCase from "./fep-0f2a-actor-object-tombstone-syntax.js"
@@ -20,15 +20,15 @@ await describe(`activitypub-testing test ${testCase.slug}`, async () => {
     assert.equal(result.outcome, 'inapplicable')
   })
 
-  // @todo re-enable this
-  // await it('when input.actor is a JSON string, outcome can be passed', async () => {
-  //   const validActor = testCase.testCases.find(t => t.name === 'Valid Actor')?.input.actor
-  //   // @ts-expect-error - testing even though typechecker should prevent
-  //   const result = await testCase.run({
-  //     actor: JSON.stringify(validActor)
-  //   })
-  //   assert.equal(result.outcome, 'passed')
-  // })
+  await it('when input.actor is a JSON string, outcome can be passed', async () => {
+    const validActor = testCase.testCases.find(t => t.name === 'Valid Deactivated Actor')?.input.actor
+    if ( ! validActor) throw new Error(`unable to determine validActor`)
+    // @ts-expect-error - testing even though typechecker should prevent
+    const result = await testCase.run({
+      actor: JSON.stringify(validActor)
+    })
+    assert.equal(result.outcome, 'passed')
+  })
 });
 
 /**
@@ -43,21 +43,23 @@ await describe(`activitypub-testing test ${testCase.slug}`, async () => {
 export async function testHasTestCases({ testCases = [], run }, { minimum = 0 } = {}) {
   let remainingForMinimum = minimum
   for (const testCase of testCases) {
-    const result = await run(testCase.input)
-    if ( ! result.outcome) {
-      throw new Error(`result has no .outcome`, { cause: { result }})
-    }
-    if (result.outcome !== testCase.result.outcome) {
-      throw Object.assign(
-        new Error(`expected result.outcome to be "${testCase.result.outcome}" but got '${result.outcome}'`),
-        {
-          name: 'UnexpectedOutcome',
-          testCase,
-          result
-        }
-      )
-    }
-    remainingForMinimum--
+    await test(`test case "${testCase.name}"`, async () => {
+      const result = await run(testCase.input)
+      if ( ! result.outcome) {
+        throw new Error(`result has no .outcome`, { cause: { result }})
+      }
+      if (result.outcome !== testCase.result.outcome) {
+        throw Object.assign(
+          new Error(`expected result.outcome to be "${testCase.result.outcome}" but got '${result.outcome}'`),
+          {
+            name: 'UnexpectedOutcome',
+            testCase,
+            result
+          }
+        )
+      }
+      remainingForMinimum--
+    })
   }
   if (remainingForMinimum > 0) {
     throw new Error(`test had ${minimum - remainingForMinimum} testCases but failed to meet required minimum of ${minimum}`)
