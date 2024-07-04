@@ -136,6 +136,26 @@ export default {
       }
     },
   
+    {
+      name: 'Valid Migrated Actor',
+      input: {
+        actor: {
+          "@context": [
+              "https://www.w3.org/ns/activitystreams",
+              "https://w3id.org/fep/7628"
+          ],
+          "type": "Person",
+          "inbox": "https://example.com/inbox",
+          "outbox": "https://example.com/outbox",
+          "movedTo": "https://actorname.otherexample.com"
+        }
+      },
+      result: {
+        // log (`movedTo` set to empty string)
+        outcome: 'passed',
+      }
+    },
+
     // @todo add remaining test cases from ./fep-0f2a-test-case.md
 
     // # below are test cases not in spec
