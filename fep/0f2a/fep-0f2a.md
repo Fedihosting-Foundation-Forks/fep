@@ -15,8 +15,8 @@ This FEP normatively specifies exactly one narrow step in almost all the migrati
 * the Announcement activity which a source server propagates to inform followers of said Actor object update
 
 Our proposal clarifies semantics and behavior of these "deactivated" Actors to better accomodate migrations to new forms of Actor object, such as "Nomadic"-style Portable Actors as described in [FEP-ef61: Portable Objects][FEP-ef61] and "Independently-hosted" Actor objects as described in [FEP-7952][FEP-7952].
-As such, fully implementing all optional features of this proposal would require implementing [FEP-521a: Representing actor's public keys][FEP-521a], which  novel terms to the Actor object 
-It also proposes a general notation for the "deactivating" of deleted accounts as a special case of the above process.
+As such, fully implementing all optional features of this proposal would require implementing [FEP-521a: Representing actor's public keys][FEP-521a], which adds terms to the Actor object for publishing a verification method to verify assertions about the Actor independently of domain.
+It also proposes a general notation for the "deactivation" of accounts as a special case of the above process.
 
 ### Current Approaches
 
