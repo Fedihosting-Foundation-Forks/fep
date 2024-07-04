@@ -63,9 +63,6 @@ This test requires the following [inputs](https://www.w3.org/TR/act-rules-format
   * constraints
     * will be interpreted as JSON.
       * If not parseable as JSON, the test result MUST be `inapplicable`.
-    * must be an actor as per core AP test e7ee491d-88d7-4e67-80c8-f74781bb247c
-      * i.e. has inbox and outbox
-      * If not actor, the test result outcome MUST be `inapplicable`.
     * dereferenced `@context` array should include [both terms defined by FEP-7628](../7628/context.jsonld)
       * if does not, the test result outcome MUST be `inapplicable`.
 
@@ -73,10 +70,8 @@ This test requires the following [inputs](https://www.w3.org/TR/act-rules-format
 
 This test applies directly to the `actor` input.
 
-* If `actor` is not an Actor Object, the outcome MUST be `inapplicable`.
 * If `actor` is not a JSON object, the outcome MUST be `inapplicable`.
-* If `actor` JSON does not have a `type` property, the outcome MUST be `inapplicable`.
-* If `actor` JSON does not include a `movedTo` property, AND does not include a `copiedTo` property, AND `@context` does not include the URL `"https://w3id.org/fep/7628"`, then it is uncertain whether this Actor is from a conforming implementation and MUST be `inapplicable`
+* If `actor` JSON does not include a `movedTo` property, AND does not include a `copiedTo` property, AND `actor.@context` does not include the URL `"https://w3id.org/fep/7628"`, then it is uncertain whether this Actor is from a conforming implementation and MUST be `inapplicable`
 
 ### Test Targets
 
