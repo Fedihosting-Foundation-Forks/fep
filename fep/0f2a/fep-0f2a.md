@@ -64,7 +64,7 @@ See the [JSON-LD 1.1 specification](https://w3c.github.io/json-ld-syntax/#terms-
 If an account containing a valid `copiedTo` value has been deleted intentionally, this MUST be expressed by set the `movedTo` property to the value of the current `copiedTo` property and removing the former `copiedTo` property.
 An invalid, malformed, or non-resolving `copiedTo` MUST be deleted when setting `movedTo` to `""`.
 
-If a user account is being deactivated but the source server wants to enable a future migration to be authenticated cryptographically, it is RECOMMENDED that a public key be added to the Actor object (if not already present), as per to [FEP-521a].
+If a user account is being deactivated but the source server wants to enable a future migration to be authenticated cryptographically, it MAY add to the Actor object a public key authenticated to the account (if not already present), as per to [FEP-521a].
 
 ### Announcing a Deactivation Event
 
