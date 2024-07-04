@@ -335,4 +335,4 @@ An outcome can be one of the three following types:
 
 ## Issues List
 
-* Are log events worth including in this format, for now? is there a better place to put "optional" test behavior and notifications/outputs?\
+* Add a test vector with signed IdentityProof that verifies using current DI spec and dummy private key
