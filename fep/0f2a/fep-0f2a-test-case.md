@@ -120,14 +120,14 @@ For the purposes of determining the in/active status and migration history of a 
   * else value MUST be a valid URI
     * //log (actor has migrated to $movedTo)
     * if URI is 404 //OPTIONAL CHECK
-      * throw warning($movedTo not resolvable)
+      * log ($movedTo is not resolvable)
     * outcome is `PASSED`
   * else
     * outcome is `FAILED`
 * else if `copiedTo` is present,
   * value MUST be a valid URI
     * if URI is 404 //OPTIONAL CHECK
-      * throw warning($copiedTo not resolvable)
+      * log ($copiedTo is not resolvable)
     * outcome is `PASSED`
   * else
     * outcome is `FAILED`
