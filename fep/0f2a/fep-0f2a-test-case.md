@@ -9,7 +9,7 @@ description: |
 uuid: 73257c1a-70da-42df-9698-579940c7065a
 attributedTo:
 - https://bumblefudge.com
-exampleImplementation: https://codeberg.org/socialweb.coop/tbd
+#exampleImplementation: https://codeberg.org/socialweb.coop/tbd
 
 "@context":
 - TestCase:
