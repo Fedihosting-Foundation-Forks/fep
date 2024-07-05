@@ -113,10 +113,7 @@ For the purposes of determining the in/active status and migration history of a 
   * //log (malformed actor - both movedTo and copiedTo present)
   * outcome is `FAILED`
 * else if `movedTo` is present,
-  * value can be `""` (empty string)
-    * //log (actor is deactivated)
-    * outcome is `PASSED`
-  * else value MUST be a valid URI
+  * value MUST be a valid URI
     * //log (actor has migrated to $movedTo)
     * if URI is 404 //OPTIONAL CHECK
       * log ($movedTo is not resolvable)
@@ -236,7 +233,7 @@ test return
 
 * outcome: `FAILED`, log (`movedTo` MUST be a functional property)
 
-### `movedTo` set to invalid URI
+### `movedTo` set to invalid URI #1
 
 input
 
@@ -259,6 +256,29 @@ test return
 
 * outcome: `FAILED`, log (`movedTo` MUST be a URI)
 
+### `movedTo` set to invalid URI #2
+
+input
+
+actor:
+
+```json
+{
+    "@context": [
+        "https://www.w3.org/ns/activitystreams",
+        "https://w3id.org/fep/7628"
+    ],
+    "type": "Person",
+    "inbox": "https://example.com/inbox",
+    "outbox": "https://example.com/outbox",
+    "movedTo": ""
+}
+```
+
+test return
+
+* outcome: `FAILED`, log (`movedTo` MUST be a URI)
+
 ### Valid Deactivated Actor
 
 input
@@ -271,10 +291,9 @@ input
         "https://www.w3.org/ns/activitystreams",
         "https://w3id.org/fep/7628"
     ],
-    "type": "Person",
+    "type": ["Person","Tombstone"],
     "inbox": "https://example.com/inbox",
-    "outbox": "https://example.com/outbox",
-    "movedTo": ""
+    "outbox": "https://example.com/outbox"
 }
 ```
 
