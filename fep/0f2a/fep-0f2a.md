@@ -32,7 +32,7 @@ Beyond passively leaving a `Tombstone` hint for future queries, there have been 
 
 ### Conformance
 
-MUST, MAY, and SHOULD used in the [RFC-2119] sense where they appear in CAPITAL LETTERS. Similarly, the references to "valid" URIs throughout should be interpreted as conforming to both [RFC-3987][] and the [Activity Streams guidance on URI usage][Activity Streams URIs].
+MUST, MAY, and SHOULD used in the [RFC-2119] sense where they appear in CAPITAL LETTERS. Similarly, the references to "valid" URIs throughout should be interpreted as conforming to both [RFC-3987][] and the [Activity Streams guidance on URI usage][Activity Streams URI].
 
 Implementations SHOULD signal their support for this specification by including `"https://w3id.org/fep/7628"` in the `@context` array of their Actors, as this will clearly signal that the _ABSENCE_ of a `movedTo` or `copiedTo` property indicates a currently-active Actor.
 
@@ -72,7 +72,7 @@ An Actor object set to `Tombstone` SHOULD also set a top-level [`as:deleted`](ht
 #### Novel Actor Types and their URIs
 
 Many other current and future process and Activities could also be using the same semantics, including new "styles" or "profiles" of the many possible Actor objects allowed by the [ActivityPub] specification.
-These include Actors that *do not change `id` after migrating*, whether they conform to the [Nomadic][FEP-ef61] Actor extension, or to the [separately-hosted][FEP-7952] Actor extension.
+These include Actors that _do not change `id` after migrating_, whether they conform to the [Nomadic][FEP-ef61] Actor extension, or to the [separately-hosted][FEP-7952] Actor extension.
 If an account is moving to one of these configurations, the `movedTo` or `copiedTo` value will be the `id` and location of an `ap://` URL, or to a URL controlled by the Actor object's data subject, respectively.
 
 ### Announcing a Migration or Deactivation Event

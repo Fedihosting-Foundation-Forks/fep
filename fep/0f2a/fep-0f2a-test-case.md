@@ -155,7 +155,7 @@ actor:
 test result
 
 * outcome: `inapplicable`
-  * optional: warning ("value "https://w3id.org/fep/7628" not present in "@context" to signal conformance")
+  * optional: warning ("value https://w3id.org/fep/7628 not present in "@context" to signal conformance")
 
 ### both `movedTo` and `copiedTo` present
 
@@ -324,7 +324,7 @@ test return
 
 * outcome: `PASSED`
   * optional: check and log validity of actor referenced by that URI
- 
+
 ### Valid Migrated Actor (Missing Tombstone)
 
 This test vector does NOT conform to [FEP0-f2a] but DOES conform to the older [FEP-7628].
@@ -417,7 +417,7 @@ An outcome can be one of the three following types:
 ## Requirements Mapping
 
 * FEP requirement: - Actor Objects must express signing key as assertionMethod Multikey
-  * Required for Conformance to [FEP-0f2a][0f2a]
+  * Required for Conformance to [FEP-0f2a][FEP-0f2a]
   * Outcome Mapping
     * when test target `assertionMethod` has outcome `passed`, requirement is satisfied
     * when test target `assertionMethod` has outcome `failed`, requirement is not satisfied
@@ -426,7 +426,6 @@ An outcome can be one of the three following types:
 ## References
 
 [FEP-0f2a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-0f2a.md
-[FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
 [FEP-7628]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md
 
 ## Change Log
