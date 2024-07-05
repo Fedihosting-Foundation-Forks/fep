@@ -46,12 +46,12 @@ In the section, ["Move Activity"](https://codeberg.org/fediverse/fep/src/branch/
 > If previous primary actor is deactivated after migration, it MUST have movedTo property containing the ID of the new primary actor. [...]
 If previous primary actor is not deactivated, copiedTo property MUST be used.
 
-We add a third formal requirement, that both `movedTo` and `copiedTo` MUST NOT be present in the same Actor object.
+We add a few more explicit requirements:
 
-We add add some recommendations:
+* `movedTo` MUST be an array containing 1 string or a string.
+* `copiedTo` MUST be an array of strings or a string.
+* both `movedTo` and `copiedTo` MUST NOT be present in the same Actor object.
 * Consuming implementations SHOULD treat an Actor with both properties as malformed.
-* `movedTo` SHOULD be a functional property.
-* `copiedTo` MAY be an array.
 
 Many other current and future process and Activities could also be using the same semantics, including new "styles" or "profiles" of the many possible Actor objects allowed by the [ActivityPub] specification.
 These include Actors that *do not change `id` after migrating*, whether they conform to the [Nomadic][FEP-ef61] Actor extension, or to the [separately-hosted][FEP-7952] Actor extension.
