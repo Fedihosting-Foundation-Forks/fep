@@ -3,7 +3,7 @@ slug: "0f2a"
 authors: bumblefudge <bumblefudge@learningproof.xyz>, bengo <@bengo@social.coop>
 status: DRAFT
 dateReceived: 2024-06-XX
-discussionTo: XXXX
+discussionTo: https://socialhub.activitypub.rocks/t/fep-0f2a-announce-activity-for-migrations-and-tombstone-events/4349
 ---
 # FEP-0f2a: Announce Activity for Migrations and Tombstone Events
 
