@@ -32,7 +32,7 @@ Beyond passively leaving a `Tombstone` hint for future queries, there have been 
 
 ### Conformance
 
-MUST, MAY, and SHOULD used in the [RFC-2119] sense where they appear in CAPITAL LETTERS.
+MUST, MAY, and SHOULD used in the [RFC-2119] sense where they appear in CAPITAL LETTERS. Similarly, the references to "valid" URIs throughout should be interpreted as conforming to both [RFC-3987][] and the [Activity Streams guidance on URI usage][Activity Streams URIs].
 
 Implementations SHOULD signal their support for this specification by including `"https://w3id.org/fep/7628"` in the `@context` array of their Actors, as this will clearly signal that the _ABSENCE_ of a `movedTo` or `copiedTo` property indicates a currently-active Actor.
 
@@ -141,11 +141,13 @@ If a receiving server persists redirects or aliases to more smoothly remain awar
 [FEP-ef61]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md
 
 [AP]: https://www.w3.org/TR/activitypub/
+[Activity Streams URI]: https://www.w3.org/TR/activitystreams-core/#urls
 [DI Sigs]: https://w3c.github.io/vc-di-eddsa/#eddsa-jcs-2022
 [DI for VCs]: https://w3c.github.io/vc-data-integrity/
 [DID]: https://www.w3.org/TR/did-core/
 [JCS]: https://www.rfc-editor.org/rfc/rfc8785
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
+[RFC-3987]: https://tools.ietf.org/html/rfc3987.html
 
 ## Copyright
 
