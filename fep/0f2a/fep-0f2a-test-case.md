@@ -417,7 +417,7 @@ An outcome can be one of the three following types:
 ## Requirements Mapping
 
 * FEP requirement: - Actor Objects must express signing key as assertionMethod Multikey
-  * Required for Conformance to [FEP-521a][FEP-521a]
+  * Required for Conformance to [FEP-0f2a][0f2a]
   * Outcome Mapping
     * when test target `assertionMethod` has outcome `passed`, requirement is satisfied
     * when test target `assertionMethod` has outcome `failed`, requirement is not satisfied
@@ -425,6 +425,7 @@ An outcome can be one of the three following types:
 
 ## References
 
+[FEP-0f2a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-0f2a.md
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
 [FEP-7628]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md
 
