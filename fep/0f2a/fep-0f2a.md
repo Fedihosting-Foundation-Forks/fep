@@ -53,10 +53,6 @@ We add a few more explicit requirements:
 * both `movedTo` and `copiedTo` MUST NOT be present in the same Actor object.
 * Consuming implementations SHOULD treat an Actor with both properties as malformed.
 
-Many other current and future process and Activities could also be using the same semantics, including new "styles" or "profiles" of the many possible Actor objects allowed by the [ActivityPub] specification.
-These include Actors that *do not change `id` after migrating*, whether they conform to the [Nomadic][FEP-ef61] Actor extension, or to the [separately-hosted][FEP-7952] Actor extension.
-If an account is moving to one of these configurations, the `movedTo` or `copiedTo` value will be the `id` and location of an `ap://` URL, or to a URL controlled by the Actor object's data subject, respectively.
-
 If the Actor object before the deactivation event included a public key for signing Activities expressed according to [Client-Signing][FEP-521a], and the same public key will NOT be published at the destination server for verifying post-migration Activities, then the source server MAY add an `expires` key and current-timestamp value to the key's `assertionMethod` object as described in [section #2.3.1: Verification Methods](https://www.w3.org/TR/vc-data-integrity/#verification-methods) of the [W3C Data Integrity](https://www.w3.org/TR/vc-data-integrity) specification (to which [FEP-521a] normatively refers).
 Any consumer fetching this `assertionMethod` object for the purposes of verifying signatures according to the Data Integrity algorithm will thus invalidate signatures newer than the deactivation of that key.
 
@@ -69,6 +65,12 @@ A server performing this removal MAY move one valid URI from `copiedTo` to `move
 If a user account is being deactivated but the source server wants to enable a future migration to be authenticated cryptographically, it MAY add to the Actor object a public key authenticated to the account (if not already present), as per to [FEP-521a].
 
 An Actor object set to `Tombstone` SHOULD also set a top-level [`as:deleted`](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-deleted) property containing a current XSD `dateTime` as a courtesy to consumers.
+
+#### Novel Actor Types and their URIs
+
+Many other current and future process and Activities could also be using the same semantics, including new "styles" or "profiles" of the many possible Actor objects allowed by the [ActivityPub] specification.
+These include Actors that *do not change `id` after migrating*, whether they conform to the [Nomadic][FEP-ef61] Actor extension, or to the [separately-hosted][FEP-7952] Actor extension.
+If an account is moving to one of these configurations, the `movedTo` or `copiedTo` value will be the `id` and location of an `ap://` URL, or to a URL controlled by the Actor object's data subject, respectively.
 
 ### Announcing a Migration or Deactivation Event
 
