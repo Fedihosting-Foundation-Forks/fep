@@ -2,7 +2,7 @@
 slug: "0f2a"
 authors: bumblefudge <bumblefudge@learningproof.xyz>, bengo <@bengo@social.coop>
 status: DRAFT
-dateReceived: 2024-06-XX
+dateReceived: 2024-07-05
 discussionTo: https://socialhub.activitypub.rocks/t/fep-0f2a-announce-activity-for-migrations-and-tombstone-events/4349
 ---
 # FEP-0f2a: Announce Activity for Migrations and Tombstone Events
@@ -48,8 +48,8 @@ If previous primary actor is not deactivated, copiedTo property MUST be used.
 
 We add a few more explicit requirements:
 
-* `movedTo` MUST be an array containing 1 string or a string.
-* `copiedTo` MUST be an array of strings or a string.
+* `movedTo` MUST be a string or an array containing 1 string.
+* `copiedTo` MUST be a string or an array of strings.
 * both `movedTo` and `copiedTo` MUST NOT be present in the same Actor object.
 * Consuming implementations SHOULD treat an Actor with both properties as malformed.
 
