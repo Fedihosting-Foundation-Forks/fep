@@ -46,15 +46,13 @@ In the section, ["Move Activity"](https://codeberg.org/fediverse/fep/src/branch/
 > If previous primary actor is deactivated after migration, it MUST have movedTo property containing the ID of the new primary actor. [...]
 If previous primary actor is not deactivated, copiedTo property MUST be used.
 
-We add a few more explicit requirements:
+We add a few explicit requirements:
 
 * `movedTo` MUST be a string or an array containing 1 string.
 * `copiedTo` MUST be a string or an array of strings.
 * both `movedTo` and `copiedTo` MUST NOT be present in the same Actor object.
 * Consuming implementations SHOULD treat an Actor with both properties as malformed.
-
-If the Actor object before the deactivation event included a public key for signing Activities expressed according to [Client-Signing][FEP-521a], and the same public key will NOT be published at the destination server for verifying post-migration Activities, then the source server MAY add an `expires` key and current-timestamp value to the key's `assertionMethod` object as described in [section #2.3.1: Verification Methods](https://www.w3.org/TR/vc-data-integrity/#verification-methods) of the [W3C Data Integrity](https://www.w3.org/TR/vc-data-integrity) specification (to which [FEP-521a] normatively refers).
-Any consumer fetching this `assertionMethod` object for the purposes of verifying signatures according to the Data Integrity algorithm will thus invalidate signatures newer than the deactivation of that key.
+* Deactivated Actors should be typed as `as:Tombstone`
 
 If an account has been deleted intentionally and consuming implementations are expected to recognize this, regardless of whether or not a `movedTo` value has been set, a server MUST include the string "Tombstone" in the `type` array of the deactivated or moved Actor object.
 Whether any other types are present is out of scope of this specification, to minimize side effects or complications for implementers.
@@ -63,6 +61,11 @@ If an account whose Actor object containing a valid `copiedTo` value has been de
 A server performing this removal MAY move one valid URI from `copiedTo` to `movedTo` to aid discovery.
 
 If a user account is being deactivated but the source server wants to enable a future migration to be authenticated cryptographically, it MAY add to the Actor object a public key authenticated to the account (if not already present), as per to [FEP-521a].
+
+#### Actor Objects including key material
+
+If the Actor object before the deactivation event included a public key for signing Activities expressed according to [Client-Signing][FEP-521a], and the same public key will NOT be published at the destination server for verifying post-migration Activities, then the source server MAY add an `expires` key and current-timestamp value to the key's `assertionMethod` object as described in [section #2.3.1: Verification Methods](https://www.w3.org/TR/vc-data-integrity/#verification-methods) of the [W3C Data Integrity](https://www.w3.org/TR/vc-data-integrity) specification (to which [FEP-521a] normatively refers).
+Any consumer fetching this `assertionMethod` object for the purposes of verifying signatures according to the Data Integrity algorithm will thus invalidate signatures newer than the deactivation of that key.
 
 An Actor object set to `Tombstone` SHOULD also set a top-level [`as:deleted`](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-deleted) property containing a current XSD `dateTime` as a courtesy to consumers.
 
