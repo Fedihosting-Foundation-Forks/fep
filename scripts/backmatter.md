@@ -22,8 +22,9 @@ b3f0
 
 7. Write down your idea in the newly created file and commit it to a new branch in your repository (ex. fep-xxxx).
 8. When you are ready to submit the FEP, change the value of `dateReceived` field in the frontmatter to the current date.
-9. Create a discussion topic and add `discussionTo` metadata attribute.
-10. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md). Further process is described in FEP-a4ed.
+9. Create a discussion topic for your FEP. You can use [ActivityPub category](https://socialhub.activitypub.rocks/c/activitypub/5) on the SocialHub forum.
+10. Add `discussionsTo` field containing the URL of the discussion topic to the front matter of your FEP.
+11. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md). Further process is described in FEP-a4ed.
 
 Alternatively to steps 3. to 6., you can run
 
