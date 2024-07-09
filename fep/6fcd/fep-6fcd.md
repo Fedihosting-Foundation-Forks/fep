@@ -17,11 +17,18 @@ with the following properties:
 * Serves as a concrete serialization of the result of the Export operation described in
   [FEP-9091: Export Actor Service Endpoint](https://codeberg.org/fediverse/fep/pulls/353)
 
+Out of scope:
+
+* Encryption -- handled in a separate layer
+* Compression -- handled in a separate layer (how to turn a `.tar` file into a
+  `.tar.gz` is well known)
+
 ## Inspirations and Prior Art
 
 * (Undocumented) Mastodon Account Export features
 * [IndieWeb Blog Archive Format](https://indieweb.org/blog_archive_format)
 * WordPress Export Format
+* DIF Universal Wallet Backup Containers spec (in progress)
 
 ## Overall Concept
 
@@ -38,12 +45,14 @@ with the following properties:
 * (Optional) `meta`: A metadata section describing who this export belongs to, what app
     or service created it, and so on.
 
-Example account export file:
+### ActivityPub Export Example
+
+Example result of exporting an ActivityPub account:
 
 ```bash
-$ tar -vtf account-export-2024-06-11.tar
+$ tar -vtf ap-account-export-2024-06-11.tar
 
--rw-rw-r-- 0 0   1K Jun 11 15:38 manifest.yaml
+-rw-rw-r-- 0 0   1K Jun 11 15:38 manifest.yml
 drwxrwxr-x 0 0 4.0K Jun 11 15:38 activitypub/
 drwxrwxr-x 0 0 4.0K Jun 11 15:38 key/
 ```
@@ -73,23 +82,87 @@ contents:
     url: https://codeberg.org/fediverse/fep/src/branch/main/fep/6fcd/fep-6fcd.md#manifest-file
   # Directory with ActivityPub-relevant exports
   activitypub:
-    # Serialized ActivityPub Actor profile
-    actor.json:
-      url: https://www.w3.org/TR/activitypub/#actor-objects
-    # ActivityStreams OrderedCollection representing the contents of the actor's Outbox
-    outbox.json:
-      url: https://www.w3.org/TR/activitystreams-core/#collections
-    # Directory of object attachments (post images, etc)
-    attachments:
-      url: https://www.w3.org/TR/activitystreams-vocabulary/#dfn-attachment
-      contents:
-        # Actor profile avatar
-        avatar.jpg:
-          url: https://www.w3.org/TR/activitystreams-vocabulary/#dfn-icon
+    contents:
+      # Serialized ActivityPub Actor profile
+      actor.json:
+        url: https://www.w3.org/TR/activitypub/#actor-objects
+      # ActivityStreams OrderedCollection representing the contents of the actor's Outbox
+      outbox.json:
+        url: https://www.w3.org/TR/activitystreams-core/#collections
+      following_accounts.csv:
+        url: https://docs.joinmastodon.org/user/moving/#export
+      followers.csv:
+        url: https://docs.joinmastodon.org/user/moving/#export
+      lists:csv:
+        url: https://docs.joinmastodon.org/user/moving/#export
+      bookmarks:csv:
+        url: https://docs.joinmastodon.org/user/moving/#export
+      blocks:csv:
+        url: https://docs.joinmastodon.org/user/moving/#export
+      mutes:csv:
+        url: https://docs.joinmastodon.org/user/moving/#export
+      # Directory of object attachments (post images, etc)
+      attachments:
+        url: https://www.w3.org/TR/activitystreams-vocabulary/#dfn-attachment
+        contents:
+          # Actor profile avatar
+          avatar.jpg:
+            url: https://www.w3.org/TR/activitystreams-vocabulary/#dfn-icon
   # 'key' dir, serialized private/public key pairs,
   # such as those declared in a FEP-521a Actor profile
   key:
     url: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
+    contents:
+      key-1234.json:
+        url: https://www.w3.org/TR/vc-di-eddsa/#representation-eddsa-rdfc-2022
+```
+
+Example exported key file:
+
+```
+$ cat key/key-1234.json
+```
+
+```json
+{
+  "@context": ["https://w3id.org/security/multikey/v1"],
+  "type": "Multikey",
+  "id": "https://alice-personal-site.example/actor#key1234",
+  "controller": "https://alice-personal-site.example/actor",
+  "publicKeyMultibase": "z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+  "privateKeyMultibase": "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
+}
+```
+
+### Example Blog Archive Format Export
+
+```bash
+$ tar -vtf bar-account-export-2024-06-11.tar
+
+-rw-rw-r-- 0 0   1K Jun 11 15:38 manifest.yml
+-rw-rw-r-- 0 0 100K Jun 11 15:38 index.html
+-rw-rw-r-- 0 0  50K Jun 11 15:38 feed.json
+drwxrwxr-x 0 0 4.0K Jun 11 15:38 uploads/
+```
+
+Example corresponding `manifest.yml` file:
+
+```yaml
+ubc-version: 0.1
+
+meta:
+  created: 2024-01-01
+
+contents:
+  # This file
+  manifest.yml:
+    url: https://codeberg.org/fediverse/fep/src/branch/main/fep/6fcd/fep-6fcd.md#manifest-file
+  index.html:
+    url: https://indieweb.org/blog_archive_format
+  feed.json:
+    url: https://indieweb.org/blog_archive_format
+  uploads:
+    url: https://indieweb.org/blog_archive_format
 ```
 
 ## References
