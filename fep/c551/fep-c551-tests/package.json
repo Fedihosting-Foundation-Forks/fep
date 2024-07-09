@@ -1,5 +1,5 @@
 {
-  "name": "activitypub-testing-fep-c551",
+  "name": "fep-c551-tests",
   "type": "module",
   "version": "1.0.0",
   "main": "index.js",

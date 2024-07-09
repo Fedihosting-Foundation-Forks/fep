@@ -1,6 +1,6 @@
 # activitypub-testing-fep-c551
 
-An [activitypub-testing][] test suite that tests for conformance to [FEP-c551: Announce Activity for Migrations and Tombstone Events][FEP-c551].
+A test suite that tests for conformance to [FEP-c551: Announce Activity for Migrations and Tombstone Events][FEP-c551].
 
 ## Tests
 
