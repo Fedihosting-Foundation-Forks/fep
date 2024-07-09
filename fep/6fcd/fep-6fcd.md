@@ -93,13 +93,13 @@ contents:
         url: https://docs.joinmastodon.org/user/moving/#export
       followers.csv:
         url: https://docs.joinmastodon.org/user/moving/#export
-      lists:csv:
+      lists.csv:
         url: https://docs.joinmastodon.org/user/moving/#export
-      bookmarks:csv:
+      bookmarks.csv:
         url: https://docs.joinmastodon.org/user/moving/#export
-      blocks:csv:
+      blocks.csv:
         url: https://docs.joinmastodon.org/user/moving/#export
-      mutes:csv:
+      mutes.csv:
         url: https://docs.joinmastodon.org/user/moving/#export
       # Directory of object attachments (post images, etc)
       attachments:
@@ -167,12 +167,14 @@ contents:
 
 ## References
 
-* [FEP-8b32: Object Integrity Proofs][FEP-8b32]
-
+* [FEP-521a: Representing actor's public keys][FEP-521a]
 * Christine Lemmer Webber, Jessica Tallon, [ActivityPub][AP], 2018
 * S. Bradner, Key words for use in RFCs to Indicate Requirement Levels, 1997
+* Dave Longley, Manu Sporny, [Data Integrity EdDSA Cryptosuites][DI Sigs] v1.0, 2023
 
-[FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
+[FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
+[AP]: https://www.w3.org/TR/activitypub/
+[DI Sigs]: https://w3c.github.io/vc-di-eddsa/#eddsa-jcs-2022
 
 ## Copyright
 
