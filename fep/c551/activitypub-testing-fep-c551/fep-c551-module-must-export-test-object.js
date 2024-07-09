@@ -26,6 +26,10 @@ const attributedTo = [
  * @typedef {"inapplicable"|"passed"|"failed"} Outcome
  */
 
+/**
+ * @typedef {any} TestResult
+ */
+
 export default {
   attributedTo,
   testCases: [
@@ -93,9 +97,7 @@ function checkApplicability(input) {
 /**
  * given test rule inputs, return test targets.
  * (does some checks from 'Applicability' section of test rule)
- * @param {Input} input
- * @returns {{result: import("../../test-utils").TestResult<import("../../test-utils").Outcome>} 
- *          |{targets: Iterable<Target>}}}
+ * @param {Input & {console?:globalThis.console}} input
  */
 function getTarget({ module, console = globalThis.console }) {
   if (typeof module !== 'string') {
@@ -115,7 +117,6 @@ function getTarget({ module, console = globalThis.console }) {
 /**
  * run expectations against target
  * @param {Target} target
- * @returns {{result:import("../../test-utils").TestResult<import("../../test-utils").Outcome>}}
  */
 async function expect({ module }) {
   if (typeof module !== 'string') return { result: { outcome: 'failed', info: 'input.module MUST be a string' } }
@@ -127,23 +128,19 @@ async function expect({ module }) {
 }
 
 /**
- * 
  * @param {Input} input
- * @returns {Promise<import("../../test-utils").TestResult<import("../../test-utils").Outcome>>}
  */
 async function run(input) {
   // check input for whether this test applies
   const applicability = await checkApplicability(input)
-  if (applicability?.outcome === "inapplicable") return applicability
-
-  input = {
-    ...input,
-    actor: applicability.actor,
+  if ('outcome' in applicability && applicability.outcome === "inapplicable") {
+    return applicability
   }
+
   // get test targets
   const targeting = getTarget(input)
   if ('result' in targeting) return targeting.result
-  /** @type {Array<{ target: Target, result: import("../../test-utils").TestResult<Outcome, unknown>}>} */
+  /** @type {Array<{ target: Target, result: TestResult}>} */
   const results = []
   for (const target of targeting.targets) {
     if (!target) throw new Error(`got undefined target. this should not happen`)

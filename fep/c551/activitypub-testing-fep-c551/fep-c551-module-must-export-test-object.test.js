@@ -25,8 +25,8 @@ await describe(`activitypub-testing test ${testCase.slug}`, async () => {
  * @template Inputs
  * @template Outcome
  * @param {object} test
- * @param {Iterable<TestCaseExample<Inputs>>} [test.testCases]
- * @param {(input: Inputs) => Promise<TestResult<Outcome>>} test.run
+ * @param {Array<any>} [test.testCases]
+ * @param {(input: Inputs) => Promise<any>} test.run
  * @param {object} options
  * @param {number} [options.minimum=0] - minimum required testCases
  */
