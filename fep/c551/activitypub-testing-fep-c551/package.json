@@ -1,0 +1,9 @@
+{
+  "name": "@socialweb.coop/activitypub-testing-fep-c551",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test"
+  }
+}
