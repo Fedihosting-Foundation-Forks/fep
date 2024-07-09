@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from "node:assert";
 
-import testCase from "./fep-c551-actor-object-tombstone-syntax.js"
+import testCase from "./fep-c551-module-must-export-test-object.js"
 
 await describe(`activitypub-testing test ${testCase.slug}`, async () => {
   await describe('default export', async () => {

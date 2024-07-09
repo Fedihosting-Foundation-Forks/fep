@@ -1,3 +1,3 @@
-import _fepc551 from "./fep/c551/index.js"
+import _testfepC551ModuleMustExportTestObject from "./fep-c551-module-must-export-test-object";
 
-export const fepc551 = _fepc551
+export const testfepC551ModuleMustExportTestObject = _testfepC551ModuleMustExportTestObject
