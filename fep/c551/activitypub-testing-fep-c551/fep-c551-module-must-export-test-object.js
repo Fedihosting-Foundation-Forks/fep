@@ -31,11 +31,13 @@ export default {
   testCases: [
 
     {
-      name: 'valid script',
+      name: 'valid module',
       input: {
         module: `
-        export const name = 'invalid script module name';
-        export default { name };
+        export default {
+          name: 'invalid script module name',
+          run: () => ({ outcome: 'passed' }),
+        };
         `
       },
       result: {
@@ -43,6 +45,19 @@ export default {
       }
     },
 
+    {
+      name: 'invalid module, run is not a function',
+      input: {
+        module: `
+        export default {
+          name: 'invalid script module name',
+        };
+        `
+      },
+      result: {
+        outcome: 'failed',
+      }
+    },
   ],
   input: {
     module: {
@@ -87,7 +102,7 @@ function getTarget({ module, console = globalThis.console }) {
     return {
       result: {
         outcome: 'inapplicable',
-        info: 'input.actor MUST be a string',
+        info: 'input.module MUST be a string',
       }
     }
   }
@@ -100,11 +115,13 @@ function getTarget({ module, console = globalThis.console }) {
 /**
  * run expectations against target
  * @param {Target} target
- * @returns {{result:import("../../test-utils").TestResult<import("../../test-utils").Outcome>}
- *           |undefined}
+ * @returns {{result:import("../../test-utils").TestResult<import("../../test-utils").Outcome>}}
  */
-function expect({ module }) {
+async function expect({ module }) {
   if (typeof module !== 'string') return { result: { outcome: 'failed', info: 'input.module MUST be a string' } }
+  const moduleUri = `data:text/javascript;charset=utf-8;base64,${btoa(module)}`
+  const test = await import(moduleUri).then(m => m.default)
+  if (typeof test?.run !== 'function') return { result: { outcome: 'failed', info: 'exported test.run MUST be a function', pointer: { run: test.run } } }
   // @todo check requirements per FEP
   return { result: { outcome: "passed" } }
 }
@@ -131,7 +148,7 @@ async function run(input) {
   for (const target of targeting.targets) {
     if (!target) throw new Error(`got undefined target. this should not happen`)
     // check expectations against targets
-    const expectations = expect(target)
+    const expectations = await expect(target)
     if (expectations && 'result' in expectations) results.push({
       target,
       result: expectations.result,

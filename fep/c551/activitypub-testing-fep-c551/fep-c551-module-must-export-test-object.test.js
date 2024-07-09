@@ -19,16 +19,6 @@ await describe(`activitypub-testing test ${testCase.slug}`, async () => {
     const result = await testCase.run({})
     assert.equal(result.outcome, 'inapplicable')
   })
-
-  await it('when input.module is a string, outcome can be passed', async () => {
-    const result = await testCase.run({
-      module: `
-      export const name = 'invalid script module name';
-      export default { name };
-      `
-    })
-    assert.equal(result.outcome, 'passed')
-  })
 });
 
 /**
