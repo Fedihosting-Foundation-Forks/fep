@@ -13,64 +13,93 @@ discussionsTo:
 This is a proposal to enhance the fediverse by creating test cases for FEPs as ECMAScript Modules.
 </section>
 
+<!-- TOC -->
+
+## Contents
+
+* [Context](#context)
+* [Test Specifications](#test-specifications)
+* [Test Modules](#test-modules)
+* [Test Objects](#test-objects)
+* [Test Functions](#test-functions)
+* [Test Calls](#test-calls)
+* [Test Results](#test-results)
+
 <!-- section break -->
 
 ## Context
 
-[FEP-d9ad][] proposes to Create Conformance Tests for Fediverse Enhancement Proposals.
+[FEP-d9ad][] proposes to Create Conformance Tests for Fediverse Enhancement Proposals, and specifies components that all Conformance Tests may use and describe in their Test Specifications. It *does not* specify a format for implementing FEP-d9ad Conformance Tests in any programming language.
 
-This FEP furthermore proposes to do so by implementing [FEP-d9ad][] Conformance Test specifications as ECMAScript Modules (i.e. JavaScript Modules).
+This FEP-c551 proposes to supplement human-readable FEP-d9ad Conformance Tests with implementations of the test as [Test Objects](#test-objects) exported from [Test Modules](#test-modules). Each [Test Object][] has a `run` function parameterized by a [Test Call] and returning a Promise of a [Test Result][].
 
-## Definitions
+## Overview
 
-### ECMAScript Module
+When a tester comes up with a new test for a FEP, they create a human-readable [Test Specification](#test-specifications) describing how to test whether some subject conforms to the FEP.
 
-a resource that can be `import`ed in ECMAScript/JavaScript into a module reference
+ECMAScript developers implement Test Specifications as automatable code by using ECMAScript to create [Test Functions][] that execute the test logic and [Test Objects][] that group the Test Function with more info like the test's name, required input, and possible outcomes. Test Objects are distributed in ECMAScript Modules published on the web, e.g. in `.js` or `.mjs` files.
 
-### Test Module
+Testers build [Test Calls][] to select a Test Object as well as a corresponding valid Test Input that configures the Test Function to check the desired test targets.
 
-an ECMAScript Module used to implement a [FEP-d9ad][]-style Conformance Test
+Testers invoke the Test Function once for each Test Call, await any returned Promises, and receive a [Test Result][] describing the `outcome` of running the test.
 
-### Test Object
+## Test Specifications
 
-an ECMAScript Object used to implement a [FEP-d9ad][]-style Conformance Test. There may be one or more Test Objects in one `import`able Test Module.
+Test Specifications are human-readable documents that specify the behavior of a test.
 
-## Proposal
+Test Specifications SHOULD include Conformance Test Component specifications from [FEP-d9ad][].
 
-### Test Objects
+An example of a test specification is [fep-521a-test-case.md](https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a-test-case.md).
 
-FEP testers MAY publish implementations of their test specifications as an [ECMAScript Object][] following the recommendations in this proposal. Such modules may be referred to as Test Objects.
-
-[Test Object][]s MUST have a property named `type` whose value is an Array containing `https://w3id.org/fep/c551/Test`.
-
-[Test Object][]s MUST have a property named `name` whose value is a string.
-
-[Test Object][]s MUST have a property named `run`, and
-
-* the value of `run` MUST be a function
-* the result of calling `run` MUST be a Promise that resolves to an object
-  * the object that resolves this Promise MUST have a property named `outcome` whose value is a `string`
-* the `run` function SHOULD be resilient to being evaluated and run in various ECMAScript runtimes (e.g. node.js or a web browser like chromium)
-
-[Test Object][]s SHOULD have a property named `@context` whose value is an Array containing `https://www.w3.org/ns/activitystreams`.
-
-### Test Modules
+## Test Modules
 
 FEP testers MAY publish implementations of their test specifications as an [ECMAScript Module][] following the recommendations in this proposal. Such modules may be referred to as Test Modules.
 
-[Test Module][]s SHOULD have no imports. This is to ensure portability of the test modules.
+Test Modules SHOULD have no imports. This is to ensure portability of the test modules.
 
-[Test Module][]s MAY export a default export object that is a Test Object
+Test Modules MAY export a default export object that is a Test Object
 
-#### Example Test Module
+Test Modules SHOULD be resilient to being parsed and evaluated in various ECMAScript runtimes (e.g. node.js or a web browser like Firefox).
 
-```javascript
-export default {
-  name: "My first test",
-  run: () => ({ outcome: "passed" }),
-  "@type": ["https://w3id.org/fep/c551/Test"],
-}
-```
+An example of a test module can be found [in activitypub-testing-fep-521a](https://codeberg.org/socialweb.coop/activitypub-testing-fep-521a/src/branch/main/fep/521a/actor-objects-must-express-signing-key-as-assertionMethod-multikey.js).
+
+## Test Objects
+
+Test Objects are ECMAScript Objects that represent a named, runnable test, e.g. a test specified by a [FEP-d9ad Conformance Test][].
+
+Test Objects SHOULD have a property named `type` whose value is an Array containing `https://w3id.org/fep/c551/Test`.
+
+Test Objects MUST have a property named `name` whose value is a string.
+
+Test Objects SHOULD have a property named `@context` whose value is an Array containing `https://www.w3.org/ns/activitystreams`.
+
+An example of a test object is [exported in activitypub-testing-fep-521a](https://codeberg.org/socialweb.coop/activitypub-testing-fep-521a/src/commit/b6e49fd5f490b05f04a958f5f3c5c584e66f592b/fep/521a/actor-objects-must-express-signing-key-as-assertionMethod-multikey.js#L38).
+
+Test Objects SHOULD have a property named `run` whose value is a [Test Function][]].
+
+## Test Functions
+
+Test Object `run` calls SHOULD return a `Promise` that resolves to a [Test Result][].
+
+Test Object `run` functions SHOULD be resilient to being run in various ECMAScript runtimes (e.g. node.js or a web browser like Firefox).
+
+## Test Calls
+
+A Test Call is the input to a test's `run` function.
+
+Test Calls MUST have a property named `input`
+
+Test Call `input` values SHOULD conform to the specification of the called test's [Input](https://bengo.is/fep/d9ad/#input).
+
+Test Calls SHOULD have a `@type` property whose value is an Array containing `https://w3id.org/fep/c551#Call`.
+
+## Test Results
+
+[Test Results][] MUST have a property named `outcome` whose value is a string.
+
+Test Results SHOULD have a property named `info` whose value is a string.
+
+Test Results MAY have a property named `pointer` that contextualizes the `outcome`, e.g. including an invalid value that led to the `outcome` and described in `info`.
 
 <!-- section break -->
 
@@ -83,6 +112,15 @@ Conformance requirements are indicated by sentences containing MUST a la <a href
 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 [ECMAScript Module]: https://tc39.es/ecma262/#sec-modules
-[Test Module]: #test-module
-[Test Object]: #test-object
+[Test Module]: #test-modules
+[Test Modules]: #test-modules
+[Test Calls]: #test-calls
+[Test Call]: #test-calls
+[Test Result]: #test-results
+[Test Results]: #test-results
+[Test Object]: #test-objects
+[Test Objects]: #test-objects
+[Test Function]: #test-functions
+[Test Functions]: #test-functions
 [FEP-d9ad]: https://bengo.is/fep/d9ad/
+[FEP-d9ad Conformance Test]: https://bengo.is/fep/d9ad/
