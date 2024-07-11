@@ -22,7 +22,7 @@ This is a proposal to enhance the fediverse by creating test cases for FEPs as E
 * [Test Modules](#test-modules)
 * [Test Objects](#test-objects)
 * [Test Functions](#test-functions)
-* [Test Calls](#test-calls)
+* [Test Inputs](#test-inputs)
 * [Test Results](#test-results)
 
 <!-- section break -->
@@ -31,7 +31,7 @@ This is a proposal to enhance the fediverse by creating test cases for FEPs as E
 
 [FEP-d9ad][] proposes to Create Conformance Tests for Fediverse Enhancement Proposals, and specifies components that all Conformance Tests may use and describe in their Test Specifications. It *does not* specify a format for implementing FEP-d9ad Conformance Tests in any programming language.
 
-This FEP-c551 proposes to supplement human-readable FEP-d9ad Conformance Tests with implementations of the test as [Test Objects](#test-objects) exported from [Test Modules](#test-modules). Each [Test Object][] has a `run` function parameterized by a [Test Call] and returning a Promise of a [Test Result][].
+This FEP-c551 proposes to supplement human-readable FEP-d9ad Conformance Tests with implementations of the test as [Test Objects](#test-objects) exported from [Test Modules](#test-modules). Each [Test Object][] has a `run` function parameterized by a [Test Input] and returning a Promise of a [Test Result][].
 
 ## Overview
 
@@ -39,9 +39,7 @@ When a tester comes up with a new test for a FEP, they create a human-readable [
 
 ECMAScript developers implement Test Specifications as automatable code by using ECMAScript to create [Test Functions][] that execute the test logic and [Test Objects][] that group the Test Function with more info like the test's name, required input, and possible outcomes. Test Objects are distributed in ECMAScript Modules published on the web, e.g. in `.js` or `.mjs` files.
 
-Testers build [Test Calls][] to select a Test Object as well as a corresponding valid Test Input that configures the Test Function to check the desired test targets.
-
-Testers invoke the Test Function once for each Test Call, await any returned Promises, and receive a [Test Result][] describing the `outcome` of running the test.
+Testers invoke the Test Function once for each Test Input, await any returned Promises, and receive a [Test Result][] describing the `outcome` of running the test.
 
 ## Test Specifications
 
@@ -83,15 +81,13 @@ Test Object `run` calls SHOULD return a `Promise` that resolves to a [Test Resul
 
 Test Object `run` functions SHOULD be resilient to being run in various ECMAScript runtimes (e.g. node.js or a web browser like Firefox).
 
-## Test Calls
+## Test Inputs
 
-A Test Call is the input to a test's `run` function.
+A Test Input is the first parameter to a test's `run` function.
 
-Test Calls MUST have a property named `input`
+Test Input MUST be an object. A test with several logically distinct inputs should give each input a name, and add each named input as a property within a top-level input object.
 
-Test Call `input` values SHOULD conform to the specification of the called test's [Input](https://bengo.is/fep/d9ad/#input).
-
-Test Calls SHOULD have a `@type` property whose value is an Array containing `https://w3id.org/fep/c551#Call`.
+Test Input values SHOULD conform to the specification of the called test's [Input](https://bengo.is/fep/d9ad/#input) spec.
 
 ## Test Results
 
@@ -99,7 +95,7 @@ Test Calls SHOULD have a `@type` property whose value is an Array containing `ht
 
 Test Results SHOULD have a property named `info` whose value is a string.
 
-Test Results MAY have a property named `pointer` that contextualizes the `outcome`, e.g. including an invalid value that led to the `outcome` and described in `info`.
+Test Results MAY have a property named `pointer` that contextualizes the `outcome`, e.g. an object with a property for each value that led to the `outcome`. For example, if a test outcome is `failed` because some number was too low, you can set the result `info` to "number too low" and `pointer` to `{ number: 100 }`.
 
 <!-- section break -->
 
@@ -114,8 +110,7 @@ Conformance requirements are indicated by sentences containing MUST a la <a href
 [ECMAScript Module]: https://tc39.es/ecma262/#sec-modules
 [Test Module]: #test-modules
 [Test Modules]: #test-modules
-[Test Calls]: #test-calls
-[Test Call]: #test-calls
+[Test Inputs]: #test-inputs
 [Test Result]: #test-results
 [Test Results]: #test-results
 [Test Object]: #test-objects
