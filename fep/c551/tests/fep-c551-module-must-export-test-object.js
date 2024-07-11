@@ -42,9 +42,10 @@ export default {
       input: {
         module: `
         export default {
+          type: ['https://w3id.org/fep/c551#Test'],
           name: 'invalid script module name',
           run: () => ({ outcome: 'passed' }),
-          type: ['https://w3id.org/fep/c551#Test'],
+          '@context': ["https://www.w3.org/ns/activitystreams"],
         };
         `
       },
@@ -61,6 +62,7 @@ export default {
           name: 'invalid script module name',
           run: () => ({ outcome: 'passed' }),
           type: 'https://w3id.org/fep/c551#Test',
+          '@context': ["https://www.w3.org/ns/activitystreams"],
         };
         `
       },
@@ -76,6 +78,7 @@ export default {
         export default {
           name: 'invalid script module name',
           type: 'https://w3id.org/fep/c551#Test',
+          '@context': ["https://www.w3.org/ns/activitystreams"]
         };
         `
       },
@@ -92,6 +95,7 @@ export default {
           name: 'invalid script module name',
           run: () => ({ outcome: 'passed' }),
           type: [],
+          '@context': ["https://www.w3.org/ns/activitystreams"],
         };
         `
       },

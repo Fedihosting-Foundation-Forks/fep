@@ -2,7 +2,7 @@
 slug: "c551"
 authors: bengo <ben@bengo.co>
 status: DRAFT
-dateReceived: 2024-07-03
+dateReceived: 2024-07-11
 trackingIssue:
 discussionsTo:
 ---
@@ -60,6 +60,17 @@ Test Modules MAY export a default export object that is a Test Object
 Test Modules SHOULD be resilient to being parsed and evaluated in various ECMAScript runtimes (e.g. node.js or a web browser like Firefox).
 
 An example of a test module can be found [in activitypub-testing-fep-521a](https://codeberg.org/socialweb.coop/activitypub-testing-fep-521a/src/branch/main/fep/521a/actor-objects-must-express-signing-key-as-assertionMethod-multikey.js).
+
+### Example Test Module
+
+```javascript
+export default {
+  name: 'invalid script module name',
+  run: (input) => ({ outcome: 'passed' }),
+  type: ['https://w3id.org/fep/c551#Test'],
+  '@context': ["https://www.w3.org/ns/activitystreams"],
+}
+```
 
 ## Test Objects
 
