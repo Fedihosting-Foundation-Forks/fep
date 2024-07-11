@@ -67,7 +67,7 @@ An example of a test module can be found [in activitypub-testing-fep-521a](https
 
 Test Objects are ECMAScript Objects that represent a named, runnable test, e.g. a test specified by a [FEP-d9ad Conformance Test][].
 
-Test Objects SHOULD have a property named `type` whose value is an Array containing `https://w3id.org/fep/c551/Test`.
+Test Objects MUST have a property named `type` whose value is either the string `https://w3id.org/fep/c551#Test` or  an Array containing that string.
 
 Test Objects MUST have a property named `name` whose value is a string.
 

@@ -5,6 +5,9 @@ const attributedTo = [
   'https://bengo.is',
 ]
 
+/** ID URL for type of FEP-C551 Test */
+const fepC551TestType = 'https://w3id.org/fep/c551#Test'
+
 /**
  * Expected input to the test rule.
  * This will be checked for test applicability.
@@ -35,12 +38,13 @@ export default {
   testCases: [
 
     {
-      name: 'valid module',
+      name: 'valid actor - type value is array',
       input: {
         module: `
         export default {
           name: 'invalid script module name',
           run: () => ({ outcome: 'passed' }),
+          type: ['https://w3id.org/fep/c551#Test'],
         };
         `
       },
@@ -50,11 +54,44 @@ export default {
     },
 
     {
-      name: 'invalid module, run is not a function',
+      name: 'valid actor - type value is string',
       input: {
         module: `
         export default {
           name: 'invalid script module name',
+          run: () => ({ outcome: 'passed' }),
+          type: 'https://w3id.org/fep/c551#Test',
+        };
+        `
+      },
+      result: {
+        outcome: 'passed',
+      }
+    },
+
+    {
+      name: 'without run property',
+      input: {
+        module: `
+        export default {
+          name: 'invalid script module name',
+          type: 'https://w3id.org/fep/c551#Test',
+        };
+        `
+      },
+      result: {
+        outcome: 'failed',
+      }
+    },
+
+    {
+      name: 'with empty type array',
+      input: {
+        module: `
+        export default {
+          name: 'invalid script module name',
+          run: () => ({ outcome: 'passed' }),
+          type: [],
         };
         `
       },
@@ -123,7 +160,21 @@ async function expect({ module }) {
   const moduleUri = `data:text/javascript;charset=utf-8;base64,${btoa(module)}`
   const test = await import(moduleUri).then(m => m.default)
   if (typeof test?.run !== 'function') return { result: { outcome: 'failed', info: 'exported test.run MUST be a function', pointer: { run: test.run } } }
-  // @todo check requirements per FEP
+
+  // The default export MUST have a property named `@type` whose value is either the string `https://w3id.org/fep/c551#Test` or an Array containing that string.
+  const testTypeValues = Array.isArray(test.type) ? test.type : test.type || []
+  if ( ! testTypeValues.includes(fepC551TestType)) {
+    return {
+      result: {
+        outcome: "failed",
+        info: "test must have type https://w3id.org/fep/c551#Test",
+        pointer: {
+          type: test.type
+        }
+      }
+    }
+  }
+
   return { result: { outcome: "passed" } }
 }
 
