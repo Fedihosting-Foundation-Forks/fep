@@ -10,15 +10,23 @@ discussionsTo: https://codeberg.org/fediverse/fep/issues/157
 
 ## Summary
 
-`FEDERATION.md` is a file containing information necessary for achieving interoperability with a federated service. It was originally proposed by Darius Kazemi on SocialHub forum in [Documenting federation behavior in a semi-standard way?](https://socialhub.activitypub.rocks/t/documenting-federation-behavior-in-a-semi-standard-way/453) topic.
+`FEDERATION.md` is a file containing information necessary for achieving
+interoperability with a federated service. It was originally proposed by Darius
+Kazemi on SocialHub forum in [Documenting federation behavior in a semi-standard
+way?](https://socialhub.activitypub.rocks/t/documenting-federation-behavior-in-a-semi-standard-way/453)
+topic.
 
 ## Requirements
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119](https://tools.ietf.org/html/rfc2119.html).
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+interpreted as described in
+[RFC-2119](https://tools.ietf.org/html/rfc2119.html).
 
 ## Structure
 
-The `FEDERATION.md` file can have arbitrary structure and content. The only requirements are:
+The `FEDERATION.md` file can have arbitrary structure and content. The only
+requirements are:
 
 - It MUST be a valid Markdown document.
 - It MUST be located in the root of a project's code repository. If project's documentation is located in another place, the `FEDERATION.md` file may contain a link to that location.
@@ -41,7 +49,9 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 
 ## Supported FEPs
 
-- [FEP-f1d5: NodeInfo in Fediverse Software](https://codeberg.org/fediverse/fep/src/branch/main/fep/f1d5/fep-f1d5.md)
+<!-- Optional version support note -->
+
+- [FEP-f1d5: NodeInfo in Fediverse Software](https://codeberg.org/fediverse/fep/src/branch/main/fep/f1d5/fep-f1d5.md) (Since v6.1.0)
 
 ## ActivityPub
 
@@ -82,4 +92,6 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
 
-To the extent possible under law, the authors of this Fediverse Enhancement Proposal have waived all copyright and related or neighboring rights to this work.
+To the extent possible under law, the authors of this Fediverse Enhancement
+Proposal have waived all copyright and related or neighboring rights to this
+work.
