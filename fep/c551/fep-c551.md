@@ -114,9 +114,11 @@ Test Results MAY have a property named `pointer` that contextualizes the `outcom
 Conformance requirements are indicated by sentences containing MUST a la <a href="https://datatracker.ietf.org/doc/html/rfc2119">RFC2119</a>.
 </section>
 
-## License
+## Copyright
 
-[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+
+To the extent possible under law, the authors of this Fediverse Enhancement Proposal have waived all copyright and related or neighboring rights to this work.
 
 [ECMAScript Module]: https://tc39.es/ecma262/#sec-modules
 [Test Module]: #test-modules
