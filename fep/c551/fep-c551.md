@@ -9,9 +9,9 @@ discussionsTo:
 
 # FEP-c551: Use ECMAScript Modules to Create Conformance Tests for Fediverse Enhancement Proposals
 
-<section id="abstract">
+## Summary
+
 This is a proposal to enhance the fediverse by creating test cases for FEPs as ECMAScript Modules.
-</section>
 
 <!-- TOC -->
 
