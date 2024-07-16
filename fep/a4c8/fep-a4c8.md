@@ -2,6 +2,7 @@
 slug: "a4c8"
 title: Timeline Preferences
 authors: AvidSeeker <avidseeker7@protonmail.com>
+discussionsTo: 'https://socialhub.activitypub.rocks/t/4368'
 status: DRAFT
 dateReceived: 2024-07-15
 ---
