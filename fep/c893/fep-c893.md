@@ -4,13 +4,11 @@ authors: AvidSeeker <avidseeker7@protonmail.com>
 status: DRAFT
 dateReceived: 2024-07-15
 trackingIssue: ''
-discussionsTo: ''
+discussionsTo: 'https://socialhub.activitypub.rocks/t/fep-c893-doap/4363'
 title: DOAP
 ---
-dateReceived: 2024-07-15
----
 
-# FEP-d893: DOAP
+# FEP-c893: DOAP
 
 ## Summary
 
