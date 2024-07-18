@@ -10,6 +10,8 @@ status: DRAFT
 
 # FEP-eb48: Hashtags
 
+## Summary
+
 This proposal introduces a standardized method for identifying and displaying
 hashtags in posts across the Fediverse. The rules define what constitutes a
 hashtag and how it should be parsed and displayed, ensuring consistency and
