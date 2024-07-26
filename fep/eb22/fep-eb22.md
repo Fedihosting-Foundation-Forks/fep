@@ -12,7 +12,7 @@ Servers can advertise what features of the API they support, such as creating a 
 
 ## Background
 
-As the fediverse grows, we’ll naturally see a wide range of servers and clients, and not all of them will exactly match the features that popular clients like Mastodon support. To support a diverse mix of clients with different user experiences, clients and servers should communicate about which features should be shown in the client UI.
+As the fediverse grows, we'll naturally see a wide range of servers and clients, and not all of them will exactly match the features that popular clients like Mastodon support. To support a diverse mix of clients with different user experiences, clients and servers should communicate about which features should be shown in the client UI.
 
 Some services might not include public likes or polls, for example. Some might not include boosting. It would be confusing for a boost icon to show an error message when clicked if that feature was not available. Instead, the client should detect whether boosting is available, and if not simply hide the icon when connected to that server.
 
