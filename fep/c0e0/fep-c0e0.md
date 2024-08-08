@@ -3,6 +3,7 @@ slug: "c0e0"
 authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2024-08-08
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-c0e0-emoji-reactions/4443
 ---
 # FEP-c0e0: Emoji reactions
 
