@@ -1,12 +1,16 @@
-inReplyToProof <https://w3id.org/fep/0391/inReplyToProof>
+# inReplyToProof <https://w3id.org/fep/0391/inReplyToProof>
 
 Provides proof that some object was added to the replies collection of some inReplyTo object
 
-Domain: Object with inReplyTo set to an Object that has a replies collection
-Range: Add
+Domain
+: Object with inReplyTo set to an Object that has a replies collection
 
-Example:
+Range
+: Add
 
+## Example
+
+```json
 {
 	"@context": ["https://www.w3.org/ns/activitystreams", "https://w3id.org/fep/0391"],
 	"id": "https://example.com/create-some-reply",
@@ -35,3 +39,4 @@ Example:
 		"attributedTo": "https://example.com/create-some-reply"
 	}
 }
+```
