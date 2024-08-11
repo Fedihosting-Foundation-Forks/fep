@@ -11,15 +11,22 @@ discussionsTo: https://socialhub.activitypub.rocks/t/fep-c0e0-emoji-reactions/44
 
 This document describes [ActivityPub] emoji reactions.
 
+## History
+
+Misskey supports emoji reactions since version [10.97.0](https://github.com/misskey-dev/misskey/releases/tag/10.97.0) (2019).  
+Pleroma supports emoji reactions since version [2.0.0](https://pleroma.social/announcements/2020/03/08/pleroma-major-release-2-0-0/) (2020).
+
 ## Requirements
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119].
 
 ## EmojiReact activity
 
-`EmojiReact` activity is similar to `Like` activity. In addition to standard properties of `Like` activity, it MUST have a `content` property.
+`EmojiReact` activity type is considered to be a part of [LitePub] vocabulary. Its full IRI is `http://litepub.social/ns#EmojiReact`.
 
-Reaction content MUST be either a single unicode grapheme, or a shortcode of a custom emoji. If custom emoji is used, `EmojiReact` activity MUST have a `tag` property containing a single `Emoji` object (which is specified in [Mastodon documentation](https://docs.joinmastodon.org/spec/activitypub/#Emoji)).
+This activity is similar to `Like` activity. In addition to standard properties of `Like` activity, `EmojiReact` activity MUST have a `content` property. Reaction content MUST be either a single unicode grapheme, or a shortcode of a custom emoji. If custom emoji is used, `EmojiReact` activity MUST have a `tag` property containing a single `Emoji` object (which is specified in [Mastodon ActivityPub extension documentation](https://docs.joinmastodon.org/spec/activitypub/#Emoji)).
+
+An actor can generate multiple `EmojiReact` activities for a single `object`.
 
 Example with unicode emoji:
 
@@ -27,7 +34,10 @@ Example with unicode emoji:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/fep/c0e0"
+    {
+      "litepub": "http://litepub.social/ns#",
+      "EmojiReact": "litepub:EmojiReact"
+    }
   ],
   "actor": "https://alice.social/users/alice",
   "content": "🔥",
@@ -47,10 +57,11 @@ Example with custom emoji:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/fep/c0e0",
     {
       "toot": "http://joinmastodon.org/ns#",
-      "Emoji": "toot:Emoji"
+      "Emoji": "toot:Emoji",
+      "litepub": "http://litepub.social/ns#",
+      "EmojiReact": "litepub:EmojiReact"
     }
   ],
   "actor": "https://alice.social/users/alice",
@@ -78,19 +89,23 @@ Example with custom emoji:
 }
 ```
 
-## Implementation notes
+## Like with content
 
-Some existing implementations use `http://litepub.social/ns#EmojiReact` activity type, others use standard `Like` activity with the semantics of `EmojiReact`.
+Emoji reaction can also be represented as a `Like` activity. This variant of emoji reaction will processed by non-supporting implementations as a regular "like", and when that is preferable, implementers MAY use `Like` type instead of `EmojiReact` type.
 
-Implementers SHOULD process these activities in the same way as `EmojiReact` activity.
+Implementations MUST process `Like` with `content` in the same way as `EmojiReact` activities.
 
 ## References
 
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
+- LitePub contributors, [LitePub protocol suite](LitePub), 2019
+- Mastodon contributors, [Mastodon / ActivityPub][MastoPub], 2024
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
+[LitePub]: https://litepub.social/
+[MastoPub]: https://docs.joinmastodon.org/spec/activitypub
 
 ## Copyright
 
