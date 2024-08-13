@@ -9,7 +9,7 @@ discussionsTo: https://socialhub.activitypub.rocks/t/fep-c0e0-emoji-reactions/44
 
 ## Summary
 
-This document describes [ActivityPub] emoji reactions.
+This document describes how emoji reactions are implemented in [ActivityPub] network.
 
 ## History
 
