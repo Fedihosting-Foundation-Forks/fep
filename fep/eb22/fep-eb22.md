@@ -3,6 +3,7 @@ slug: "eb22"
 authors: Manton Reece <manton@micro.blog>
 status: DRAFT
 dateReceived: 2024-07-25
+discussionTo: https://socialhub.activitypub.rocks/t/fep-eb22-supported-activitystreams-types-with-nodeinfo/4469
 ---
 # FEP-eb22: Supported ActivityStreams types with NodeInfo
 
