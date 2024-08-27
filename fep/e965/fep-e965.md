@@ -38,7 +38,7 @@ MUST, MAY, and SHOULD used in the [RFC-2119] sense where they appear in CAPITAL 
 Implementations SHOULD signal their support for this specification by including `"https://w3id.org/fep/7628"` in the `@context` array of their Actors, as this will clearly signal that the _ABSENCE_ of a `movedTo` or `copiedTo` property indicates a currently-active Actor.
 
 Implementations MAY prove support for this specification by publishing a Conformance Report referencing the tests run.
-A specification for possible tests is provided in [fep-0f2a-test-case](./fep-0f2a-test-case.md).
+A specification for possible tests is provided in [fep-e965-test-case](./fep-e965-test-case.md).
 
 ### Actor Object Migration and Deactivation Syntax
 
