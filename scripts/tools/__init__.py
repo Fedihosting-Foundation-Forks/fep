@@ -18,7 +18,7 @@ def build_url_link(url):
     return f"[#{url_number}]({url})"
 
 
-class Readme:
+class FepIndex:
     @property
     def content(self):
         return self.frontmatter + self.table + self.backmatter

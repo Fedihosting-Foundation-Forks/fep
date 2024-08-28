@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from tools import Readme
+from tools import FepIndex
 
-with open("README.md", "w") as f1:
-    f1.writelines(Readme().content)
+with open("index.md", "w") as f1:
+    f1.writelines(FepIndex().content)
